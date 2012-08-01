@@ -1,0 +1,5 @@
+#
+# Managed by Puppet
+#
+
+command[check_procstat]=<%= scope.lookupvar('icinga::plugindir') %>/check_linux-procstat.pl -f

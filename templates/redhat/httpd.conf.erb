@@ -1,0 +1,41 @@
+#
+# Managed by Puppet
+#
+
+ScriptAlias /icinga/cgi-bin "<%= scope.lookupvar('icinga::usrlib') %>/icinga/cgi"
+
+<Directory "<%= scope.lookupvar('icinga::params::usrlib') %>/icinga/cgi">
+# SSLRequireSSL
+  Options ExecCGI
+  AllowOverride None
+  Order allow,deny
+  Allow from all
+<% if scope.lookupvar('icinga::use_auth')  %>
+ Order deny,allow
+ Deny from all
+ Allow from 127.0.0.1
+  AuthName "Icinga Access"
+  AuthType Basic
+  AuthUserFile /etc/icinga/htpasswd.users
+  Require valid-user
+<% end %>
+</Directory>
+
+Alias /icinga "/usr/share/icinga/"
+
+<Directory "/usr/share/icinga/">
+# SSLRequireSSL
+  Options None
+  AllowOverride None
+  Order allow,deny
+  Allow from all
+<% if scope.lookupvar('icinga::use_auth')  %>
+ Order deny,allow
+ Deny from all
+ Allow from 127.0.0.1
+  AuthName "Icinga Access"
+  AuthType Basic
+  AuthUserFile /etc/icinga/htpasswd.users
+  Require valid-user
+<% end %>
+</Directory>

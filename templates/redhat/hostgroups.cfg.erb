@@ -1,0 +1,28 @@
+#
+# Managed by Puppet
+#
+
+###############################################################################
+###############################################################################
+#
+# HOST GROUP DEFINITION
+#
+###############################################################################
+###############################################################################
+
+define hostgroup {
+  hostgroup_name    all
+  alias             All Servers
+}
+
+# Define an optional hostgroup for Linux machines
+
+define hostgroup {
+  hostgroup_name    linux-servers
+  alias             Linux Servers
+}
+
+define hostgroup {
+  hostgroup_name  windows-servers
+  alias           Windows Servers
+}

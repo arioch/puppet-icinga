@@ -1,0 +1,37 @@
+#
+# Managed by Puppet
+#
+
+Alias /pnp4nagios "/usr/share/nagios/html/pnp4nagios/"
+
+<Directory "/usr/share/nagios/html/pnp4nagios/">
+  AllowOverride None
+  Order allow,deny
+  Allow from all
+  #
+  # Use the same value as defined in nagios.conf
+  #
+  #
+  #
+  <% if scope.lookupvar('icinga::use_auth')  %>
+  AuthName "Icinga Access"
+  AuthType Basic
+  AuthUserFile /etc/icinga/htpasswd.users
+  Require valid-user
+  <% end %> 
+
+  <IfModule mod_rewrite.c>
+    # Turn on URL rewriting
+    RewriteEngine On
+    Options FollowSymLinks
+    # Installation directory
+    RewriteBase /pnp4nagios/
+    # Protect application and system files from being viewed
+    RewriteRule ^(application|modules|system) - [F,L]
+    # Allow any files or directories that exist to be displayed directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # Rewrite all other URLs to index.php/URL
+    RewriteRule .* index.php/$0 [PT,L]
+  </IfModule>
+</Directory>

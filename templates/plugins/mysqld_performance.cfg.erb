@@ -1,0 +1,22 @@
+#
+# Managed by Puppet
+#
+
+command[check_mysqld_performance_1]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A com_select,com_update,com_insert,com_insert_select,com_commit,com_delete,com_rollback
+command[check_mysqld_performance_2]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A aborted_clients,aborted_connects
+command[check_mysqld_performance_3]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A binlog_cache_disk_use,binlog_cache_use
+command[check_mysqld_performance_4]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A bytes_received,bytes_sent,connections
+command[check_mysqld_performance_5]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A created_tmp_disk_tables,created_tmp_files,created_tmp_tables
+command[check_mysqld_performance_6]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A elayed_errors,delayed_insert_threads,delayed_writes
+command[check_mysqld_performance_7]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A handler_update,handler_write,handler_delete,handler_read_first,handler_read_key,handler_read_next,handler_read_prev,handler_read_rnd,handler_read_rnd_next
+command[check_mysqld_performance_8]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A key_blocks_not_flushed,key_blocks_unused,key_blocks_used,key_read_requests,key_reads,key_write_requests,key_writes
+command[check_mysqld_performance_9]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A max_used_connections
+command[check_mysqld_performance_10]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A not_flushed_delayed_rows
+command[check_mysqld_performance_11]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A open_files,open_streams,open_tables,opened_tables
+command[check_mysqld_performance_12]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A prepared_stmt_count
+command[check_mysqld_performance_13]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A qcache_free_blocks,qcache_free_memory,qcache_hits,qcache_inserts,qcache_lowmem_prunes,qcache_not_cached,qcache_queries_in_cache,qcache_total_blocks
+command[check_mysqld_performance_14]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A questions
+command[check_mysqld_performance_15]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A select_full_join,select_rangle_check
+command[check_mysqld_performance_16]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A slow_launch_threads,slow_queries
+command[check_mysqld_performance_17]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A table_locks_immediate,table_locks_waited
+command[check_mysqld_performance_18]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -f -A hreads_cached,threads_connected,threads_created,threads_running
