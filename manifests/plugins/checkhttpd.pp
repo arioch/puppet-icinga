@@ -2,7 +2,7 @@ class icinga::plugins::checkhttpd (
   $ensure             = present,
   $perfdata           = false,
   $max_check_attempts = '4'
-) {
+) inherits icinga {
 
   $pkg_perl_libwww_perl = $::operatingsystem ? {
     /CentOS|RedHat/ => 'perl-libwww-perl',

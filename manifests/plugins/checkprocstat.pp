@@ -1,7 +1,7 @@
 class icinga::plugins::checkprocstat (
   $ensure             = present,
   $max_check_attempts = '4'
-) {
+) inherits icinga {
 
   $package_name = $::operatingsystem ? {
     /CentOS|RedHat/ => 'nagios-plugins-linux-procstat',

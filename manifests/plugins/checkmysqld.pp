@@ -2,7 +2,7 @@ class icinga::plugins::checkmysqld (
   $ensure             = present,
   $perfdata           = false,
   $max_check_attempts = '4'
-) {
+) inherits icinga {
 
   $pkg_nagios_plugins_mysqld = $::operatingsystem ? {
     /CentOS|RedHat/ => 'nagios-plugins-mysqld',
@@ -26,6 +26,7 @@ class icinga::plugins::checkmysqld (
   @@nagios_service { "check_mysqld_performance_${::hostname}":
     check_command       => 'check_nrpe_command!check_mysqld',
     service_description => 'mysqld',
+    target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     action_url          => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
   }
 

@@ -1,6 +1,6 @@
 class icinga::plugins::checkpuppet (
   $max_check_attempts = '4'
-) {
+) inherits icinga {
   if $icinga::client {
     file { "${::icinga::plugindir}/check_puppet":
       ensure  => present,
