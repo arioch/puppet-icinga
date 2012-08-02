@@ -129,7 +129,7 @@ class icinga (
   # Live fast, die young.
   case $::operatingsystem {
     # FIXME: debian is not fully tested yet, disabling for now
-    #'Debian', 'Ubuntu': {}
+    'Debian', 'Ubuntu': {}
     'RedHat', 'CentOS', 'Scientific', 'OEL', 'Amazon': {}
     default: {
       fail "Operatingsystem ${::operatingsystem} is not supported."

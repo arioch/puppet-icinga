@@ -1,10 +1,11 @@
-# TODO: fail on debian, gentoo, gnomeos, ...
-
 class icinga::plugins::pnp4nagios::config {
   File {
     owner   => $::icinga::server_user,
     group   => $::icinga::server_group,
-    require => Class['icinga::plugins::pnp4nagios::install'],
+    require => [
+      Class['icinga::install'],
+      Class['icinga::plugins::pnp4nagios::install'],
+    ],
     notify  => [
       Service[$::icinga::service_server],
       Service[$::icinga::service_webserver],
@@ -13,27 +14,27 @@ class icinga::plugins::pnp4nagios::config {
 
   $confdir = $::operatingsystem ? {
     /CentOS|RedHat|Scientific|OEL|Amazon/ => '/etc/pnp4nagios',
-    /Debian|Ubuntu/                       => '',
+    /Debian|Ubuntu/                       => '/etc/pnp4nagios',
   }
 
   $libdir = $::operatingsystem ? {
     /CentOS|RedHat|Scientific|OEL|Amazon/ => '/var/lib/pnp4nagios',
-    /Debian|Ubuntu/                       => '',
+    /Debian|Ubuntu/                       => '/var/lib/pnp4nagios',
   }
 
   $libexec = $::operatingsystem ? {
     /CentOS|RedHat|Scientific|OEL|Amazon/ => '/usr/libexec/pnp4nagios',
-    /Debian|Ubuntu/                       => '',
+    /Debian|Ubuntu/                       => '/usr/lib/pnp4nagios/libexec',
   }
 
   $logdir = $::operatingsystem ? {
     /CentOS|RedHat|Scientific|OEL|Amazon/ => '/var/log/pnp4nagios',
-    /Debian|Ubuntu/                       => '',
+    /Debian|Ubuntu/                       => '/var/log/pnp4nagios',
   }
 
   $vhost = $::operatingsystem ? {
-    /CentOS|RedHat|Scientific|OEL|Amazon/ => '/etc/icinga/apache2-pnp4nagios.conf',
-    /Debian|Ubuntu/                       => '/etc/icinga/apache2-pnp4nagios.conf',
+    /CentOS|RedHat|Scientific|OEL|Amazon/ => "${confdir}/apache2.conf",
+    /Debian|Ubuntu/                       => "${confdir}/apache.conf",
   }
 
   file {
