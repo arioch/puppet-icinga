@@ -62,3 +62,21 @@
 
     bundle exec rake
 
+
+### Known issues
+
+#### General
+
+  * Needs proper testing
+
+#### RedHat
+
+  * ...
+
+#### Debian
+
+  * Some plugins may or may not work
+  * The PNP4Nagios plugin requires the backports repository on Squeeze.
+  * The PNP4Nagios plugin will not work on anything older than Squeeze.
+
+
