@@ -18,7 +18,7 @@
 #    service_notification_period   => '24x7',
 #    service_notification_commands => 'notify-service-by-email',
 #    host_notification_commands    => 'notify-host-by-email',
-#    target                        => "${::icinga::targetdir}/contacts/puppet-contacts.cfg",
+#    target                        => "${::icinga::targetdir}/contacts/contacts.cfg",
 #  }
 #
 #  # cat nodes.pp
@@ -128,7 +128,6 @@ class icinga (
 
   # Live fast, die young.
   case $::operatingsystem {
-    # FIXME: debian is not fully tested yet, disabling for now
     'Debian', 'Ubuntu': {}
     'RedHat', 'CentOS', 'Scientific', 'OEL', 'Amazon': {}
     default: {

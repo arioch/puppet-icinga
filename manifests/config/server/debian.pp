@@ -3,7 +3,7 @@ class icinga::config::server::debian {
     File {
       owner   => $::icinga::server_user,
       group   => $::icinga::server_group,
-      require => Class['icinga::install'],
+      require => Class['icinga::config'],
       notify  => [
         Service[$::icinga::service_client],
         Service[$::icinga::service_server],
@@ -21,7 +21,8 @@ class icinga::config::server::debian {
         notify  => Service[$::icinga::service_webserver];
 
       $::icinga::htaccess:
-        ensure => present;
+        ensure => present,
+        mode   => '0644';
 
       "${::icinga::confdir_server}/objects":
         ensure => directory;
@@ -42,6 +43,22 @@ class icinga::config::server::debian {
         ensure  => directory,
         recurse => true;
 
+      "${::icinga::confdir_server}/icinga.cfg":
+        ensure  => present,
+        content => template('icinga/debian/icinga.cfg');
+
+      "${::icinga::confdir_server}/cgi.cfg":
+        ensure  => present,
+        content => template('icinga/debian/cgi.cfg');
+
+      "${::icinga::confdir_server}/objects/generic-host_icinga.cfg":
+        ensure  => present,
+        content => template('icinga/debian/objects/generic-host_icinga.cfg');
+
+      "${::icinga::confdir_server}/objects/hostgroups_icinga.cfg":
+        ensure  => present,
+        content => template('icinga/debian/objects/hostgroups_icinga.cfg');
+
       "${::icinga::sharedir_server}/images/logos":
         ensure  => directory;
 
@@ -54,7 +71,7 @@ class icinga::config::server::debian {
     nagios_command {
       'check_nrpe_command':
         command_line => '$USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$',
-        target       => "${::icinga::targetdir}/commands/puppet-check_nrpe_command.cfg";
+        target       => "${::icinga::targetdir}/commands/check_nrpe_command.cfg";
     }
   }
 }

@@ -3,7 +3,7 @@ class icinga::config::server::redhat {
     File {
       owner   => $::icinga::server_user,
       group   => $::icinga::server_group,
-      require => Class['icinga::install'],
+      require => Class['icinga::config'],
       notify  => [
         Service[$::icinga::service_client],
         Service[$::icinga::service_server],
@@ -55,7 +55,8 @@ class icinga::config::server::redhat {
         recurse => true;
 
       "${::icinga::confdir_server}/htpasswd.users":
-        ensure  => present;
+        ensure  => present,
+        mode   => '0644';
 
       "${::icinga::targetdir}/hosts/host-localhost.cfg":
         ensure  => present,
