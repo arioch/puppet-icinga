@@ -11,18 +11,24 @@ class icinga::config::server::debian {
       ],
     }
 
+    nagios_command {
+      'check_nrpe_command':
+        command_line => '$USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$',
+        target       => "${::icinga::targetdir}/commands/check_nrpe_command.cfg";
+    }
+
     file {
       $::icinga::confdir_server:
         ensure => present;
+
+      $::icinga::htpasswd_file:
+        ensure => present,
+        mode   => '0644';
 
       $::icinga::icinga_vhost:
         ensure  => present,
         content => template('icinga/debian/apache2.conf'),
         notify  => Service[$::icinga::service_webserver];
-
-      $::icinga::htaccess:
-        ensure => present,
-        mode   => '0644';
 
       "${::icinga::confdir_server}/objects":
         ensure => directory;
@@ -66,12 +72,6 @@ class icinga::config::server::debian {
         ensure  => directory,
         recurse => true,
         source  => 'puppet:///modules/icinga/img-os';
-    }
-
-    nagios_command {
-      'check_nrpe_command':
-        command_line => '$USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$',
-        target       => "${::icinga::targetdir}/commands/check_nrpe_command.cfg";
     }
   }
 }

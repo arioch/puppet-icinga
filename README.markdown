@@ -68,6 +68,12 @@
 #### General
 
   * Needs proper testing
+  * Using multiple Icinga servers with identical usernames you might run into the error below:
+ 
+    err: Failed to apply catalog: Cannot alias Nagios_contact[icinga.example.org-someuser] 
+    to ["someuser"] at /etc/puppet/environments/refactor/modules/icinga/manifests/user.pp:48;
+    resource ["Nagios_contact", "someuser"] already declared
+
 
 #### RedHat
 
@@ -78,5 +84,4 @@
   * Some plugins may or may not work
   * The PNP4Nagios plugin requires the backports repository on Squeeze.
   * The PNP4Nagios plugin will not work on anything older than Squeeze.
-
 

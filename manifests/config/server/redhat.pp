@@ -11,12 +11,15 @@ class icinga::config::server::redhat {
       ],
     }
 
-
     file {
       $::icinga::icinga_vhost:
         ensure  => present,
         content => template('icinga/redhat/httpd.conf.erb'),
         notify  => Service[$::icinga::service_webserver];
+
+      $::icinga::htpasswd_file:
+        ensure => present,
+        mode   => '0644';
 
       $::icinga::confdir_server:
         ensure  => directory,
@@ -53,10 +56,6 @@ class icinga::config::server::redhat {
       "${::icinga::confdir_server}/modules":
         ensure  => directory,
         recurse => true;
-
-      "${::icinga::confdir_server}/htpasswd.users":
-        ensure  => present,
-        mode   => '0644';
 
       "${::icinga::targetdir}/hosts/host-localhost.cfg":
         ensure  => present,

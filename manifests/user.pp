@@ -11,11 +11,15 @@ define icinga::user (
   $pager                         = '32000000000'
 ) {
   if $::icinga::server {
+    Exec {
+      require => File[$::icinga::htpasswd_file],
+    }
+
     case $ensure {
       present: {
         exec { "add icinga user ${name}":
           command => "htpasswd -b -s htpasswd.users ${name} ${password}",
-          unless  => "grep -iE '^${name}:' htpasswd.users",
+          unless  => "grep -iE '^${name}:' ${::icinga::htpasswd_file}",
           cwd     => $::icinga::confdir_server,
         }
       }
@@ -23,17 +27,16 @@ define icinga::user (
       absent: {
         exec { "remove icinga user ${name}":
           command => "htpasswd -D htpasswd.users ${name}",
-          onlyif  => "grep -iE '^${name}:' htpasswd.users",
+          onlyif  => "grep -iE '^${name}:' ${::icinga::htpasswd_file}",
           cwd     => $::icinga::confdir_server,
         }
       }
 
-      default: {
-      }
+      default: {}
     }
 
-    @@nagios_contact { $name:
-      ensure                        => present,
+    @@nagios_contact { "${::fqdn}-${name}":
+      ensure                        => $ensure,
       contact_name                  => $contact_name,
       email                         => $email,
       pager                         => $pager,

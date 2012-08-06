@@ -48,7 +48,7 @@ class icinga::params {
       $client_user               = $server_user
       $client_group              = $server_group
       $server_cmd_group          = $server_group
-      $htaccess                  = "${confdir_server}/htpasswd.users"
+      $htpasswd_file             = "${confdir_server}/htpasswd.users"
       $targetdir                 = "${confdir_server}/objects"
       $icinga_vhost              = '/etc/icinga/apache2.conf'
       $logdir_client             = '/var/log/nrpe'
@@ -110,6 +110,7 @@ class icinga::params {
       $client_user               = 'nagios'
       $client_group              = 'nagios'
       $server_cmd_group          = 'icingacmd'
+      $htpasswd_file             = "${confdir_server}/htpasswd.users"
       $targetdir                 = "${confdir_server}/objects"
       $icinga_vhost              = '/etc/icinga/apache2.conf'
       $logdir_client             = '/var/log/nrpe'
