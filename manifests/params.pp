@@ -10,7 +10,11 @@ class icinga::params {
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
-      # Icinga
+      $package = $::lsbdistcodename ? {
+        'squeeze' => 'pnp4nagios/squeeze-backports',
+        default   => 'pnp4nagios',
+      }
+
       $package_client_ensure     = 'present'
       $package_server_ensure     = 'present'
       $package_client            = [ 'nagios-nrpe-server', 'nagios-plugins' ]
