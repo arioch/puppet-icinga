@@ -54,15 +54,7 @@ class icinga::params {
       $logdir_client             = '/var/log/nrpe'
       $logdir_server             = '/var/log/icinga'
 
-      # Plugins => TO BE REFACTORED
-      $icingaweb_pkg     = ''
-      $icingaweb_pkg_dep = ''
-      $icingaweb_confdir = ''
-      $icingaweb_dbname  = 'icinga_web'
-      $icingaweb_dbuser  = 'icinga_web'
-      $icingaweb_dbpass  = 'icinga_web'
-      $icingaweb_vhost   = '/etc/apache2/sites-enabled/icinga-web.conf'
-
+      # IDOUTILS: TO BE REFACTORED
       $idoutils_pkg     = 'icinga-idoutils'
       $idoutils_confdir = '/etc/icinga/idoutils'
       $idoutils_service = 'ido2db'
