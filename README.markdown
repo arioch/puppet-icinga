@@ -77,7 +77,16 @@
 
 #### RedHat
 
-  * ...
+  * Be aware if you wish to manage your own package repositories you're in for
+  a treat. You need packages from both the RPMForge and the EPEL repository.
+  However - and here's the tricky part - some of those packages conflict with
+  the ones in the other repository. The easiest way is to take Icinga and it's
+  dependencies from RPMForge. Nagios-plugins related packages should not be
+  taken from this repository otherwise a lot of EPEL packages or plugins will
+  break horribly.
+
+  The easy way out:
+    class { icinga: managerepo => true; }
 
 #### Debian
 
