@@ -13,28 +13,24 @@ class icinga::plugins::pnp4nagios::config {
   }
 
   $confdir = $::operatingsystem ? {
-    /CentOS|RedHat|Scientific|OEL|Amazon/ => '/etc/pnp4nagios',
-    /Debian|Ubuntu/                       => '/etc/pnp4nagios',
+    default => '/etc/pnp4nagios',
   }
 
   $libdir = $::operatingsystem ? {
-    /CentOS|RedHat|Scientific|OEL|Amazon/ => '/var/lib/pnp4nagios',
-    /Debian|Ubuntu/                       => '/var/lib/pnp4nagios',
+    default => '/var/lib/pnp4nagios',
+  }
+
+  $logdir = $::operatingsystem ? {
+    default => '/var/log/pnp4nagios',
+  }
+
+  $vhost = $::operatingsystem ? {
+    default => "${confdir}/apache2-pnp4nagios.conf",
   }
 
   $libexec = $::operatingsystem ? {
     /CentOS|RedHat|Scientific|OEL|Amazon/ => '/usr/libexec/pnp4nagios',
     /Debian|Ubuntu/                       => '/usr/lib/pnp4nagios/libexec',
-  }
-
-  $logdir = $::operatingsystem ? {
-    /CentOS|RedHat|Scientific|OEL|Amazon/ => '/var/log/pnp4nagios',
-    /Debian|Ubuntu/                       => '/var/log/pnp4nagios',
-  }
-
-  $vhost = $::operatingsystem ? {
-    /CentOS|RedHat|Scientific|OEL|Amazon/ => "${confdir}/apache2.conf",
-    /Debian|Ubuntu/                       => "${confdir}/apache.conf",
   }
 
   file {
@@ -62,3 +58,4 @@ class icinga::plugins::pnp4nagios::config {
       content => template('icinga/plugins/pnp4nagios/commands-perfdata.cfg.erb');
   }
 }
+
