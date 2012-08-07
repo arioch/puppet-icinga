@@ -69,7 +69,7 @@ cfg_dir=/etc/icinga/objects
 # directly) in order to prevent inconsistencies that can occur
 # when the config files are modified after Icinga starts.
 
-object_cache_file=/var/icinga/objects.cache
+object_cache_file=<%= scope.lookupvar('icinga::vardir_server') -%>/objects.cache
 
 
 
@@ -85,7 +85,7 @@ object_cache_file=/var/icinga/objects.cache
 # Read the documentation section on optimizing Icinga to find our more
 # about how this feature works.
 
-precached_object_file=/var/icinga/objects.precache
+precached_object_file=<%= scope.lookupvar('icinga::vardir_server') -%>/objects.precache
 
 
 
@@ -108,7 +108,7 @@ resource_file=/etc/icinga/resource.cfg
 # The contents of the status file are deleted every time Icinga
 #  restarts.
 
-status_file=/var/icinga/status.dat
+status_file=<%= scope.lookupvar('icinga::vardir_server') -%>/status.dat
 
 
 
@@ -175,7 +175,7 @@ command_check_interval=-1
 # directory level instead of on the file, as the file is deleted every
 # time its contents are processed.
 
-command_file=/var/icinga/rw/icinga.cmd
+command_file=<%= scope.lookupvar('icinga::vardir_server') -%>/rw/icinga.cmd
 
 
 
@@ -193,7 +193,7 @@ external_command_buffer_slots=32768
 # This is the lockfile that Icinga will use to store its PID number
 # in when it is running in daemon mode.
 
-lock_file=/var/icinga/icinga.pid
+lock_file=<%= scope.lookupvar('icinga::vardir_server') -%>/icinga.pid
 
 
 
@@ -203,7 +203,7 @@ lock_file=/var/icinga/icinga.pid
 # is created, used, and deleted throughout the time that Icinga is
 # running.
 
-temp_file=/var/icinga/icinga.tmp
+temp_file=<%= scope.lookupvar('icinga::vardir_server') -%>/icinga.tmp
 
 
 
@@ -279,7 +279,7 @@ log_archive_path=<%= scope.lookupvar('icinga::logdir_server') -%>/archives
 # If you want messages logged to the daemon log file (usually icinga.log).
 # Default option is 1 (yes), the other valid option is 0 (no)
 
-use_daemon_log=1
+#use_daemon_log=1
 
 
 
@@ -352,15 +352,6 @@ log_initial_states=0
 
 
 
-# CURRENT STATES LOGGING OPTION
-# If you don't want Icinga to log all current host and service states
-# after log has been rotated to the main log file, you can disable this
-# option by setting this value to 0. Default value is 1.
-
-log_current_states=1
-
-
-
 # EXTERNAL COMMANDS LOGGING OPTION
 # If you don't want Icinga to log external commands, set this value
 # to 0.  If external commands should be logged, set this value to 1.
@@ -378,28 +369,6 @@ log_external_commands=1
 # this value to 1.
 
 log_passive_checks=1
-
-
-
-# LOG EXTERNAL COMMAND USER
-# This option allows you to enable the logging of the current user
-# of external commands.
-# The syntax will be CMD;username;cmdargs instead of CMD;cmdargs
-# written to the logs, if the external application sends that
-# correctly.
-# Since this will break compatibility with existing log parsers,
-# it is intentionally disabled by default.
-
-log_external_commands_user=0
-
-
-
-# LONG PLUGIN OUTPUT LOGGING OPTION
-# If you want Icinga to log the complete text of the plugin output
-# to the log instead of only the first line then set this value to 1.
-# Default value is 0.
-
-log_long_plugin_output=0
 
 
 
@@ -524,7 +493,7 @@ max_check_result_reaper_time=30
 # Note: Make sure that only one instance of Icinga has access
 # to this directory!
 
-check_result_path=/var/icinga/checkresults
+check_result_path=<%= scope.lookupvar('icinga::vardir_server') -%>/checkresults
 
 
 
@@ -699,7 +668,7 @@ retain_state_information=1
 # This file is used only if the retain_state_information
 # variable is set to 1.
 
-state_retention_file=/var/icinga/retention.dat
+state_retention_file=<%= scope.lookupvar('icinga::vardir_server') -%>/retention.dat
 
 
 
@@ -725,7 +694,7 @@ state_retention_file=/var/icinga/retention.dat
 # If the file does not exist, no error will appear.
 # There is also an API that will force a read of the sync file.
 
-#sync_retention_file=/var/icinga/sync.dat
+#sync_retention_file=<%= scope.lookupvar('icinga::vardir_server') -%>/sync.dat
 
 
 
@@ -1221,16 +1190,6 @@ enable_embedded_perl=1
 # information on how this option works.
 
 use_embedded_perl_implicitly=1
-
-
-
-# EVENT HANDLERS FOR STALKED HOSTS/SERVICES
-# Allow running event handlers for stalked hosts/services in order
-# to forward to external systems.
-# Values: 0 = disabled (default), 1 = enabled
-
-stalking_event_handlers_for_hosts=0
-stalking_event_handlers_for_services=0
 
 
 

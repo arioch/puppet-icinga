@@ -2,9 +2,9 @@
 # Managed by Puppet
 #
 
-Alias /pnp4nagios "/usr/share/nagios/html/pnp4nagios/"
+Alias /pnp4nagios "<%= scope.lookupvar('::icinga::plugins::pnp4nagios::config::htmldir') %>/"
 
-<Directory "/usr/share/nagios/html/pnp4nagios/">
+<Directory "<%= scope.lookupvar('::icinga::plugins::pnp4nagios::config::htmldir') %>/">
   AllowOverride None
   Order allow,deny
   Allow from all
@@ -13,10 +13,10 @@ Alias /pnp4nagios "/usr/share/nagios/html/pnp4nagios/"
   #
   #
   #
-  <% if scope.lookupvar('icinga::use_auth')  %>
+  <% if scope.lookupvar('::icinga::use_auth') %>
   AuthName "Icinga Access"
   AuthType Basic
-  AuthUserFile /etc/icinga/htpasswd.users
+  AuthUserFile <%= scope.lookupvar('::icinga::htpasswd_file') %>
   Require valid-user
   <% end %> 
 

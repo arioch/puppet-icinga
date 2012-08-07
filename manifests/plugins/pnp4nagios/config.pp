@@ -3,7 +3,7 @@ class icinga::plugins::pnp4nagios::config {
     owner   => $::icinga::server_user,
     group   => $::icinga::server_group,
     require => [
-      Class['icinga::install'],
+      Class['icinga::config'],
       Class['icinga::plugins::pnp4nagios::install'],
     ],
     notify  => [
@@ -31,6 +31,11 @@ class icinga::plugins::pnp4nagios::config {
   $libexec = $::operatingsystem ? {
     /CentOS|RedHat|Scientific|OEL|Amazon/ => '/usr/libexec/pnp4nagios',
     /Debian|Ubuntu/                       => '/usr/lib/pnp4nagios/libexec',
+  }
+
+  $htmldir = $::operatingsystem ? {
+    /CentOS|RedHat|Scientific|OEL|Amazon/ => '/usr/share/nagios/html/pnp4nagios',
+    /Debian|Ubuntu/                       => '/usr/share/pnp4nagios/html',
   }
 
   file {

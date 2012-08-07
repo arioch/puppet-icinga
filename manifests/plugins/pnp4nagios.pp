@@ -1,6 +1,5 @@
 class icinga::plugins::pnp4nagios (
-  $ensure  = present,
-  $libexec = '/usr/libexec/pnp4nagios'
+  $ensure = present
 ) {
   if $icinga::server {
     include icinga::plugins::pnp4nagios::install

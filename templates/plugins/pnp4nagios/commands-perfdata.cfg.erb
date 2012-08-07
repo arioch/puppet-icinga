@@ -4,10 +4,10 @@
 
 define command {
    command_name    process-service-perfdata-file
-   command_line    <%= scope.lookupvar('icinga::plugins::pnp4nagios::libexec') %>/process_perfdata.pl --bulk=/usr/local/pnp4nagios/var/service-perfdata
+   command_line    <%= scope.lookupvar('icinga::plugins::pnp4nagios::config::libexec') %>/process_perfdata.pl --bulk=/usr/local/pnp4nagios/var/service-perfdata
 }
 
 define command {
     command_name    process-host-perfdata-file
-    command_line    <%= scope.lookupvar('icinga::plugins::pnp4nagios::libexec') %>/process_perfdata.pl --bulk=/usr/local/pnp4nagios/var/host-perfdata
+    command_line    <%= scope.lookupvar('icinga::plugins::pnp4nagios::config::libexec') %>/process_perfdata.pl --bulk=/usr/local/pnp4nagios/var/host-perfdata
 }
