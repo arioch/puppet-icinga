@@ -43,6 +43,12 @@ class icinga::preinstall {
           default  => Fail['Operating system or release version not supported.'],
         }
 
+        $inuits_mirror = $::operatingsystemrelease ? {
+          /^5/     => 'http://repo.inuits.eu/centos/5/os',
+          /^6/     => 'http://repo.inuits.eu/centos/6/os',
+          default  => Fail['Operating system or release version not supported.'],
+        }
+
         yumrepo { 'epel':
           descr      => 'Extra Packages for Enterprise Linux',
           mirrorlist => $epel_mirror,
@@ -56,9 +62,18 @@ class icinga::preinstall {
             descr      => 'RHEL - RPMforge.net - dag',
             mirrorlist => $rpmforge_mirror,
             gpgkey     => 'http://apt.sw.be/RPM-GPG-KEY.dag.txt',
+            exclude    => 'nagios-plugins-*',
             enabled    => 1,
-            gpgcheck   => 1,
-            exclude    => 'nagios-plugins-*';
+            gpgcheck   => 1;
+        }
+
+        yumrepo {
+          'inuits':
+            descr    => 'Inuits repository',
+            baseurl  => $inuits_mirror,
+            exclude  => '!^nagios-plugins-*',
+            enabled  => 1,
+            gpgcheck => 0;
         }
       }
 

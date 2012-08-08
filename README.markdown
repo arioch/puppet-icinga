@@ -63,6 +63,14 @@
     bundle exec rake
 
 
+### Nagios plugin packages
+
+Packages for RHEL based operating systems can be found at Inuits' [RPM repository]
+A Debian mirror is currently not available yet. Building your own packages is very easy. You will find any necessary information on Inuits' [nagios-plugins] repository at Github.
+
+[RPM repository]: http://repo.inuits.eu
+[nagios-plugins]: https://github.com/Inuits/nagios-plugins
+
 ### Known issues
 
 #### General
@@ -87,6 +95,11 @@
 
   The easy way out:
     class { icinga: managerepo => true; }
+
+  A more advanced approach would be to set up your own repo.
+  Hipsters these days seem to be fond of [Pulp] for this purpose.
+
+  [Pulp]: https://github.com/pulp/pulp
 
 #### Debian
 
