@@ -1,8 +1,8 @@
 class icinga::plugins::checkiostat {
   $package_deps = 'sysstat'
   $package_name = $::operatingsystem ? {
-    /CentOS|RedHat/ => 'nagios-plugins-iostat',
-    /Debian|Ubuntu/ => 'nagios-plugin-check-iostat',
+    /CentOS|RedHat|Scientific|OEL|Amazon/ => 'nagios-plugins-iostat',
+    /Debian|Ubuntu/                       => 'nagios-plugin-check-iostat',
   }
 
   package {

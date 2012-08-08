@@ -5,13 +5,13 @@ class icinga::plugins::checkhttpd (
 ) inherits icinga {
 
   $pkg_perl_libwww_perl = $::operatingsystem ? {
-    /CentOS|RedHat/ => 'perl-libwww-perl',
-    /Debian|Ubuntu/ => 'libwww-perl',
+    /CentOS|RedHat|Scientific|OEL|Amazon/ => 'perl-libwww-perl',
+    /Debian|Ubuntu/                       => 'libwww-perl',
   }
 
   $pkg_nagios_plugins_httpd = $::operatingsystem ? {
-    /CentOS|RedHat/ => 'nagios-plugins-apache-auto',
-    /Debian|Ubuntu/ => 'nagios-plugin-check-apache-auto',
+    /CentOS|RedHat|Scientific|OEL|Amazon/ => 'nagios-plugins-apache-auto',
+    /Debian|Ubuntu/                       => 'nagios-plugin-check-apache-auto',
   }
 
   package {

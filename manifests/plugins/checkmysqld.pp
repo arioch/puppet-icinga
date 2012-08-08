@@ -1,17 +1,17 @@
 class icinga::plugins::checkmysqld (
   $ensure             = present,
-  $perfdata           = false,
+  $perfdata           = true,
   $max_check_attempts = '4'
 ) inherits icinga {
 
   $pkg_nagios_plugins_mysqld = $::operatingsystem ? {
-    /CentOS|RedHat/ => 'nagios-plugins-mysqld',
-    /Debian|Ubuntu/ => 'nagios-plugin-check-mysqld',
+    /CentOS|RedHat|Scientific|OEL|Amazon/ => 'nagios-plugins-mysqld',
+    /Debian|Ubuntu/                       => 'nagios-plugin-check-mysqld',
   }
 
   $pkg_perl_mysql_connecter = $::operatingsystem ? {
-    /CentOS|RedHat/ => 'perl-DBD-MySQL',
-    /Debian|Ubuntu/ => 'libdbd-mysql-perl',
+    /CentOS|RedHat|Scientific|OEL|Amazon/ => 'perl-DBD-MySQL',
+    /Debian|Ubuntu/                       => 'libdbd-mysql-perl',
   }
 
   package {

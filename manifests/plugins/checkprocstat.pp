@@ -4,8 +4,8 @@ class icinga::plugins::checkprocstat (
 ) inherits icinga {
 
   $package_name = $::operatingsystem ? {
-    /CentOS|RedHat/ => 'nagios-plugins-linux-procstat',
-    /Debian|Ubuntu/ => 'nagios-plugin-check-linux-procstat',
+    /CentOS|RedHat|Scientific|OEL|Amazon/ => 'nagios-plugins-linux-procstat',
+    /Debian|Ubuntu/                       => 'nagios-plugin-check-linux-procstat',
   }
 
   package { $package_name:
