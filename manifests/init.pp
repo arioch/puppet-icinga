@@ -1,6 +1,6 @@
-# Class: icinga
+# = Class: icinga
 #
-# Sample Usage:
+# == Sample Usage:
 #
 #  # cat site.pp
 #  Nagios_service {
@@ -57,10 +57,10 @@
 #    }
 #
 #
-# Known issues:
-# Admin users listed in cgi.cfg will be removed after a second puppet run
-# after the users have been removed from the htpasswd.users file. Once removed
-# from htpasswd.users they won't be able to login anymore.
+# == Known issues:
+#  Admin users listed in cgi.cfg will be removed after a second puppet run
+#  after the users have been removed from the htpasswd.users file. Once removed
+#  from htpasswd.users they won't be able to login anymore.
 #
 class icinga (
   $client                    = $::icinga::params::client,
