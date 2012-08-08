@@ -43,7 +43,7 @@ class icinga::preinstall {
           default  => Fail['Operating system or release version not supported.'],
         }
 
-        yumrepo { 'EPEL':
+        yumrepo { 'epel':
           descr      => 'Extra Packages for Enterprise Linux',
           mirrorlist => $epel_mirror,
           gpgkey     => $epel_gpgkey,
