@@ -1,4 +1,4 @@
-define icinga::plugins::checkiostatdisk (
+class icinga::plugins::checkiostatdisk (
   $disk               = $name,
   $max_check_attempts = '4'
 ) inherits icinga {
