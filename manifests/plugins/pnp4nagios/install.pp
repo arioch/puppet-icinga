@@ -11,9 +11,7 @@ class icinga::plugins::pnp4nagios::install {
       $package = 'pnp4nagios'
     }
 
-    default: {
-      fail "Wrong value for \$ensure: ${ensure}."
-    }
+    default: {}
   }
 
   package { $package:
