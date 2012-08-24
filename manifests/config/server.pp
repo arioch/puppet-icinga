@@ -1,3 +1,7 @@
+# == Class: icinga::config::server
+#
+# This class provides server configuration.
+#
 class icinga::config::server {
   if $::icinga::server {
     case $::operatingsystem {

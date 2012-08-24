@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkalldisks
+#
+# This class provides a checkalldisks plugin.
+#
 class icinga::plugins::checkalldisks (
   $check_warning  = '',
   $check_critical = ''

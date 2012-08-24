@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::idoutils
+#
+# This class provides the idoutils plugin.
+#
 class icinga::plugins::idoutils {
   if $icinga::server {
     include icinga::plugins::idoutils::install

@@ -1,3 +1,7 @@
+# == Class: icinga::collect
+#
+# This class provides resource collection.
+#
 class icinga::collect {
   if $::icinga::server {
     # Set defaults for collected resources.

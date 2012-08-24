@@ -1,3 +1,7 @@
+# == Class: icinga::params
+#
+# Full description of class icinga here.
+#
 class icinga::params {
   $managerepo          = false
   $client              = true

@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checktotalprocs
+#
+# This class provides a checktotalprocs plugin.
+#
 class icinga::plugins::checktotalprocs (
   $check_warning  = '',
   $check_critical = ''

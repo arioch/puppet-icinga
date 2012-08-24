@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::idoutils::config
+#
+# This class provides the idoutils plugin's configuration.
+#
 class icinga::plugins::idoutils::config {
   mysqldb { $icinga::idoutils_dbname:
     user     => $icinga::idoutils_dbuser,

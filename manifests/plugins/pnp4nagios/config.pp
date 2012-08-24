@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::pnp4nagios::config
+#
+# This class provides the pnp4nagios plugin's configuration.
+#
 class icinga::plugins::pnp4nagios::config {
   File {
     owner   => $::icinga::server_user,

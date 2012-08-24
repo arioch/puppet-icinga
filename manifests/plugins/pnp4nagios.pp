@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::pnp4nagios
+#
+# This class provides the pnp4nagios plugin.
+#
 class icinga::plugins::pnp4nagios (
   $ensure = present
 ) {
