@@ -1,3 +1,7 @@
+# == Class: icinga::checkprocstat
+#
+# This class provides a checkprocstat plugin.
+#
 class icinga::plugins::checkprocstat (
   $ensure             = present,
   $max_check_attempts = '4'

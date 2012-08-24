@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkiostatdisk
+#
+# This class provides a checkiostatdisk plugin.
+#
 class icinga::plugins::checkiostatdisk (
   $disk               = $name,
   $max_check_attempts = '4'

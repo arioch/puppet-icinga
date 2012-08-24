@@ -1,3 +1,7 @@
+# == Class: icinga::config::server::debian
+#
+# This class provides server configuration for Debian and derivative distro's.
+#
 class icinga::config::server::debian {
   if $::icinga::server {
     File {

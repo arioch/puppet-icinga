@@ -1,3 +1,7 @@
+# == Class: icinga::config::client::debian
+#
+# This class provides client configuration for Debian and derivative distro's.
+#
 class icinga::config::client::debian {
   if $::icinga::client {
     File {

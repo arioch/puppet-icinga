@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkzombie
+#
+# This class provides a checkzombie plugin.
+#
 class icinga::plugins::checkzombie (
   $check_warning  = '',
   $check_critical = ''

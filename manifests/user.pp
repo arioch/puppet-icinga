@@ -1,3 +1,7 @@
+# == Define: icinga::user
+#
+# This class provides the ability to manage Icinga users.
+#
 define icinga::user (
   $ensure                        = present,
   $password                      = 'default',

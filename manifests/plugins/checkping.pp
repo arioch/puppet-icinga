@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkping
+#
+# This class provides a checkping plugin.
+#
 class icinga::plugins::checkping (
   $check_warning  = '',
   $check_critical = ''

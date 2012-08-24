@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkpuppet
+#
+# This class provides a checkpuppet plugin.
+#
 class icinga::plugins::checkpuppet (
   $max_check_attempts = '4'
 ) inherits icinga {

@@ -1,3 +1,7 @@
+# == Class: icinga::config::server::redhat
+#
+# This class provides server configuration for RHEL and derivative distro's.
+#
 class icinga::config::server::redhat {
   if $::icinga::server {
     File {

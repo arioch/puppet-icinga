@@ -1,3 +1,8 @@
+# == Class: icinga::preinstall
+#
+# This class provides anything required by the installation class.
+# Such as package repositories.
+#
 class icinga::preinstall {
   resources {
     [

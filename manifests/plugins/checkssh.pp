@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkssh
+#
+# This class provides a checkssh plugin.
+#
 class icinga::plugins::checkssh (
   $sshport        = '22',
   $check_warning  = '',

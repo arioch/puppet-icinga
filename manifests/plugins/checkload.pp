@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkload
+#
+# This class provides a checkload plugin.
+#
 class icinga::plugins::checkload (
   $check_warning  = '',
   $check_critical = ''
