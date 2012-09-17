@@ -11,6 +11,7 @@ class icinga::params {
   $nrpe_allowed_hosts  = [ '127.0.0.1,', $::ipaddress ]
   $nrpe_server_address = $::ipaddress
   $icinga_admins       = [ 'icingaadmin,', 'nagiosadmin' ]
+  $collect_hostname    = $::fqdn
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {

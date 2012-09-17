@@ -22,14 +22,14 @@ class icinga::collect {
   }
 
   Nagios_service {
-    host_name           => $::fqdn,
+    host_name           => $::icinga::collect_hostname,
     use                 => 'generic-service',
     notification_period => $::icinga::notification_period,
     target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 
   if $::icinga::client {
-    @@nagios_host { $::fqdn:
+    @@nagios_host { $::icinga::collect_hostname:
       ensure             => present,
       alias              => $::hostname,
       address            => $::ipaddress,
@@ -41,7 +41,7 @@ class icinga::collect {
       target             => "${::icinga::targetdir}/hosts/host-${::fqdn}.cfg",
     }
 
-    @@nagios_hostextinfo { $::fqdn:
+    @@nagios_hostextinfo { $::icinga::collect_hostname:
       ensure          => present,
       icon_image_alt  => $::operatingsystem,
       icon_image      => "os/${::operatingsystem}.png",
