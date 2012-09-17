@@ -30,7 +30,7 @@
 #    class {
 #      'icinga':
 #        server        => 'true',
-#        managerepo    => 'true',
+#        manage_repo    => 'true',
 #        icinga_admins => [ 'admin,', 'dummy1,', 'dummy2' ],
 #        plugins       => [ 'checkpuppet', 'pnp4nagios' ];
 #    }
@@ -74,7 +74,7 @@ class icinga (
   $includedir_client         = $::icinga::params::includedir_client,
   $logdir_client             = $::icinga::params::logdir_client,
   $logdir_server             = $::icinga::params::logdir_server,
-  $managerepo                = $::icinga::params::managerepo,
+  $manage_repo               = $::icinga::params::manage_repo,
   $max_check_attempts        = $::icinga::params::max_check_attempts,
   $notification_period       = $::icinga::params::notification_period,
   $nrpe_allowed_hosts        = $::icinga::params::nrpe_allowed_hosts,

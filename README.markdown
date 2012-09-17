@@ -30,7 +30,7 @@
       class {
         'icinga':
           server        => 'true',
-          managerepo    => 'true',
+          manage_repo   => 'true',
           icinga_admins => [ 'admin,', 'dummy1,', 'dummy2' ],
           plugins       => [ 'checkpuppet', 'pnp4nagios' ];
       }
@@ -94,7 +94,7 @@ A Debian mirror is currently not available yet. Building your own packages is ve
   break horribly.
 
   The easy way out:
-    class { icinga: managerepo => true; }
+    class { icinga: manage_repo => true; }
 
   A more advanced approach would be to set up your own repo.
   Hipsters these days seem to be fond of [Pulp] for this purpose.

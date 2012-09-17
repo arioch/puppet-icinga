@@ -1,5 +1,5 @@
 class icinga::params {
-  $managerepo          = false
+  $manage_repo         = false
   $client              = true
   $server              = false
   $use_auth            = true

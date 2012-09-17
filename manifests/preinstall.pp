@@ -19,7 +19,7 @@ class icinga::preinstall {
     purge => true;
   }
 
-  if $icinga::managerepo {
+  if $icinga::manage_repo {
     case $::operatingsystem {
       'Debian', 'Ubuntu': {
       }
