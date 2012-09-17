@@ -50,9 +50,7 @@ describe 'icinga' do
         }
       }
 
-      it do
-        should contain_file('/usr/lib64/nagios/plugins')
-      end
+      it { should contain_file('/usr/lib64/nagios/plugins') }
     end
   end
 
@@ -77,10 +75,8 @@ describe 'icinga' do
         }
       }
 
-      it do
-        should contain_file('/usr/lib/nagios/plugins')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/usr/lib/nagios/plugins') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 
@@ -99,23 +95,21 @@ describe 'icinga' do
         }
       }
 
-      it do
-        should create_class('icinga')
+      it { should create_class('icinga') }
 
-        should include_class('icinga::preinstall')
-        should include_class('icinga::install')
-        should include_class('icinga::config')
-        should include_class('icinga::config::client')
-        should include_class('icinga::plugins')
-        should include_class('icinga::collect')
-        should include_class('icinga::service')
+      it { should include_class('icinga::preinstall') }
+      it { should include_class('icinga::install') }
+      it { should include_class('icinga::config') }
+      it { should include_class('icinga::config::client') }
+      it { should include_class('icinga::plugins') }
+      it { should include_class('icinga::collect') }
+      it { should include_class('icinga::service') }
+ 
+      it { should_not contain_package('icinga').with_ensure('present') }
+      it { should_not contain_service('icinga').with_ensure('running') }
+      it { should_not contain_service('icinga').with_enable('true') }
 
-        should_not contain_package('icinga').with_ensure('present')
-        should_not contain_service('icinga').with_ensure('running')
-        should_not contain_service('icinga').with_enable('true')
-
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 end
