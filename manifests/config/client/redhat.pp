@@ -1,3 +1,7 @@
+# == Class: icinga::config::client::redhat
+#
+# This class provides client configuration for RHEL and derivative distro's.
+#
 class icinga::config::client::redhat {
   File {
     owner   => $::icinga::client_user,

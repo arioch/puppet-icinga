@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::pnp4nagios::install
+#
+# This class provides the pnp4nagios plugin's installation.
+#
 class icinga::plugins::pnp4nagios::install {
   case $::operatingsystem {
     /Debian|Ubuntu/: {

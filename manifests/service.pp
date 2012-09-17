@@ -1,3 +1,7 @@
+# == Class: icinga::service
+#
+# This class provides the daemon configuration.
+#
 class icinga::service {
   Service {
     require => Class['icinga::config'],

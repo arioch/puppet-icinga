@@ -1,3 +1,7 @@
+# == Class: icinga::config::client
+#
+# This class provides client configuration.
+#
 class icinga::config::client {
   case $::operatingsystem {
     'Debian', 'Ubuntu': {

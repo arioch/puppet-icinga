@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkmysqld
+#
+# This class provides a checkmysqld plugin.
+#
 class icinga::plugins::checkmysqld (
   $ensure             = present,
   $perfdata           = true,

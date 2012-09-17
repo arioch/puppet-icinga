@@ -1,3 +1,7 @@
+# == Class: icinga::install
+#
+# This class provides the main install selector.
+#
 class icinga::install {
   Package {
     require => Class['icinga::preinstall'],

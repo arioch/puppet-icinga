@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkhttpd
+#
+# This class provides a checkhttpd plugin.
+#
 class icinga::plugins::checkhttpd (
   $ensure             = present,
   $perfdata           = false,

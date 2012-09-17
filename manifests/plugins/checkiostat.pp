@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkiostat
+#
+# This class provides a checkiostat plugin.
+#
 class icinga::plugins::checkiostat {
   $package_deps = 'sysstat'
   $package_name = $::operatingsystem ? {
