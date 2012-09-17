@@ -107,7 +107,8 @@ class icinga (
   $vardir_client             = $::icinga::params::vardir_client,
   $vardir_server             = $::icinga::params::vardir_server,
   $webserver_group           = $::icinga::params::webserver_group,
-  $webserver_user            = $::icinga::params::webserver_user
+  $webserver_user            = $::icinga::params::webserver_user,
+  $collect_hostname          = $::icinga::params::collect_hostname
 ) inherits icinga::params {
 
   # motd::register { 'icinga-refactor': }
