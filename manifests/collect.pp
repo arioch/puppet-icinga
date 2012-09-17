@@ -32,7 +32,7 @@ class icinga::collect {
     @@nagios_host { $::icinga::collect_hostname:
       ensure             => present,
       alias              => $::hostname,
-      address            => $::ipaddress,
+      address            => $::icinga::collect_ipaddress,
       max_check_attempts => $::icinga::max_check_attempts,
       check_command      => 'check-host-alive',
       use                => 'linux-server',
