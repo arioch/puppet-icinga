@@ -12,6 +12,7 @@ class icinga::params {
   $nrpe_server_address = $::ipaddress
   $icinga_admins       = [ 'icingaadmin,', 'nagiosadmin' ]
   $collect_hostname    = $::fqdn
+  $notification_period = '24x7'
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
@@ -113,7 +114,6 @@ class icinga::params {
       $logdir_client             = '/var/log/nrpe'
       $logdir_server             = '/var/log/icinga'
       $max_check_attempts        = '4'
-      $notification_period       = '24x7'
 
       # Plugin: Icinga Web
       $icingaweb_pkg     = [ 'icinga-web' ]
