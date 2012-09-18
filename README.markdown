@@ -18,6 +18,7 @@
       service_notification_commands => 'notify-service-by-email',
       host_notification_commands    => 'notify-host-by-email',
       target                        => "${::icinga::targetdir}/contacts/contacts.cfg",
+      can_submit_commands           => '1',
     }
 
 ### cat nodes.pp

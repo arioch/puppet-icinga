@@ -12,6 +12,7 @@ define icinga::user (
   $target                        = "${::icinga::targetdir}/contacts/contacts.cfg",
   $contact_name                  = $name,
   $email                         = "${name}@${::domain}",
+  $can_submit_commands           = '0',
   $pager                         = '32000000000'
 ) {
   if $::icinga::server {
@@ -49,6 +50,7 @@ define icinga::user (
       service_notification_commands => $service_notification_commands,
       host_notification_commands    => $host_notification_commands,
       target                        => $target,
+      can_submit_commands           => $can_submit_commands,
     }
   }
 }
