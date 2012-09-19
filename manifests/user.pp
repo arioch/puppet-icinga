@@ -13,26 +13,38 @@ define icinga::user (
   $contact_name                  = $name,
   $email                         = "${name}@${::domain}",
   $can_submit_commands           = '0',
-  $pager                         = '32000000000'
+  $pager                         = '32000000000',
+  $hash                          = undef
 ) {
+  $htpasswd = $::icinga::htpasswd_file
+  $owner    = $::icinga::server_user
+  $group    = $::icinga::server_group
+
   if $::icinga::server {
     Exec {
-      require => File[$::icinga::htpasswd_file],
+      require => File[$htpasswd],
     }
 
     case $ensure {
       present: {
-        exec { "add icinga user ${name}":
-          command => "htpasswd -b -s htpasswd.users ${name} ${password}",
-          unless  => "grep -iE '^${name}:' ${::icinga::htpasswd_file}",
-          cwd     => $::icinga::confdir_server,
+        if ! $hash {
+          exec { "Add Icinga user ${name}":
+            command => "htpasswd -b -s ${htpasswd} ${name} ${password}",
+            unless  => "grep -iE '^${name}:' ${htpasswd}",
+            cwd     => $::icinga::confdir_server,
+          }
+        } else {
+          exec { "Add Icinga user hash ${name}":
+            command => "echo \"${hash}\" >> ${htpasswd}",
+            unless  => "grep -x ${hash} ${htpasswd}",
+          }
         }
       }
 
       absent: {
-        exec { "remove icinga user ${name}":
+        exec { "Remove Icinga user ${name}":
           command => "htpasswd -D htpasswd.users ${name}",
-          onlyif  => "grep -iE '^${name}:' ${::icinga::htpasswd_file}",
+          onlyif  => "grep -iE '^${name}:' ${htpasswd}",
           cwd     => $::icinga::confdir_server,
         }
       }
