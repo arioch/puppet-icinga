@@ -3,16 +3,20 @@
 # Full description of class icinga here.
 #
 class icinga::params {
-  $manage_repo         = false
-  $client              = true
-  $server              = false
-  $use_auth            = true
-  $plugins             = [ 'checkpuppet' ]
-  $nrpe_allowed_hosts  = [ '127.0.0.1,', $::ipaddress ]
-  $nrpe_server_address = $::ipaddress
-  $icinga_admins       = [ 'icingaadmin,', 'nagiosadmin' ]
-  $collect_hostname    = $::fqdn
-  $notification_period = '24x7'
+  $manage_repo                 = false
+  $client                      = true
+  $server                      = false
+  $use_auth                    = true
+  $plugins                     = [ 'checkpuppet' ]
+  $nrpe_allowed_hosts          = [ '127.0.0.1,', $::ipaddress ]
+  $nrpe_server_address         = $::ipaddress
+  $icinga_admins               = '*'
+  $collect_hostname            = $::fqdn
+  $notification_cmd_host       = 'notify-host-by-email'
+  $notification_cmd_service    = 'notify-service-by-email'
+  $notification_period         = '24x7'
+  $notification_host_enable    = true
+  $notification_service_enable = true
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
@@ -56,6 +60,7 @@ class icinga::params {
       $server_cmd_group          = $server_group
       $htpasswd_file             = "${confdir_server}/htpasswd.users"
       $targetdir                 = "${confdir_server}/objects"
+      $targetdir_contacts        = "${targetdir}/contacts/contacts.cfg"
       $icinga_vhost              = '/etc/icinga/apache2.conf'
       $logdir_client             = '/var/log/nrpe'
       $logdir_server             = '/var/log/icinga'
@@ -110,6 +115,7 @@ class icinga::params {
       $server_cmd_group          = 'icingacmd'
       $htpasswd_file             = "${confdir_server}/htpasswd.users"
       $targetdir                 = "${confdir_server}/objects"
+      $targetdir_contacts        = "${targetdir}/contacts/contacts.cfg"
       $icinga_vhost              = '/etc/icinga/apache2.conf'
       $logdir_client             = '/var/log/nrpe'
       $logdir_server             = '/var/log/icinga'
