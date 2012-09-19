@@ -3,21 +3,15 @@
 # This class provides the ability to manage Icinga groups.
 #
 define icinga::group (
-  $contactgroup_members,
-  $ensure            = present,
-  $contactgroup_name = $name,
-  $target            = "${::icinga::targetdir}/contacts/groups.cfg",
-  $owner             = $::icinga::server_user,
-  $group             = $::icinga::server_group,
+  $ensure               = present,
+  $contactgroup_members = undef,
+  $contactgroup_name    = $name,
+  $target               = $::icinga::targetdir_contacts
 ) {
-  if $::icinga::server {
-    file { $target:
-      ensure => present,
-      mode   => '0660',
-      owner  => $owner,
-      group  => $group,
-    }
+  $owner = $::icinga::server_user
+  $group = $::icinga::server_group
 
+  if $::icinga::server {
     @@nagios_contactgroup { $name:
       ensure               => $ensure,
       contactgroup_name    => $contactgroup_name,
