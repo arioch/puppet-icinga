@@ -4,7 +4,7 @@ describe 'icinga' do
   let(:title) { 'icinga' }
   let(:node)  { 'icinga' }
 
-  rpm_distros = [ 'RedHat', 'CentOS', 'Scientific', 'OEL', 'Amazon' ]
+  rpm_distros = [ 'RedHat', 'CentOS' ]
   deb_distros = [ 'Debian', 'Ubuntu' ]
   all_distros = rpm_distros | deb_distros
 
