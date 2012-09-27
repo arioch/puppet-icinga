@@ -61,14 +61,6 @@ class icinga::config::server::redhat {
         ensure  => directory,
         recurse => true;
 
-      "${::icinga::targetdir}/hosts/host-localhost.cfg":
-        ensure  => present,
-        source  => 'puppet:///modules/icinga/host-localhost.cfg';
-
-      "${::icinga::targetdir}/hosts/service-localhost.cfg":
-        ensure  => present,
-        source  => 'puppet:///modules/icinga/service-localhost.cfg';
-
       "${::icinga::targetdir}/commands.cfg":
         ensure  => present,
         content => template('icinga/redhat/commands.cfg.erb');
