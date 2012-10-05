@@ -10,7 +10,7 @@ define icinga::user (
   $email                         = undef,
   $hash                          = undef,
   $pager                         = undef,
-  $password                      = undef,
+  $password,
   $host_notification_commands    = $::icinga::notification_cmd_host,
   $host_notification_period      = $::icinga::notification_period,
   $host_notifications_enabled    = $::icinga::notification_host_enable,
