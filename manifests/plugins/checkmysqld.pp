@@ -30,6 +30,7 @@ class icinga::plugins::checkmysqld (
   @@nagios_service { "check_mysqld_performance_${::hostname}":
     check_command       => 'check_nrpe_command!check_mysqld',
     service_description => 'mysqld',
+    host_name           => $::fqdn,
     max_check_attempts  => $max_check_attempts,
     target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     action_url          => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',

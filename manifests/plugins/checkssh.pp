@@ -11,6 +11,7 @@ class icinga::plugins::checkssh (
     @@nagios_service { "check_ssh_${::hostname}":
       check_command       => "check_ssh!-p ${sshport}",
       service_description => 'SSH',
+      host_name           => $::fqdn,
       target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
   }
