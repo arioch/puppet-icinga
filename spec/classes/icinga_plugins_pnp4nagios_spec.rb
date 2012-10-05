@@ -31,11 +31,9 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should include_class('icinga::plugins::pnp4nagios')
-        should contain_file('/etc/pnp4nagios/apache2-pnp4nagios.conf')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should include_class('icinga::plugins::pnp4nagios') }
+      it { should contain_file('/etc/pnp4nagios/apache2-pnp4nagios.conf') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 end

@@ -32,10 +32,8 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_package('nagios-plugins-apache-auto')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_package('nagios-plugins-apache-auto') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
 
     describe "#{os}, 64bit OS with checkhttpd plugin" do
@@ -55,10 +53,8 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_package('nagios-plugins-apache-auto')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_package('nagios-plugins-apache-auto') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 
@@ -85,10 +81,8 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_package('nagios-plugin-check-apache-auto')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_package('nagios-plugin-check-apache-auto') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 
@@ -115,13 +109,11 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should create_class('icinga')
-        should include_class('icinga::config::server')
-        should include_class('icinga::plugins::checkhttpd')
+      it { should create_class('icinga') }
+      it { should include_class('icinga::config::server') }
+      it { should include_class('icinga::plugins::checkhttpd') }
 
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 end

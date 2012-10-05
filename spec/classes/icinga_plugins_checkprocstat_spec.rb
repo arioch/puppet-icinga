@@ -32,11 +32,9 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_file('/etc/nrpe.d/checkprocstat.cfg')
-        should contain_package('nagios-plugins-linux-procstat')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/etc/nrpe.d/checkprocstat.cfg') }
+      it { should contain_package('nagios-plugins-linux-procstat') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
 
     describe "#{os}, 64bit OS with checkprocstat plugin" do
@@ -56,11 +54,9 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_file('/etc/nrpe.d/checkprocstat.cfg')
-        should contain_package('nagios-plugins-linux-procstat')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/etc/nrpe.d/checkprocstat.cfg') }
+      it { should contain_package('nagios-plugins-linux-procstat') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 
@@ -87,11 +83,9 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_file('/etc/nagios/nrpe.d/checkprocstat.cfg')
-        should contain_package('nagios-plugin-check-linux-procstat')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/etc/nagios/nrpe.d/checkprocstat.cfg') }
+      it { should contain_package('nagios-plugin-check-linux-procstat') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 
@@ -118,13 +112,11 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should create_class('icinga')
-        should include_class('icinga::config::server')
-        should include_class('icinga::plugins::checkprocstat')
+      it { should create_class('icinga') }
+      it { should include_class('icinga::config::server') }
+      it { should include_class('icinga::plugins::checkprocstat') }
 
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 end

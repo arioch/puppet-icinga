@@ -29,10 +29,8 @@ describe 'icinga' do
         }
       }
 
-      it do
-        should contain_file('/usr/lib/nagios/plugins')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/usr/lib/nagios/plugins') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
 
     describe "#{os}, with parameters: /usr/lib path, 64 bit" do
