@@ -32,10 +32,8 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_file('/usr/lib/nagios/plugins/check_puppet')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/usr/lib/nagios/plugins/check_puppet') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
 
     describe "#{os}, 64bit OS with checkpuppet plugin" do
@@ -55,10 +53,8 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_file('/usr/lib64/nagios/plugins/check_puppet')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/usr/lib64/nagios/plugins/check_puppet') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 
@@ -85,10 +81,8 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_file('/usr/lib/nagios/plugins/check_puppet')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/usr/lib/nagios/plugins/check_puppet') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 
@@ -115,13 +109,11 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should create_class('icinga')
-        should include_class('icinga::config::server')
-        should include_class('icinga::plugins::checkpuppet')
+      it { should create_class('icinga') }
+      it { should include_class('icinga::config::server') }
+      it { should include_class('icinga::plugins::checkpuppet') }
 
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 end

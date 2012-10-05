@@ -32,11 +32,9 @@ describe 'icinga' do
         }
       }
   
-      it do
-        should contain_file('/etc/nrpe.d/iostat.cfg')
-        should contain_package('nagios-plugins-iostat')
-        should_not raise_error(Puppet::ParseError)
-      end
+      it { should contain_file('/etc/nrpe.d/iostat.cfg') }
+      it { should contain_package('nagios-plugins-iostat') }
+      it { should_not raise_error(Puppet::ParseError) }
     end
 
     describe "#{os}, 64bit OS with checkiostat plugin" do
