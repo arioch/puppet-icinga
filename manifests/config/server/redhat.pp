@@ -11,8 +11,18 @@ class icinga::config::server::redhat {
       notify  => [
         Service[$::icinga::service_client],
         Service[$::icinga::service_server],
-        Group[$::icinga::server_cmd_group]
+        Group[$::icinga::server_cmd_group],
+        Exec['fix_collected_permissions']
       ],
+    }
+
+    exec { 'fix_collected_permissions':
+      # temporary work-around
+      command     => "chown -R ${::icinga::server_user}:${::icinga::server_group} .",
+      cwd         => $icinga::params::targetdir,
+      notify      => Service[$::icinga::service_server],
+      require     => File[$::icinga::targetdir],
+      refreshonly => true,
     }
 
     file {
@@ -60,14 +70,6 @@ class icinga::config::server::redhat {
       "${::icinga::confdir_server}/modules":
         ensure  => directory,
         recurse => true;
-
-      "${::icinga::targetdir}/hosts/host-localhost.cfg":
-        ensure  => present,
-        source  => 'puppet:///modules/icinga/host-localhost.cfg';
-
-      "${::icinga::targetdir}/hosts/service-localhost.cfg":
-        ensure  => present,
-        source  => 'puppet:///modules/icinga/service-localhost.cfg';
 
       "${::icinga::targetdir}/commands.cfg":
         ensure  => present,
