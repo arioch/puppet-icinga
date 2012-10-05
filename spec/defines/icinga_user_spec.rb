@@ -1,6 +1,7 @@
 require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
 describe "icinga::user" do
   # create user, without password
+  # ... which should fail
 
   let(:node) { 'icinga' }
   let(:facts) { {:operatingsystem => 'Debian', :kernel => 'Linux'} }
@@ -16,7 +17,9 @@ describe "icinga::user" do
   }
 
   it do
-    should create_icinga__user('dummyuser1')
+    expect {
+      should create_icinga__user('dummyuser1')
+    }.to raise_error(Puppet::Error, /Must pass password to Icinga::User\[dummyuser1\]/)
   end
 end
 
