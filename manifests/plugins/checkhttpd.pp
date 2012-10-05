@@ -5,7 +5,7 @@
 class icinga::plugins::checkhttpd (
   $ensure             = present,
   $perfdata           = false,
-  $max_check_attempts = '4'
+  $max_check_attempts = $::icinga::max_check_attempts
 ) inherits icinga {
 
   $pkg_perl_libwww_perl = $::operatingsystem ? {
