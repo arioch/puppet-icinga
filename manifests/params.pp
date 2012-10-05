@@ -17,6 +17,7 @@ class icinga::params {
   $notification_period         = '24x7'
   $notification_host_enable    = true
   $notification_service_enable = true
+  $max_check_attempts          = '4'
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
@@ -119,7 +120,6 @@ class icinga::params {
       $icinga_vhost              = '/etc/icinga/apache2.conf'
       $logdir_client             = '/var/log/nrpe'
       $logdir_server             = '/var/log/icinga'
-      $max_check_attempts        = '4'
 
       # Plugin: Icinga Web
       $icingaweb_pkg     = [ 'icinga-web' ]

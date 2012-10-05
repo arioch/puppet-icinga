@@ -4,7 +4,7 @@
 #
 class icinga::plugins::checkprocstat (
   $ensure             = present,
-  $max_check_attempts = '4'
+  $max_check_attempts = $::icinga::max_check_attempts
 ) inherits icinga {
 
   $package_name = $::operatingsystem ? {

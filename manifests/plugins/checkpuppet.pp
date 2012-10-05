@@ -3,7 +3,7 @@
 # This class provides a checkpuppet plugin.
 #
 class icinga::plugins::checkpuppet (
-  $max_check_attempts = '4'
+  $max_check_attempts = $::icinga::max_check_attempts
 ) inherits icinga {
   if $icinga::client {
     file { "${::icinga::plugindir}/check_puppet":

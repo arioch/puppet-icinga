@@ -5,7 +5,7 @@
 class icinga::plugins::checkmysqld (
   $ensure             = present,
   $perfdata           = true,
-  $max_check_attempts = '4'
+  $max_check_attempts = $::icinga::max_check_attempts
 ) inherits icinga {
 
   $pkg_nagios_plugins_mysqld = $::operatingsystem ? {
@@ -30,6 +30,7 @@ class icinga::plugins::checkmysqld (
   @@nagios_service { "check_mysqld_performance_${::hostname}":
     check_command       => 'check_nrpe_command!check_mysqld',
     service_description => 'mysqld',
+    max_check_attempts  => $max_check_attempts,
     target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     action_url          => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
   }
