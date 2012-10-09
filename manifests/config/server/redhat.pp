@@ -18,7 +18,7 @@ class icinga::config::server::redhat {
 
     exec { 'fix_collected_permissions':
       # temporary work-around
-      command     => "chown -R ${::icinga::server_user}:${::icinga::server_group} .",
+      command     => "/bin/chown -R ${::icinga::server_user}:${::icinga::server_group} .",
       cwd         => $icinga::params::targetdir,
       notify      => Service[$::icinga::service_server],
       require     => File[$::icinga::targetdir],
