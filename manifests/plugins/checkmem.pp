@@ -7,7 +7,7 @@ class icinga::plugins::checkmem (
 ) inherits icinga {
   if $icinga::client {
 
-    package{'nagios-plugins-checkmem':
+    package{'nagios-plugins-mem':
       ensure => 'present',
     }
 
