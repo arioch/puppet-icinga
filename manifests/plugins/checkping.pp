@@ -8,7 +8,7 @@ class icinga::plugins::checkping (
   $max_check_attempts = $::icinga::max_check_attempts
 ) inherits icinga {
   if $icinga::client {
-    @@nagios_service { "check_ping_${::hostname}":
+    @@nagios_service { "check_ping_${::fqdn}":
       check_command       => 'check_ping!100.0,20%!500.0,60%',
       service_description => 'Ping',
       host_name           => $::fqdn,

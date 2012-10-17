@@ -8,7 +8,7 @@ class icinga::plugins::checkload (
   $max_check_attempts = $::icinga::max_check_attempts
 ) inherits icinga {
   if $icinga::client {
-    @@nagios_service { "check_load_${::hostname}":
+    @@nagios_service { "check_load_${::fqdn}":
       check_command       => 'check_nrpe_command!check_load',
       service_description => 'Server load',
       host_name           => $::fqdn,

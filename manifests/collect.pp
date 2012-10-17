@@ -31,7 +31,7 @@ class icinga::collect {
   if $::icinga::client {
     @@nagios_host { $::icinga::collect_hostname:
       ensure             => present,
-      alias              => $::hostname,
+      alias              => $::fqdn,
       address            => $::icinga::collect_ipaddress,
       max_check_attempts => $::icinga::max_check_attempts,
       check_command      => 'check-host-alive',
@@ -49,7 +49,7 @@ class icinga::collect {
       target          => "${::icinga::targetdir}/hosts/hostextinfo-${::fqdn}.cfg",
     }
 
-    @@nagios_service { "check_ping_${::hostname}":
+    @@nagios_service { "check_ping_${::fqdn}":
       check_command       => 'check_ping!100.0,20%!500.0,60%',
       service_description => 'Ping',
       action_url          => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',

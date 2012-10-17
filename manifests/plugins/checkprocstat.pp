@@ -23,7 +23,7 @@ class icinga::plugins::checkprocstat (
       content => template('icinga/plugins/checkprocstat.cfg.erb');
   }
 
-  @@nagios_service { "check_procstat_${::hostname}":
+  @@nagios_service { "check_procstat_${::fqdn}":
     check_command       => 'check_nrpe_command!check_procstat',
     host_name           => $::fqdn,
     max_check_attempts  => $max_check_attempts,

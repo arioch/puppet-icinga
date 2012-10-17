@@ -16,7 +16,7 @@ class icinga::plugins::checkpuppet (
       require => Class['icinga::config'];
     }
 
-    @@nagios_service { "check_puppet_${::hostname}":
+    @@nagios_service { "check_puppet_${::fqdn}":
       check_command       => 'check_nrpe_command!check_puppet',
       service_description => 'Puppet',
       host_name           => $::fqdn,

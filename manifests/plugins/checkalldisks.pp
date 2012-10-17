@@ -8,7 +8,7 @@ class icinga::plugins::checkalldisks (
   $max_check_attempts = $::icinga::max_check_attempts
 ) inherits icinga {
   if $icinga::client {
-    @@nagios_service { "check_all_disks_${::hostname}":
+    @@nagios_service { "check_all_disks_${::fqdn}":
       check_command       => 'check_nrpe_command!check_all_disks',
       service_description => 'Disks',
       host_name           => $::fqdn,
