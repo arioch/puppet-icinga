@@ -35,7 +35,7 @@ class icinga::plugins::checkhttpd (
         content => template('icinga/plugins/httpd_performance.cfg');
     }
 
-    @@nagios_service { "check_httpd_perf_${::hostname}":
+    @@nagios_service { "check_httpd_perf_${::fqdn}":
       check_command       => 'check_nrpe_command!check_httpd_performance',
       host_name           => $::fqdn,
       max_check_attempts  => $max_check_attempts,

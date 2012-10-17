@@ -11,7 +11,7 @@ class icinga::plugins::checkmem (
       ensure => 'present',
     }
 
-    @@nagios_service{"check_mem_${::hostname}":
+    @@nagios_service{"check_mem_${::fqdn}":
       check_command       => 'check_nrpe_command!check_mem',
       service_description => 'RAM',
       host_name           => $::fqdn,

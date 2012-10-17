@@ -8,7 +8,7 @@ class icinga::plugins::checkssh (
   $check_critical = ''
 ) inherits icinga {
   if $icinga::client {
-    @@nagios_service { "check_ssh_${::hostname}":
+    @@nagios_service { "check_ssh_${::fqdn}":
       check_command       => "check_ssh!-p ${sshport}",
       service_description => 'SSH',
       host_name           => $::fqdn,
