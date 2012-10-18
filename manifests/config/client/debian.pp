@@ -5,8 +5,8 @@
 class icinga::config::client::debian {
   if $::icinga::client {
     File {
-      owner   => $::icinga::client_user,
-      group   => $::icinga::client_group,
+      owner   => 'root',
+      group   => 'root',
       notify  => Service[$::icinga::service_client],
       require => Class['icinga::install'],
     }
