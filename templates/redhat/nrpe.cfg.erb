@@ -68,7 +68,7 @@ nrpe_group=<%= scope.lookupvar('icinga::client_group') %>
 
 # List of allowed icinga hosts
 #allowed_hosts=127.0.0.1
-allowed_hosts=<%= scope.lookupvar('icinga::nrpe_allowed_hosts') %>
+allowed_hosts=<% scope.lookupvar('icinga::nrpe_allowed_hosts').each do |i| -%><%= i %>,<% end -%>
 
 
 # COMMAND ARGUMENT PROCESSING
