@@ -1,0 +1,41 @@
+#!/usr/bin/python -tt
+
+import warnings
+warnings.simplefilter("ignore")
+
+import xmpp
+from xmpp.protocol import Message
+
+from optparse import OptionParser
+import ConfigParser
+import sys
+import os
+
+parser = OptionParser()
+opts, args = parser.parse_args()
+
+if len(args) < 1:
+    print "xmppsend message [to whom, multiple args]"
+    sys.exit(1)
+
+msg = args[0]
+
+msg = msg.replace('\\n', '\n')
+
+# Connect to the server
+c  =  xmpp.Client("<%= scope.lookupvar('icinga::xmpp_client') %>")
+c.connect( ( "<%= scope.lookupvar('icinga::xmpp_server') %>", <%= scope.lookupvar('icinga::xmpp_port') %> ) )
+
+# Authenticate to the server
+jid  =  xmpp.protocol.JID( "<%= scope.lookupvar('icinga::xmpp_jid') %>" )
+c.auth( jid.getNode( ), "<%= scope.lookupvar('icinga::xmpp_auth') %>" )
+
+if len(args) < 2:
+    r = c.getRoster()
+    for user in r.keys():
+        if user == username:
+            continue
+        c.send(Message(user, '%s' % msg))
+else:
+    for user in args[1:]:
+        c.send(Message(user, '%s' % msg))
