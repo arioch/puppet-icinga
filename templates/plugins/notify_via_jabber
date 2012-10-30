@@ -23,7 +23,7 @@ msg = args[0]
 msg = msg.replace('\\n', '\n')
 
 # Connect to the server
-c  =  xmpp.Client("<%= scope.lookupvar('icinga::xmpp_client') %>")
+c  =  xmpp.Client("<%= scope.lookupvar('icinga::plugins::notifyxmpp::xmpp_client') %>")
 c.connect( ( "<%= scope.lookupvar('icinga::plugins::notifyxmpp::xmpp_server') %>", <%= scope.lookupvar('icinga::plugins::notifyxmpp::xmpp_port') %> ) )
 
 # Authenticate to the server
