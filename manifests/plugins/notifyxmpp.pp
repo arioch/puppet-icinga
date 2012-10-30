@@ -9,6 +9,9 @@ class icinga::plugins::notifyxmpp (
   $xmpp_auth,
   $xmpp_port = '5222'
 ) {
+
+  require ::icinga
+
   if $icinga::server {
     file { "${::icinga::plugindir}/notify_via_jabber":
       ensure  => present,
