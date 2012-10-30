@@ -24,11 +24,11 @@ msg = msg.replace('\\n', '\n')
 
 # Connect to the server
 c  =  xmpp.Client("<%= scope.lookupvar('icinga::xmpp_client') %>")
-c.connect( ( "<%= scope.lookupvar('icinga::xmpp_server') %>", <%= scope.lookupvar('icinga::xmpp_port') %> ) )
+c.connect( ( "<%= scope.lookupvar('icinga::plugins::notifyxmpp::xmpp_server') %>", <%= scope.lookupvar('icinga::plugins::notifyxmpp::xmpp_port') %> ) )
 
 # Authenticate to the server
-jid  =  xmpp.protocol.JID( "<%= scope.lookupvar('icinga::xmpp_jid') %>" )
-c.auth( jid.getNode( ), "<%= scope.lookupvar('icinga::xmpp_auth') %>" )
+jid  =  xmpp.protocol.JID( "<%= scope.lookupvar('icinga::plugins::notifyxmpp::xmpp_jid') %>" )
+c.auth( jid.getNode( ), "<%= scope.lookupvar('icinga::plugins::notifyxmpp::xmpp_auth') %>" )
 
 if len(args) < 2:
     r = c.getRoster()
