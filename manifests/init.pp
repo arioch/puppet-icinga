@@ -110,11 +110,6 @@ class icinga (
   $webserver_user            = $::icinga::params::webserver_user,
   $collect_hostname          = $::icinga::params::collect_hostname,
   $collect_ipaddress         = $::icinga::params::collect_ipaddress,
-  $xmpp_client               = $::icinga::params::xmpp_client,
-  $xmpp_jid                  = $::icinga::params::xmpp_jid,
-  $xmpp_server               = $::icinga::params::xmpp_server,
-  $xmpp_auth                 = $::icinga::params::xmpp_auth,
-  $xmpp_port                 = $::icinga::params::xmpp_port
 ) inherits icinga::params {
 
   # motd::register { 'icinga-refactor': }

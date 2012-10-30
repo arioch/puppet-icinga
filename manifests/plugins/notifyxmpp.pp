@@ -3,12 +3,12 @@
 # This class provides an xmpp notification plugin.
 #
 class icinga::plugins::notifyxmpp (
-  $xmpp_client = $::icinga::xmpp_client,
-  $xmpp_jid    = $::icinga::xmpp_jid,
-  $xmpp_server = $::icinga::xmpp_server,
-  $xmpp_auth   = $::icinga::xmpp_auth,
-  $xmpp_port   = $::icinga::xmpp_port
-) inherits icinga {
+  $xmpp_client,
+  $xmpp_jid,
+  $xmpp_server,
+  $xmpp_auth,
+  $xmpp_port = '5222'
+) {
   if $icinga::server {
     file { "${::icinga::plugindir}/notify_via_jabber":
       ensure  => present,
