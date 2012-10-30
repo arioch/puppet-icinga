@@ -18,11 +18,11 @@ class icinga::params {
   $notification_host_enable    = true
   $notification_service_enable = true
   $max_check_attempts          = '4'
-  $xmpp_client,
-  $xmpp_jid,
-  $xmpp_server,
-  $xmpp_auth                   = undef,
-  $xmpp_port                   = '5222',
+  $xmpp_client                 = undef
+  $xmpp_jid                    = undef
+  $xmpp_server                 = undef
+  $xmpp_auth                   = undef
+  $xmpp_port                   = '5222'
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
