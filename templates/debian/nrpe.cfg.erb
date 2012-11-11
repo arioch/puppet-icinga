@@ -203,6 +203,7 @@ command[check_zombie_procs]=/usr/lib/nagios/plugins/check_procs -w 5 -c 10 -s Z
 command[check_total_procs]=/usr/lib/nagios/plugins/check_procs -w 250 -c 350
 command[check_puppet]=/usr/lib/nagios/plugins/check_puppet -w 604800 -c 1209600
 command[check_mem]=/usr/lib/nagios/plugins/check_mem -w 90,25 -c 95,50
+command[check_all_disks]=/usr/lib64/nagios/plugins/check_disk -w '$ARG1$ -c '$ARG2$' -e
 
 # The following examples allow user-supplied arguments and can
 # only be used if the NRPE daemon was compiled with support for
