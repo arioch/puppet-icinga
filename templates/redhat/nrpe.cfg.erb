@@ -187,7 +187,6 @@ include_dir=<%= scope.lookupvar('icinga::includedir_client') %>
 # The following examples use hardcoded command arguments...
 
 command[check_users]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_users -w 5 -c 10
-command[check_ntp_time]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_ntp_time -H pool.ntp.org -w 0.5 -c 1
 command[check_zombie_procs]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_procs -w 5 -c 10 -s Z
 command[check_boot]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /boot
 command[check_root]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /
