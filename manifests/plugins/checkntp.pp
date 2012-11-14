@@ -1,7 +1,7 @@
 class icinga::plugins::checkntp (
   ntp_server         = 'pool.ntp.org',
-  warn_value         = '60',
-  crit_value         = '600',
+  warn_value         = '1',
+  crit_value         = '10',
   max_check_attempts = $::icinga::max_check_attempts,
 ) inherits ::icinga {
 
