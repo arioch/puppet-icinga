@@ -16,7 +16,7 @@ class icinga::plugins::checkntp (
   }
 
   @@nagios_service{"check_ntp_${::fqdn}":
-    check_command       => 'check_nrpe!check_ntp',
+    check_command       => 'check_nrpe_command!check_ntp',
     service_description => 'NTP Time Drift',
     host_name           => $::fqdn,
     max_check_attempts  => $max_check_attempts,
