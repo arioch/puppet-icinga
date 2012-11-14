@@ -156,14 +156,6 @@ define command{
         command_line    $USER1$/check_http -I $HOSTADDRESS$ $ARG1$
         }
 
-
-# 'check_ntp_time' command definition
-define command{
-        command_name    check_ntp_time
-        command_line    $USER1$/check_ntp_time -H pool.ntp.org -w 0.5 -c 1
-        }
-
-
 # 'check_ssh' command definition
 #  command_line  $USER1$/check_ssh -p 22 $ARG1$ $HOSTADDRESS$
 define command{
