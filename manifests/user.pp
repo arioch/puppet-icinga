@@ -14,9 +14,11 @@ define icinga::user (
   $host_notification_commands    = $::icinga::notification_cmd_host,
   $host_notification_period      = $::icinga::notification_period,
   $host_notifications_enabled    = $::icinga::notification_host_enable,
+  $host_notification_options     = $::icinga::notification_host_opts,
   $service_notification_commands = $::icinga::notification_cmd_service,
   $service_notification_period   = $::icinga::notification_period,
   $service_notifications_enabled = $::icinga::notification_service_enable,
+  $service_notification_options  = $::icinga::notification_service_opts,
   $target                        = $::icinga::targetdir_contacts
 ) {
   $htpasswd = $::icinga::htpasswd_file
@@ -70,9 +72,11 @@ define icinga::user (
       host_notification_commands    => $host_notification_commands,
       host_notification_period      => $host_notification_period,
       host_notifications_enabled    => $host_notifications_enabled,
+      host_notification_options     => $host_notification_options,
       service_notification_commands => $service_notification_commands,
       service_notification_period   => $service_notification_period,
       service_notifications_enabled => $service_notifications_enabled,
+      service_notification_options  => $service_notification_options,
     }
   }
 }
