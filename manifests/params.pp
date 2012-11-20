@@ -16,7 +16,9 @@ class icinga::params {
   $notification_cmd_service    = 'notify-service-by-email'
   $notification_period         = '24x7'
   $notification_host_enable    = '1'
+  $notification_host_opts      = 'd,r'
   $notification_service_enable = '1'
+  $notification_service_opts   = 'w,u,c,r'
   $max_check_attempts          = '4'
 
   case $::operatingsystem {
