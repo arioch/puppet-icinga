@@ -7,5 +7,5 @@ command[check_swap]=<%= scope.lookupvar('icinga::plugindir') %>/check_swap -w 50
 command[check_load]=<%= scope.lookupvar('icinga::plugindir') %>/check_load -w 15,10,5 -c 30,25,20
 command[check_total_procs]=<%= scope.lookupvar('icinga::plugindir') %>/check_procs -w 200 -c 250
 command[check_puppet]=<%= scope.lookupvar('icinga::plugindir') %>/check_puppet -w 604800 -c 907200
-command[check_all_disks]=<%= scope.lookupvar('icinga::plugindir') %>/check_disk -w 10% -c 5%
+command[check_all_disks]=sudo <%= scope.lookupvar('icinga::plugindir') %>/check_disk -w 10% -c 5%
 command[check_mysqld]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl
