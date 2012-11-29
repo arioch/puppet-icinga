@@ -11,6 +11,7 @@ class icinga::plugins::checkpuppet (
       mode    => '0755',
       owner   => 'root',
       group   => 'root',
+      seltype => 'nagios_admin_plugin_exec_t',
       content => template ('icinga/plugins/check_puppet.rb.erb'),
       notify  => Service[$icinga::service_client],
       require => Class['icinga::config'];
