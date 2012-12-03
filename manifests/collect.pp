@@ -35,6 +35,7 @@ class icinga::collect {
       max_check_attempts => $::icinga::max_check_attempts,
       check_command      => 'check-host-alive',
       use                => 'linux-server',
+      parents            => $::icinga::parents,
       hostgroups         => 'linux-servers',
       action_url         => '/pnp4nagios/graph?host=$HOSTNAME$',
       target             => "${::icinga::targetdir}/hosts/host-${::fqdn}.cfg",
