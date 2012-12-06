@@ -14,7 +14,7 @@ class icinga::plugins::checkmount (
     $type_option = " -t ${type}"
   }
 
-  file{"${::icinga::includedir_client}/mount${sanitized_mount}.cfg",
+  file{"${::icinga::includedir_client}/mount${sanitized_mount}.cfg":
     ensure => 'file',
     mode   => '0644',
     owner  => $::icinga::client_user,
