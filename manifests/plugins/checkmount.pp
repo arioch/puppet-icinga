@@ -1,4 +1,4 @@
-class icinga::plugins::checkmount (
+define icinga::plugins::checkmount (
   pkgname             = 'nagios-plugins-mount',
   mountpoint          = undef,
   type                = undef,
