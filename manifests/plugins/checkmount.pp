@@ -17,10 +17,11 @@ define icinga::plugins::checkmount (
   }
 
   file{"${::icinga::includedir_client}/mount${sanitized_mount}.cfg":
-    ensure => 'file',
-    mode   => '0644',
-    owner  => $::icinga::client_user,
-    group  => $::icinga::client_group,
+    ensure  => 'file',
+    mode    => '0644',
+    owner   => $::icinga::client_user,
+    group   => $::icinga::client_group,
+    notify  => Service[$::icinga::service_client],
     content => "command[check_mount${sanitized_mount}]=${::icinga::plugindir}/check_mount.pl -m ${mountpoint}${type_option}\n",
   }
 
