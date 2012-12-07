@@ -11,7 +11,7 @@ define icinga::plugins::checkmount (
     ensure => 'present',
   }
 
-  $sanitized_mount = inline_template("<%= mountpoint.gsub('\/', '_') %>")
+  $sanitized_mount = inline_template("<%= mountpoint.gsub('/', '_') %>")
   if $type {
     $type_option = " -t ${type}"
   }
@@ -21,11 +21,11 @@ define icinga::plugins::checkmount (
     mode   => '0644',
     owner  => $::icinga::client_user,
     group  => $::icinga::client_group,
-    content => "command[check_mount_${sanitized_mount}]=${::icinga::plugindir}/check_mount.pl -m ${mountpoint}${type_option}\n",
+    content => "command[check_mount${sanitized_mount}]=${::icinga::plugindir}/check_mount.pl -m ${mountpoint}${type_option}\n",
   }
 
   @@nagios_service{"check_mount_${mountpoint}_${::fqdn}":
-    check_command       => "check_nrpe_command!check_mount_${mountpoint}",
+    check_command       => "check_nrpe_command!check_mount${sanitized_mount}",
     service_description => "Mount ${mountpoint}",
     host_name           => $::fqdn,
     max_check_attempts  => $max_check_attempts,
