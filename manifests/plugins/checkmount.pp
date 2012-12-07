@@ -3,7 +3,9 @@ define icinga::plugins::checkmount (
   mountpoint          = undef,
   type                = undef,
   $max_check_attempts = $::icinga::params::max_check_attempts,
-) inherits ::icinga::params {
+) {
+
+  require ::icinga
 
   package{$pkgname:
     ensure => 'present',
