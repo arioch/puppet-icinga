@@ -9,7 +9,7 @@ class icinga::plugins::checkmount (
     ensure => 'present',
   }
 
-  $sanitized_mount = inline_template("<%= mountpoint.gsub(\/, _) %>")
+  $sanitized_mount = inline_template("<%= mountpoint.gsub('\/', '_') %>")
   if $type {
     $type_option = " -t ${type}"
   }
