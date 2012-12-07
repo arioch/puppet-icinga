@@ -29,7 +29,7 @@ define icinga::plugins::checkmount (
     service_description => "Mount ${mountpoint}",
     host_name           => $::fqdn,
     max_check_attempts  => $max_check_attempts,
-    target              => "$::icinga::targetdir}/services/${::fqdn}.cfg",
+    target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 
 }
