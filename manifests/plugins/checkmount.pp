@@ -7,8 +7,10 @@ define icinga::plugins::checkmount (
 
   require ::icinga
 
-  package{$pkgname:
-    ensure => 'present',
+  if ! defined(Package[$pkgname]) {
+    package{$pkgname:
+      ensure => 'present',
+    }
   }
 
   $sanitized_mount = inline_template("<%= mountpoint.gsub('/', '_') %>")
