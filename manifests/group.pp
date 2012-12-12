@@ -4,6 +4,7 @@
 #
 define icinga::group (
   $ensure               = present,
+  $members              = undef,
   $contactgroup_members = undef,
   $contactgroup_name    = $name,
   $target               = $::icinga::targetdir_contacts
@@ -16,6 +17,7 @@ define icinga::group (
       ensure               => $ensure,
       contactgroup_name    => $contactgroup_name,
       contactgroup_members => $contactgroup_members,
+      members              => $members,
       target               => $target,
     }
   }
