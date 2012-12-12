@@ -1,23 +1,155 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html
-     PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Puppet-icinga by arioch</title>
 
-<!--
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Puppet-icinga</h1>
+        <p></p>
 
-    RDoc Documentation
+        <p class="view"><a href="https://github.com/arioch/puppet-icinga">View the Project on GitHub <small>arioch/puppet-icinga</small></a></p>
 
-  -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <title>RDoc Documentation</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-</head>
-<frameset cols="20%, 80%">
-    <frameset rows="30%,70%">
-        <frame src="doc/fr_modules_index.html"  title="All Modules" />
-        <frame src="doc/fr_class_index.html" name="classes" title="Classes & Defines" />
-    </frameset>
-    <frame src="doc/classes/icinga.html" name="docwin" />
-</frameset>
+
+        <ul>
+          <li><a href="https://github.com/arioch/puppet-icinga/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/arioch/puppet-icinga/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/arioch/puppet-icinga">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Sample Usage</h1>
+
+<h3>cat site.pp</h3>
+
+<pre><code>Nagios_service {
+  host_name           =&gt; $::fqdn,
+  use                 =&gt; 'generic-service',
+  notification_period =&gt; '24x7',
+  target              =&gt; "${::icinga::targetdir}/services/${::fqdn}.cfg",
+  action_url          =&gt; '/pnp4nagios/graph?host=$HOSTNAME$&amp;srv=$SERVICEDESC$',
+}
+
+Nagios_contact {
+  ensure                        =&gt; present,
+  use                           =&gt; 'generic-contact',
+  host_notification_period      =&gt; '24x7',
+  service_notification_period   =&gt; '24x7',
+  service_notification_commands =&gt; 'notify-service-by-email',
+  host_notification_commands    =&gt; 'notify-host-by-email',
+  target                        =&gt; "${::icinga::targetdir}/contacts/contacts.cfg",
+  can_submit_commands           =&gt; '1',
+}
+</code></pre>
+
+<h3>cat nodes.pp</h3>
+
+<pre><code>node client {
+  class { 'icinga': }
+}
+
+node server {
+  class {
+    'icinga':
+      server        =&gt; 'true',
+      manage_repo   =&gt; 'true',
+      icinga_admins =&gt; [ 'admin,', 'dummy1,', 'dummy2' ],
+      plugins       =&gt; [ 'checkpuppet', 'pnp4nagios' ];
+  }
+
+  icinga::user {
+    'dummy1':
+      ensure   =&gt; present,
+      password =&gt; 'default',
+      email    =&gt; 'dummy1@example.com',
+      pager    =&gt; '320000001';
+
+    'dummy2':
+      ensure   =&gt; present,
+      password =&gt; 'default'
+      email    =&gt; 'dummy2@example.com',
+      pager    =&gt; '320000002';
+  }
+}
+</code></pre>
+
+<h3>Inside your existing modules</h3>
+
+<pre><code>@@nagios_service { "check_tcp_123_${::fqdn}":
+  check_command       =&gt; 'check_tcp!123',
+  service_description =&gt; 'check_tcp',
+}
+</code></pre>
+
+<h3>PuppetDoc</h3>
+
+<p>Parsed PuppetDoc can be found <a href="http://arioch.github.com/puppet-icinga/">here</a>.</p>
+
+<h3>Unit testing</h3>
+
+<pre><code>bundle exec rake
+</code></pre>
+
+<h3>Nagios plugin packages</h3>
+
+<p>Packages for RHEL based operating systems can be found at Inuits' <a href="http://repo.inuits.eu">RPM repository</a>
+A Debian mirror is currently not available yet. Building your own packages is very easy. You will find any necessary information on Inuits' <a href="https://github.com/Inuits/nagios-plugins">nagios-plugins</a> repository at Github.</p>
+
+<h3>Known issues</h3>
+
+<h4>General</h4>
+
+<ul>
+<li>Needs proper testing</li>
+<li>
+<p>Using multiple Icinga servers with identical usernames you might run into the error below:</p>
+
+<p>err: Failed to apply catalog: Cannot alias Nagios_contact[icinga.example.org-someuser] 
+to ["someuser"] at /etc/puppet/environments/refactor/modules/icinga/manifests/user.pp:48;
+resource ["Nagios_contact", "someuser"] already declared</p>
+</li>
+</ul><h4>RedHat</h4>
+
+<ul>
+<li>
+<p>Be aware if you wish to manage your own package repositories you're in for
+a treat. You need packages from both the RPMForge and the EPEL repository.
+However - and here's the tricky part - some of those packages conflict with
+the ones in the other repository. The easiest way is to take Icinga and it's
+dependencies from RPMForge. Nagios-plugins related packages should not be
+taken from this repository otherwise a lot of EPEL packages or plugins will
+break horribly.</p>
+
+<p>The easy way out:
+class { icinga: manage_repo =&gt; true; }</p>
+
+<p>A more advanced approach would be to set up your own repo.
+Hipsters these days seem to be fond of <a href="https://github.com/pulp/pulp">Pulp</a> for this purpose.</p>
+</li>
+</ul><h4>Debian</h4>
+
+<ul>
+<li>Some plugins may or may not work</li>
+<li>The PNP4Nagios plugin requires the backports repository on Squeeze.</li>
+<li>The PNP4Nagios plugin will not work on anything older than Squeeze.</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/arioch">arioch</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
 </html>
