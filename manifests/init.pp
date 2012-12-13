@@ -111,6 +111,7 @@ class icinga (
   $collect_hostname          = $::icinga::params::collect_hostname,
   $collect_ipaddress         = $::icinga::params::collect_ipaddress,
   $parents                   = $::icinga::params::parents,
+  $hostgroups                = $::icinga::params::hostgroups,
 ) inherits icinga::params {
 
   # motd::register { 'icinga-refactor': }
