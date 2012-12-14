@@ -91,10 +91,6 @@ class icinga::config::server::redhat {
         ensure  => present,
         content => template('icinga/redhat/cgi.cfg.erb');
 
-      "${::icinga::targetdir}/hostgroups.cfg":
-        ensure  => present,
-        content => template('icinga/redhat/hostgroups.cfg.erb');
-
       "${::icinga::targetdir}/generic-host.cfg":
         ensure  => present,
         content => template('icinga/redhat/generic-host.cfg');
