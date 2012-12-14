@@ -24,6 +24,10 @@ class icinga::config::server::common {
     recurse => true,
   }
 
+  file{"${::icinga::targetdir}/hostgroups.cfg":
+    ensure => 'present',
+  }
+
   file{"${::icinga::targetdir}/contacts":
     recurse => true,
   }
