@@ -65,10 +65,6 @@ class icinga::config::server::debian {
         ensure  => present,
         content => template('icinga/debian/objects/generic-host_icinga.cfg');
 
-      "${::icinga::confdir_server}/objects/hostgroups_icinga.cfg":
-        ensure  => present,
-        content => template('icinga/debian/objects/hostgroups_icinga.cfg');
-
       "${::icinga::sharedir_server}/images/logos":
         ensure  => directory;
 
