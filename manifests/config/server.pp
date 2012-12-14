@@ -4,6 +4,9 @@
 #
 class icinga::config::server {
   if $::icinga::server {
+
+    include ::icinga::config::server::common
+
     case $::operatingsystem {
       'Debian', 'Ubuntu': {
         include icinga::config::server::debian
