@@ -13,7 +13,10 @@ class icinga::collect {
     Nagios_contactgroup <<| |>>      { notify => Service[$::icinga::service_server] }
     Nagios_hostdependency <<| |>>    { notify => Service[$::icinga::service_server] }
     Nagios_hostescalation <<| |>>    { notify => Service[$::icinga::service_server] }
-    Nagios_hostgroup <<| |>>         { notify => Service[$::icinga::service_server] }
+    Nagios_hostgroup <<| |>>         {
+      notify => Service[$::icinga::service_server],
+      target => "${::icinga::targetdir}/hostgroups.cfg",
+    }
     Nagios_servicedependency <<| |>> { notify => Service[$::icinga::service_server] }
     Nagios_serviceescalation <<| |>> { notify => Service[$::icinga::service_server] }
     Nagios_serviceextinfo <<| |>>    { notify => Service[$::icinga::service_server] }
