@@ -6,4 +6,9 @@ class icinga::default::hostgroups {
     members        => '*',
   }
 
+  @@nagios_hostgroup{'default':
+    hostgroup_name => 'default',
+    alias          => 'Default hostgroup',
+  }
+
 }
