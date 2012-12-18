@@ -48,5 +48,6 @@ class icinga::config::server {
     realize Group[$::icinga::server_cmd_group]
 
     include ::icinga::default::hostgroups
+    include ::icinga::default::timeperiods
   }
 }
