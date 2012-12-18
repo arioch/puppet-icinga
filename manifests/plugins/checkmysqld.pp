@@ -3,9 +3,11 @@
 # This class provides a checkmysqld plugin.
 #
 class icinga::plugins::checkmysqld (
-  $ensure             = present,
-  $perfdata           = true,
-  $max_check_attempts = $::icinga::max_check_attempts
+  $ensure                = present,
+  $perfdata              = true,
+  $max_check_attempts    = $::icinga::max_check_attempts,
+  $notification_period   = $::icinga::notification_period,
+  $notifications_enabled = $::icinga::notifications_enabled,
 ) inherits icinga {
 
   $pkg_nagios_plugins_mysqld = $::operatingsystem ? {
@@ -45,9 +47,11 @@ class icinga::plugins::checkmysqld (
     }
 
     Nagios_service {
-      host_name          => $::fqdn,
-      max_check_attempts => $max_check_attempts,
-      target             => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+      host_name             => $::fqdn,
+      max_check_attempts    => $max_check_attempts,
+      notification_period   => $notification_period,
+      notifications_enabled => $notifications_enabled,
+      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
 
     @@nagios_service { "check_mysqld_performance_1_${::fqdn}":

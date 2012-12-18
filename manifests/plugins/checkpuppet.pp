@@ -3,8 +3,11 @@
 # This class provides a checkpuppet plugin.
 #
 class icinga::plugins::checkpuppet (
-  $max_check_attempts = $::icinga::max_check_attempts
+  $max_check_attempts    = $::icinga::max_check_attempts,
+  $notification_period   = $::icinga::notification_period,
+  $notifications_enabled = $::icinga::notifications_enabled,
 ) inherits icinga {
+
   if $icinga::client {
     file { "${::icinga::plugindir}/check_puppet":
       ensure  => present,
@@ -18,11 +21,14 @@ class icinga::plugins::checkpuppet (
     }
 
     @@nagios_service { "check_puppet_${::fqdn}":
-      check_command       => 'check_nrpe_command!check_puppet',
-      service_description => 'Puppet',
-      host_name           => $::fqdn,
-      max_check_attempts  => $max_check_attempts,
-      target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+      check_command         => 'check_nrpe_command!check_puppet',
+      service_description   => 'Puppet',
+      host_name             => $::fqdn,
+      max_check_attempts    => $max_check_attempts,
+      notification_period   => $notification_period,
+      notifications_enabled => $notifications_enabled,
+      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
   }
+
 }
