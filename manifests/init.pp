@@ -112,6 +112,7 @@ class icinga (
   $collect_ipaddress         = $::icinga::params::collect_ipaddress,
   $parents                   = $::icinga::params::parents,
   $hostgroups                = $::icinga::params::hostgroups,
+  $notifications_enabled     = $::icinga::params::notifications_enabled,
 ) inherits icinga::params {
 
   # motd::register { 'icinga-refactor': }
