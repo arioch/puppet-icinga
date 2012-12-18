@@ -52,10 +52,6 @@ class icinga::config::server::redhat {
     content => template('icinga/redhat/notifications.cfg.erb'),
   }
 
-  file{"${::icinga::targetdir}/timeperiods.cfg":
-    content => template('icinga/redhat/timeperiods.cfg.erb'),
-  }
-
   file{"${::icinga::targetdir}/templates.cfg":
     content => template('icinga/redhat/templates.cfg.erb'),
   }

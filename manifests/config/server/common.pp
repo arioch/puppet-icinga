@@ -28,6 +28,10 @@ class icinga::config::server::common {
     ensure => 'present',
   }
 
+  file{"${::icinga::targetdir}/timeperiods.cfg":
+    content => template('icinga/common/timeperiods.cfg.erb'),
+  }
+
   file{"${::icinga::targetdir}/contacts":
     recurse => true,
   }
