@@ -25,12 +25,6 @@ class icinga::collect {
     Nagios_timeperiod <<| |>>        { notify => Service[$::icinga::service_server] }
   }
 
-  Nagios_service {
-    host_name           => $::icinga::collect_hostname,
-    use                 => 'generic-service',
-    target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
-  }
-
   if $::icinga::client {
     @@nagios_host{$::icinga::collect_hostname:
       ensure                => present,
@@ -55,9 +49,12 @@ class icinga::collect {
     }
 
     @@nagios_service{"check_ping_${::fqdn}":
+      host_name           => $::icinga::collect_hostname,
+      use                 => 'generic-service',
       check_command       => 'check_ping!100.0,20%!500.0,60%',
       service_description => 'Ping',
       action_url          => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
+      target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
 
   }
