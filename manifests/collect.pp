@@ -22,7 +22,10 @@ class icinga::collect {
     Nagios_serviceescalation <<| |>> { notify => Service[$::icinga::service_server] }
     Nagios_serviceextinfo <<| |>>    { notify => Service[$::icinga::service_server] }
     Nagios_servicegroup <<| |>>      { notify => Service[$::icinga::service_server] }
-    Nagios_timeperiod <<| |>>        { notify => Service[$::icinga::service_server] }
+    Nagios_timeperiod <<| |>>        {
+      notify => Service[$::icinga::service_server],
+      target => "${::icinga::targetdir}/timeperiods.cfg",
+    }
   }
 
   if $::icinga::client {
