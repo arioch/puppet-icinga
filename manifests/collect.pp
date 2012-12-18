@@ -28,21 +28,22 @@ class icinga::collect {
   Nagios_service {
     host_name           => $::icinga::collect_hostname,
     use                 => 'generic-service',
-    notification_period => $::icinga::notification_period,
     target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 
   if $::icinga::client {
     @@nagios_host{$::icinga::collect_hostname:
-      ensure             => present,
-      address            => $::icinga::collect_ipaddress,
-      max_check_attempts => $::icinga::max_check_attempts,
-      check_command      => 'check-host-alive',
-      use                => 'linux-server',
-      parents            => $::icinga::parents,
-      hostgroups         => $::icinga::hostgroups,
-      action_url         => '/pnp4nagios/graph?host=$HOSTNAME$',
-      target             => "${::icinga::targetdir}/hosts/host-${::fqdn}.cfg",
+      ensure                => present,
+      address               => $::icinga::collect_ipaddress,
+      max_check_attempts    => $::icinga::max_check_attempts,
+      check_command         => 'check-host-alive',
+      use                   => 'linux-server',
+      parents               => $::icinga::parents,
+      hostgroups            => $::icinga::hostgroups,
+      action_url            => '/pnp4nagios/graph?host=$HOSTNAME$',
+      notification_period   => $::icinga::notification_period,
+      notifications_enabled => $::icinga::notifications_enabled,
+      target                => "${::icinga::targetdir}/hosts/host-${::fqdn}.cfg",
     }
 
     @@nagios_hostextinfo{$::icinga::collect_hostname:
