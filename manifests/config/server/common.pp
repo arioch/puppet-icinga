@@ -29,7 +29,7 @@ class icinga::config::server::common {
   }
 
   file{"${::icinga::targetdir}/timeperiods.cfg":
-    content => template('icinga/common/timeperiods.cfg.erb'),
+    ensure => 'present',
   }
 
   file{"${::icinga::targetdir}/contacts":
