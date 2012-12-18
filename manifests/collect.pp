@@ -3,6 +3,7 @@
 # This class provides resource collection.
 #
 class icinga::collect {
+
   if $::icinga::server {
     # Set defaults for collected resources.
     Nagios_host <<| |>>              { notify => Service[$::icinga::service_server] }
@@ -32,7 +33,7 @@ class icinga::collect {
   }
 
   if $::icinga::client {
-    @@nagios_host { $::icinga::collect_hostname:
+    @@nagios_host{$::icinga::collect_hostname:
       ensure             => present,
       address            => $::icinga::collect_ipaddress,
       max_check_attempts => $::icinga::max_check_attempts,
@@ -44,7 +45,7 @@ class icinga::collect {
       target             => "${::icinga::targetdir}/hosts/host-${::fqdn}.cfg",
     }
 
-    @@nagios_hostextinfo { $::icinga::collect_hostname:
+    @@nagios_hostextinfo{$::icinga::collect_hostname:
       ensure          => present,
       icon_image_alt  => $::operatingsystem,
       icon_image      => "os/${::operatingsystem}.png",
@@ -52,11 +53,11 @@ class icinga::collect {
       target          => "${::icinga::targetdir}/hosts/hostextinfo-${::fqdn}.cfg",
     }
 
-    @@nagios_service { "check_ping_${::fqdn}":
+    @@nagios_service{"check_ping_${::fqdn}":
       check_command       => 'check_ping!100.0,20%!500.0,60%',
       service_description => 'Ping',
       action_url          => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
     }
+
   }
 }
-
