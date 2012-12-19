@@ -40,15 +40,10 @@ class icinga::collect {
       action_url            => '/pnp4nagios/graph?host=$HOSTNAME$',
       notification_period   => $::icinga::notification_period,
       notifications_enabled => $::icinga::notifications_enabled,
+      icon_image_alt        => $::operatingsystem,
+      icon_image            => "os/${::operatingsystem}.png",
+      statusmap_image       => "os/${::operatingsystem}.png",
       target                => "${::icinga::targetdir}/hosts/host-${::fqdn}.cfg",
-    }
-
-    @@nagios_hostextinfo{$::icinga::collect_hostname:
-      ensure          => present,
-      icon_image_alt  => $::operatingsystem,
-      icon_image      => "os/${::operatingsystem}.png",
-      statusmap_image => "os/${::operatingsystem}.png",
-      target          => "${::icinga::targetdir}/hosts/hostextinfo-${::fqdn}.cfg",
     }
 
     @@nagios_service{"check_ping_${::fqdn}":
