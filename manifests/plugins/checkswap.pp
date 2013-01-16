@@ -14,6 +14,7 @@ class icinga::plugins::checkswap (
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
       content => "command[check_swap]=${::icinga::plugindir}/check_swap -w 50% -c 25%\n",
+      notify  => Service[$::icinga::service_client],
     }
 
     @@nagios_service{"check_swap_${::fqdn}":
