@@ -102,14 +102,6 @@ define command{
         command_line    $USER1$/check_users -w $ARG1$ -c $ARG2$
         }
 
-
-# 'check_local_swap' command definition
-define command{
-  command_name  check_local_swap
-  command_line  $USER1$/check_swap -w $ARG1$ -c $ARG2$
-}
-
-
 # 'check_local_mrtgtraf' command definition
 define command{
   command_name  check_local_mrtgtraf
