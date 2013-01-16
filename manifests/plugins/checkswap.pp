@@ -13,7 +13,7 @@ class icinga::plugins::checkswap (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_swap]=<%= scope.lookupvar('icinga::plugindir') %>/check_swap -w 50% -c 25%\n",
+      content => "command[check_swap]=${::icinga::plugindir}/check_swap -w 50% -c 25%\n",
     }
 
     @@nagios_service{"check_swap_${::fqdn}":
