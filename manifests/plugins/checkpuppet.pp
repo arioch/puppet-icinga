@@ -20,6 +20,14 @@ class icinga::plugins::checkpuppet (
       require => Class['icinga::config'];
     }
 
+    file{"${::icinga::includedir_client}/puppet.cfg":
+      ensure  => 'file',
+      mode    => '0644',
+      owner   => $::icinga::client_user,
+      group   => $::icinga::client_group,
+      content => "command[check_puppet]=<%= scope.lookupvar('icinga::plugindir') %>/check_puppet -w 604800 -c 907200\n",
+    }
+
     @@nagios_service { "check_puppet_${::fqdn}":
       check_command         => 'check_nrpe_command!check_puppet',
       service_description   => 'Puppet',
