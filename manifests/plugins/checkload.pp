@@ -3,15 +3,29 @@
 # This class provides a checkload plugin.
 #
 class icinga::plugins::checkload (
-  $check_warning         = '',
-  $check_critical        = '',
+  $pkgname               = 'nagios-plugins-load',
+  $check_warning         = '15,10,5',
+  $check_critical        = '30,25,20',
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
 ) inherits icinga {
 
   if $icinga::client {
-    @@nagios_service { "check_load_${::fqdn}":
+    package{$pkgname:
+      ensure => 'installed',
+    }
+
+    file{"${::icinga::includedir_client}/load.cfg":
+      ensure  => 'file',
+      mode    => '0644',
+      owner   => $::icinga::client_user,
+      group   => $::icinga::client_group,
+      content => "command[check_load]=${::icinga::plugindir}/check_load -w $check_warning -c $check_critical\n",
+      notify  => Service[$::icinga::service_client],
+    }
+
+    @@nagios_service{"check_load_${::fqdn}":
       check_command         => 'check_nrpe_command!check_load',
       service_description   => 'Server load',
       host_name             => $::fqdn,
