@@ -226,13 +226,6 @@ define command{
         command_line    $USER1$/check_dummy $ARG1$
         }
 
-# 'check_all_disks' command definition
-define command{
-  command_name    check_all_disks
-  command_line    $USER1$/check_disk -w '$ARG1$' -c '$ARG2$' -e
-}
-
-
 ################################################################################
 #
 # SAMPLE PERFORMANCE DATA COMMANDS
