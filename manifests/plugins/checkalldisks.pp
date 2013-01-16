@@ -17,6 +17,7 @@ class icinga::plugins::checkalldisks (
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
       content => "command[check_all_disks]=sudo ${::icinga::plugindir}/check_disk -w 10% -c 5%\n",
+      notify  => Service[$::icinga::service_client],
     }
 
     @@nagios_service { "check_all_disks_${::fqdn}":

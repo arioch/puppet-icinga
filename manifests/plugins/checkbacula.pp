@@ -20,6 +20,7 @@ class icinga::plugins::checkbacula (
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
       content => "command[check_bacula]=${::icinga::plugindir}/check_bacula -j ${jobname} -w ${warning} -c ${critical}\n",
+      notify  => Service[$::icinga::service_client],
     }
 
     @@nagios_service{"check_bacula_${::fqdn}":
