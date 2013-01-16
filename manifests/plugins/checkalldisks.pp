@@ -11,6 +11,14 @@ class icinga::plugins::checkalldisks (
 ) inherits icinga {
 
   if $icinga::client {
+    file{"${::icinga::includedir_client}/all_disks.cfg":
+      ensure  => 'file',
+      mode    => '0644',
+      owner   => $::icinga::client_user,
+      group   => $::icinga::client_group,
+      content => "command[check_all_disks]=sudo <%= scope.lookupvar('icinga::plugindir') %>/check_disk -w 10% -c 5%\n",
+    }
+
     @@nagios_service { "check_all_disks_${::fqdn}":
       check_command         => 'check_nrpe_command!check_all_disks',
       service_description   => 'Disks',
