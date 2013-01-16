@@ -3,7 +3,6 @@
 #
 
 command[check_mem]=<%= scope.lookupvar('icinga::plugindir') %>/check_mem -w 90,25 -c 95,50
-command[check_swap]=<%= scope.lookupvar('icinga::plugindir') %>/check_swap -w 50% -c 25%
 command[check_load]=<%= scope.lookupvar('icinga::plugindir') %>/check_load -w 15,10,5 -c 30,25,20
 command[check_total_procs]=<%= scope.lookupvar('icinga::plugindir') %>/check_procs -w 200 -c 250
 command[check_mysqld]=<%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl
