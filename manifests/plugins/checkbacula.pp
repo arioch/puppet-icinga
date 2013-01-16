@@ -19,7 +19,7 @@ class icinga::plugins::checkbacula (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_bacula]=<%= scope.lookupvar('icinga::plugindir') %>/check_bacula -j ${jobname} -w ${warning} -c ${critical}\n",
+      content => "command[check_bacula]=${::icinga::plugindir}/check_bacula -j ${jobname} -w ${warning} -c ${critical}\n",
     }
 
     @@nagios_service{"check_bacula_${::fqdn}":
