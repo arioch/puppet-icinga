@@ -12,8 +12,10 @@ class icinga::plugins::checkload (
 ) inherits icinga {
 
   if $icinga::client {
-    package{$pkgname:
-      ensure => 'installed',
+    if $::osfamily != 'Debian' {
+      package{$pkgname:
+        ensure => 'installed',
+      }
     }
 
     file{"${::icinga::includedir_client}/load.cfg":
