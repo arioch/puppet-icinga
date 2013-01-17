@@ -3,8 +3,8 @@
 # This class provides a checkalldisks plugin.
 #
 class icinga::plugins::checkalldisks (
-  $check_warning         = '',
-  $check_critical        = '',
+  $check_warning         = '10%',
+  $check_critical        = '5%',
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
@@ -16,7 +16,7 @@ class icinga::plugins::checkalldisks (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_all_disks]=sudo ${::icinga::plugindir}/check_disk -w 10% -c 5%\n",
+      content => "command[check_all_disks]=sudo ${::icinga::plugindir}/check_disk -w ${check_warning} -c ${check_critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
