@@ -24,7 +24,7 @@ class icinga::plugins::checkmailq (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_mailq]=${::icinga::plugindir}/check_mailq -w ${check_warning} -c ${check_critical} -M ${mailserver_type}\n",
+      content => "command[check_mailq]=sudo ${::icinga::plugindir}/check_mailq -w ${check_warning} -c ${check_critical} -M ${mailserver_type}\n",
       notify  => Service[$::icinga::service_client],
     }
 
