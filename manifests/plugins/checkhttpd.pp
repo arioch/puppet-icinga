@@ -33,6 +33,8 @@ class icinga::plugins::checkhttpd (
     file {
       "${::icinga::includedir_client}/httpd_performance.cfg":
         ensure  => $ensure,
+        owner   => $::icinga::client_user,
+        group   => $::icinga::client_group,
         notify  => Service[$icinga::service_client],
         content => template('icinga/plugins/httpd_performance.cfg');
     }
