@@ -20,6 +20,7 @@ class icinga::plugins::checkipsec (
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
     content => "command[check_ipsec]=${::icinga::usrlib}/nagios/plugins/check_ipsec --tunnels ${tunnels}\n",
+    notify  => Service[$::icinga::service_client],
   }
 
   @@nagios_service{"check_ipsec_tunnels_${::fqdn}":

@@ -15,6 +15,7 @@ class icinga::plugins::checkntp (
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
     content => "command[check_ntp]=${::icinga::usrlib}/nagios/plugins/check_ntp -H ${ntp_server} -w ${warn_value} -c ${crit_value}\n",
+    notify  => Service[$::icinga::service_client],
   }
 
   @@nagios_service{"check_ntp_${::fqdn}":
