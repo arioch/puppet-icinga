@@ -11,7 +11,7 @@ class icinga::plugins::checkipsec (
   }
 
   sudo::conf{'icinga_nrpe_check_ipsec':
-    content => "$::icinga::client_user ALL=NOPASSWD:/usr/lib/nagios/plugins/check_ipsec,/usr/lib64/nagios/plugins/check_ipsec",
+    content => "$::icinga::client_user ALL=(ALL) NOPASSWD:/usr/lib/nagios/plugins/check_ipsec,/usr/lib64/nagios/plugins/check_ipsec",
   }
 
   file{"${::icinga::includedir_client}/ipsec.cfg":
