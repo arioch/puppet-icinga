@@ -19,7 +19,7 @@ class icinga::plugins::checkipsec (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_ipsec]=${::icinga::usrlib}/nagios/plugins/check_ipsec --tunnels ${tunnels}\n",
+    content => "command[check_ipsec]=sudo ${::icinga::usrlib}/nagios/plugins/check_ipsec --tunnels ${tunnels}\n",
     notify  => Service[$::icinga::service_client],
   }
 
