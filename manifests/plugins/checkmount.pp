@@ -1,7 +1,7 @@
 define icinga::plugins::checkmount (
-  pkgname                = 'nagios-plugins-mount',
-  mountpoint             = undef,
-  type                   = undef,
+  $pkgname                = 'nagios-plugins-mount',
+  $mountpoint             = undef,
+  $type                   = undef,
   $max_check_attempts    = $::icinga::params::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
