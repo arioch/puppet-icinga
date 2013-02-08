@@ -11,7 +11,7 @@ class icinga::plugins::checkipsec (
   }
 
   sudo::conf{'icinga_nrpe_check_ipsec':
-    content => "$::icinga::client_user ALL=(ALL) NOPASSWD:/usr/lib/nagios/plugins/check_ipsec,/usr/lib64/nagios/plugins/check_ipsec\n",
+    content => "${::icinga::client_user} ALL=(ALL) NOPASSWD:/usr/lib/nagios/plugins/check_ipsec,/usr/lib64/nagios/plugins/check_ipsec\n",
   }
 
   file{"${::icinga::includedir_client}/ipsec.cfg":
@@ -24,8 +24,8 @@ class icinga::plugins::checkipsec (
   }
 
   @@nagios_service{"check_ipsec_tunnels_${::fqdn}":
-    check_command         => "check_nrpe_command!check_ipsec",
-    service_description   => "IPsec tunnels",
+    check_command         => 'check_nrpe_command!check_ipsec',
+    service_description   => 'IPsec tunnels',
     host_name             => $::fqdn,
     max_check_attempts    => $max_check_attempts,
     notification_period   => $notification_period,

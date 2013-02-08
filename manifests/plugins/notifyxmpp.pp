@@ -23,13 +23,13 @@ class icinga::plugins::notifyxmpp (
       require => Class['icinga::config'];
     }
 
-    @@nagios_command { "notify-by-xmpp":
+    @@nagios_command{'notify-by-xmpp':
       ensure       => present,
       command_line => '$USER1$/notify_via_jabber "$NOTIFICATIONTYPE$ $HOSTNAME$ $SERVICEDESC$ $SERVICESTATE$ $SERVICEOUTPUT$ $LONGDATETIME$" $CONTACTPAGER$',
       target       => "${::icinga::targetdir}/commands/puppet-notify-by-xmpp.cfg",
     }
 
-    @@nagios_command { "host-notify-by-xmpp":
+    @@nagios_command{'host-notify-by-xmpp':
       ensure       => present,
       command_line => '$USER1$/notify_via_jabber "Host \'$HOSTALIAS$\' is $HOSTSTATE$ - Info : $HOSTOUTPUT$" $CONTACTPAGER$',
       target       => "${::icinga::targetdir}/commands/puppet-notify-by-xmpp.cfg",
