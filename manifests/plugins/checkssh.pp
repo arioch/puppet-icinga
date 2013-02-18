@@ -7,6 +7,7 @@ class icinga::plugins::checkssh (
   $check_warning         = '',
   $check_critical        = '',
   $notification_period   = $::icinga::notification_period,
+  $max_check_attempts    = $::icinga::params::max_check_attempts,
   $notifications_enabled = $::icinga::notifications_enabled,
 ) inherits icinga {
 
@@ -16,6 +17,7 @@ class icinga::plugins::checkssh (
       service_description   => 'SSH',
       host_name             => $::fqdn,
       notification_period   => $notification_period,
+      max_check_attempts    => $max_check_attempts,
       notifications_enabled => $notifications_enabled,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
