@@ -7,7 +7,7 @@ class icinga::plugins::checkssh (
   $check_warning         = '',
   $check_critical        = '',
   $notification_period   = $::icinga::notification_period,
-  $max_check_attempts    = $::icinga::params::max_check_attempts,
+  $max_check_attempts    = $::icinga::max_check_attempts,
   $notifications_enabled = $::icinga::notifications_enabled,
 ) inherits icinga {
 
