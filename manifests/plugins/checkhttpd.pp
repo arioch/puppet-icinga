@@ -29,6 +29,11 @@ class icinga::plugins::checkhttpd (
       notify => Service[$icinga::service_client];
   }
 
+  file{"${::icinga::plugindir}/check_apache-auto.pl":
+    seltype => 'nagios_services_plugin_exec_t',
+    require => Package[$pkg_nagios_plugins_httpd],
+  }
+
   if $perfdata {
     file {
       "${::icinga::includedir_client}/httpd_performance.cfg":
