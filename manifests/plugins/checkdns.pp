@@ -1,14 +1,16 @@
-# == Class: icinga::plugins::checkdns
+# == Define: icinga::plugins::checkdns
 #
-# This class provides a checkdns plugin.
+# This define provides a checkdns plugin.
 #
-class icinga::plugins::checkdns (
-  $dnsname,
+define icinga::plugins::checkdns (
+  $dnsname               = $name,
   $expected_answer,
   $notification_period   = $::icinga::notification_period,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notifications_enabled = $::icinga::notifications_enabled,
-) inherits icinga {
+) {
+
+  require ::icinga
 
   if $icinga::client {
     @@nagios_service { "check_dns_${::fqdn}_${dnsname}":
