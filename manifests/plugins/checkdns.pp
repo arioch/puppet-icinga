@@ -1,6 +1,6 @@
-# == Class: icinga::plugins::checkssh
+# == Class: icinga::plugins::checkdns
 #
-# This class provides a checkssh plugin.
+# This class provides a checkdns plugin.
 #
 class icinga::plugins::checkdns (
   $dnsname,
