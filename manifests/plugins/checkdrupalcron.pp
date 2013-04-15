@@ -7,7 +7,7 @@ class icinga::plugins::checkdrupalcron (
   $pkgname                = 'nagios-plugins-drupalcron',
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
-  $host_name              = ${::fqdn},
+  $host_name              = $::fqdn,
   $warning                = '0',
   $critical               = '0',
   $uri                    = '',
@@ -33,7 +33,7 @@ class icinga::plugins::checkdrupalcron (
     @@nagios_service{"check_drupal_cron_${host_name}":
       check_command         => 'check_nrpe_command!check_drupal_cron',
       service_description   => 'Check last Drupal cron update',
-      host_name             => ${host_name},
+      host_name             => $host_name,
       use                   => 'generic-service',
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
