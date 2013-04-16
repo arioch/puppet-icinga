@@ -26,7 +26,7 @@ class icinga::plugins::checkdrupalcron (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_drupal_cron]=${::icinga::plugindir}/check_drupal_cron ${uri} ${root} ${warning_after_seconds} ${critical_after_seconds}\n",
+      content => "command[check_drupal_cron]=${::icinga::plugindir}/check_drupal_cron -u ${uri} -r ${root} -w ${warning_after_seconds} -c ${critical_after_seconds}\n",
       notify  => Service[$::icinga::service_client],
     }
 
