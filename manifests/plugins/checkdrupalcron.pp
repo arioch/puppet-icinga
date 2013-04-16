@@ -17,10 +17,10 @@ define icinga::plugins::checkdrupalcron (
   require icinga
 
   if $icinga::client {
-    
+
     if ! defined(Package[$pkgname]) {
       package{$pkgname:
-       ensure => 'installed',
+        ensure => 'installed',
       }
     }
 
