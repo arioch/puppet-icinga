@@ -17,11 +17,14 @@ define icinga::plugins::checkdrupalcron (
   require icinga
 
   if $icinga::client {
-    package{$pkgname:
-      ensure => 'installed',
+    
+    if ! defined(Package[$pkgname]) {
+      package{$pkgname:
+       ensure => 'installed',
+      }
     }
 
-    file{"${::icinga::includedir_client}/check_drupal_cron.cfg":
+    file{"${::icinga::includedir_client}/check_drupal_cron_${title}.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
