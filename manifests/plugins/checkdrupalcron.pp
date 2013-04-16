@@ -3,7 +3,7 @@
 # This class provides a checkdrupalcron plugin.
 #
 # Warning an Critial expressed in seconds.  3600sec = 1h, 7200sec = 2h
-class icinga::plugins::checkdrupalcron (
+define icinga::plugins::checkdrupalcron (
   $pkgname                = 'nagios-plugins-drupalcron',
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
@@ -14,7 +14,9 @@ class icinga::plugins::checkdrupalcron (
   $root                   = '',
   $warning_after_seconds  = '3600',
   $critical_after_seconds = '7200',
-) inherits icinga {
+) {
+
+  require icinga
 
   if $icinga::client {
     package{$pkgname:
@@ -32,7 +34,7 @@ class icinga::plugins::checkdrupalcron (
 
     @@nagios_service{"check_drupal_cron_${host_name}":
       check_command         => 'check_nrpe_command!check_drupal_cron',
-      service_description   => 'Check last Drupal cron update',
+      service_description   => "Check Drupal Cron ${title}",
       host_name             => $host_name,
       use                   => 'generic-service',
       notification_period   => $notification_period,
