@@ -29,7 +29,7 @@ define icinga::plugins::checkdrupalcron (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_drupal_cron]=${::icinga::plugindir}/check_drupal_cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n",
+      content => "command[check_drupal_cron_${title}]=${::icinga::plugindir}/check_drupal_cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
