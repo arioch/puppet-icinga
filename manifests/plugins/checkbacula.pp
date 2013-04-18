@@ -2,14 +2,16 @@
 #
 # This class provides a checkbacula plugin.
 #
-class icinga::plugins::checkbacula (
+define icinga::plugins::checkbacula (
   $pkgname               = 'nagios-plugins-bacula',
   $jobname               = $::fqdn,
   $warning               = '1',
   $critical              = '0',
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-) inherits icinga {
+) {
+
+  require ::icinga
 
   if $icinga::client {
     package{$pkgname:
