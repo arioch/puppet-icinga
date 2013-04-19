@@ -14,22 +14,24 @@ define icinga::plugins::checkbacula (
   require ::icinga
 
   if $icinga::client {
-    package{$pkgname:
-      ensure => 'installed',
+    if ! defined(Package[$pkgname]) {
+      package{$pkgname:
+        ensure => 'installed',
+      }
     }
 
-    file{"${::icinga::includedir_client}/bacula.cfg":
+    file{"${::icinga::includedir_client}/bacula_${jobname}.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_bacula]=${::icinga::plugindir}/check_bacula -j ${jobname} -w ${warning} -c ${critical}\n",
+      content => "command[check_bacula_${jobname}]=${::icinga::plugindir}/check_bacula -j ${jobname} -w ${warning} -c ${critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
-    @@nagios_service{"check_bacula_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_bacula',
-      service_description   => 'Bacula Jobs',
+    @@nagios_service{"check_bacula_${jobname}":
+      check_command         => "check_nrpe_command!check_bacula_${jobname}",
+      service_description   => "Bacula Job: ${jobname}",
       host_name             => $::fqdn,
       use                   => 'generic-service',
       notification_period   => $notification_period,
