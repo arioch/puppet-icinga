@@ -23,7 +23,7 @@ define icinga::plugins::checkmailman (
 
     if ! defined(Package[$pkgname]) {
       package{$pkgname:
-        ensure => 'installed',
+        ensure => 'latest',
       }
     }
 
