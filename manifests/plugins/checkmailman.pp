@@ -38,7 +38,7 @@ define icinga::plugins::checkmailman (
 
     @@nagios_service{"check_mailman_${host_name}_${title}":
       check_command         => "check_nrpe_command!check_mailman_${title}",
-      service_description   => "Check Mailman ${title} - ${queue} queue",
+      service_description   => "Check Mailman - ${queue} queue",
       host_name             => $host_name,
       use                   => 'generic-service',
       notification_period   => $notification_period,
