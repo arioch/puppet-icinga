@@ -32,12 +32,12 @@ define icinga::plugins::checkdrupalcron (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_drupal_cron_${title}]=${::icinga::plugindir}/check_drupal_cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n",
+      content => "command[check_drupal_cron_${title}]=sudo ${::icinga::plugindir}/check_drupal_cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
     @@nagios_service{"check_drupal_cron_${host_name}_${title}":
-      check_command         => "check_nrpe_command!sudo check_drupal_cron_${title}",
+      check_command         => "check_nrpe_command!check_drupal_cron_${title}",
       service_description   => "Check Drupal Cron ${title}",
       host_name             => $host_name,
       use                   => 'generic-service',
