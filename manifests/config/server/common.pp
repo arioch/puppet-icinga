@@ -24,8 +24,24 @@ class icinga::config::server::common {
     recurse => true,
   }
 
+  file{"${::icinga::sharedir_server}/bin":
+    recurse => true,
+  }
+
+  file{"${::icinga::sharedir_server}/bin/sched_down.pl":
+    ensure => 'present',
+    source => 'puppet:///modules/icinga/sched_down.pl',
+  }
+
   file{"${::icinga::targetdir}/hostgroups.cfg":
     ensure => 'present',
+  }
+
+  concat{"$::icinga::confdir_server/downtime.cfg":}
+  concat::fragment {'header':
+    target  => "$::icinga::confdir_server/downtime.cfg",
+    order   => 0,
+    content => "# Managed by Puppet\n",
   }
 
   file{"${::icinga::targetdir}/timeperiods.cfg":
@@ -56,4 +72,18 @@ class icinga::config::server::common {
     mode   => '0644',
   }
 
+  nagios_command {'schedule_script':
+    command_line  => "${::icinga::sharedir_server}/bin/sched_down.pl \$ARG1\$",
+    target        => "${::icinga::targetdir}/commands/schedule_script.cfg",
+  }
+
+  nagios_service {'schedule_downtimes':
+    check_command       => 'schedule_script!-d0',
+    service_description => 'schedule_downtimes',
+    host_name           => "${::fqdn}",
+    target              => "/etc/icinga/objects/services/${::fqdn}.cfg",
+    check_period        => '24x7',
+    check_interval      => '60',
+    retry_interval      => '60',
+  }
 }

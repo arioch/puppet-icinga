@@ -26,6 +26,7 @@ class icinga::collect {
       notify => Service[$::icinga::service_server],
       target => "${::icinga::targetdir}/timeperiods.cfg",
     }
+    Nagios_downtime <<| tag => 'nagios_downtime' |>> {  }
   }
 
   if $::icinga::client {
