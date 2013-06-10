@@ -30,6 +30,8 @@ class icinga::config::server::common {
 
   file{"${::icinga::sharedir_server}/bin/sched_down.pl":
     ensure => 'present',
+    owner  => "${server_user}",
+    group  => "${server_group}",
     source => 'puppet:///modules/icinga/sched_down.pl',
   }
 
@@ -82,8 +84,6 @@ class icinga::config::server::common {
     service_description => 'schedule_downtimes',
     host_name           => "${::fqdn}",
     target              => "/etc/icinga/objects/services/${::fqdn}.cfg",
-    check_period        => '24x7',
-    check_interval      => '60',
-    retry_interval      => '60',
+    max_check_attempts  => '4',
   }
 }
