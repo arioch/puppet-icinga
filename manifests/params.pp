@@ -46,8 +46,8 @@ class icinga::params {
       $service_server_enable     = true
       $service_server_hasstatus  = true
       $service_server_hasrestart = true
-      $pidfile_client            = '/var/run/nagios/nrpe.pid'
-      $pidfile_server            = '/var/run/icinga/icinga.pid'
+      $pidfile_client            = '/var/run/nagios.pid'
+      $pidfile_server            = '/var/run/icinga.pid'
       $confdir_client            = '/etc/nagios'
       $confdir_server            = '/etc/icinga'
       $vardir_client             = '/var/lib/nagios'
