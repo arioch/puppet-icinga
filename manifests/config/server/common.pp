@@ -81,7 +81,7 @@ class icinga::config::server::common {
 
   nagios_service {'schedule_downtimes':
     check_command       => 'schedule_script!-d0',
-    service_description => 'schedule_downtimes',
+    service_description => 'Schedule Downtimes',
     host_name           => "${::fqdn}",
     target              => "/etc/icinga/objects/services/${::fqdn}.cfg",
     max_check_attempts  => '4',
