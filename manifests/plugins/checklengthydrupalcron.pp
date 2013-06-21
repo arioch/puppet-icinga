@@ -6,7 +6,10 @@
 #
 # Warning and Critical expressed in seconds.  3600sec = 1h, 7200sec = 2h
 define icinga::plugins::checklengthydrupalcron (
-  $pkgname                = 'nagios-plugins-procs',
+  $pkgname                = $::operatingsystem ? {
+    'centos' => 'nagios-plugins-procs',
+    'debian' => 'nagios-plugins-basic',
+  },
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
   $host_name              = $::fqdn,
