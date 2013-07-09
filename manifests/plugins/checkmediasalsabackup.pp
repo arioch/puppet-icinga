@@ -2,7 +2,7 @@
 #
 # This class provides a checkmediasalsabackup plugin.
 #
-# Warning and Critical expressed in seconds.  3600sec = 1h, 7200sec = 2h
+# Warning and Critical expressed in number of missing backups
 define icinga::plugins::checkmediasalsabackup (
   $pkgname                = $::operatingsystem ? {
     'centos' => 'nagios-plugins-checkmediasalsabackup',
@@ -11,8 +11,9 @@ define icinga::plugins::checkmediasalsabackup (
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
   $host_name              = $::fqdn,
-  $warning                = '3600',
-  $critical               = '86400',
+  $environment            = $::environment,
+  $warning                = '1',
+  $critical               = '2',
 ) {
 
   require icinga
@@ -30,7 +31,7 @@ define icinga::plugins::checkmediasalsabackup (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_mediasalsa_backup_${title}]=sudo ${::icinga::plugindir}/check_mediasalsa_backup -w ${warning} -c ${critical}\n",
+      content => "command[check_mediasalsa_backup_${title}]=sudo ${::icinga::plugindir}/check_mediasalsa_backup -e ${environment} -w ${warning} -c ${critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
