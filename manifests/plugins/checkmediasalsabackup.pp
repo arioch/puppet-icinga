@@ -22,7 +22,7 @@ define icinga::plugins::checkmediasalsabackup (
 
     if ! defined(Package[$pkgname]) {
       package{$pkgname:
-        ensure => 'installed',
+        ensure => 'latest',
       }
     }
 
