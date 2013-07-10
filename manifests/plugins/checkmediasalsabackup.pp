@@ -37,7 +37,7 @@ define icinga::plugins::checkmediasalsabackup (
 
     @@nagios_service{"check_mediasalsa_backup_${host_name}_${title}":
       check_command         => "check_nrpe_command!check_mediasalsa_backup_${title}",
-      service_description   => "Check Mediasalsa Backups ${host_name}",
+      service_description   => "Check Mediasalsa Backups",
       host_name             => $host_name,
       use                   => 'generic-service',
       notification_period   => $notification_period,
