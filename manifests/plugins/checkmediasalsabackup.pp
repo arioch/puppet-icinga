@@ -11,7 +11,7 @@ define icinga::plugins::checkmediasalsabackup (
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
   $host_name              = $::fqdn,
-  $environment            = $::environment,
+  $backup_location,
   $warning                = '1',
   $critical               = '2',
 ) {
@@ -31,7 +31,7 @@ define icinga::plugins::checkmediasalsabackup (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_mediasalsa_backup_${title}]=sudo ${::icinga::plugindir}/check_mediasalsa_backup -e ${environment} -w ${warning} -c ${critical}\n",
+      content => "command[check_mediasalsa_backup_${title}]=sudo ${::icinga::plugindir}/check_mediasalsa_backup -p ${backup_location} -w ${warning} -c ${critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
