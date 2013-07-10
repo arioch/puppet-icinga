@@ -23,7 +23,7 @@ define icinga::plugins::checklengthydrupalcron (
 
     if ! defined(Package[$pkgname]) {
       package{$pkgname:
-        ensure => 'installed',
+        ensure => 'latest',
       }
     }
 
