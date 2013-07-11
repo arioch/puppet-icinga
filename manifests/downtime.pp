@@ -24,6 +24,11 @@ define icinga::downtime(
   $register            = '1',
 ) {
 
+  # Validate mandatory parameters
+  $mandatory_params = count([$hostname, $hostgroups, $servicegroups])
+  if (($mandatory_params == 0) or ($mandatory_params > 1)) {
+    fail("You must only pass 1 target parameter in {$name}")
+  }
 
   concat::fragment{"$name":
     target  => "$::icinga::confdir_server/downtime.cfg",
