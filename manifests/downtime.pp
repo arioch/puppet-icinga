@@ -18,7 +18,7 @@ define icinga::downtime(
   $author              = '',
   $comment             = '',
   $duration            = '',
-  $downtime_period     = '',
+  $downtime_period     = [],
   $fixed               = '',
   $propagate           = '1',
   $register            = '1',

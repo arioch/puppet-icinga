@@ -18,9 +18,10 @@ define downtime {
 	comment              <%= comment %>
 <% end -%>
 	duration             <%= duration %>
-	downtime_period      <%= downtime_period %>
+<% @downtime_period.each do |val| -%>
+	downtime_period      <%= val %>
+<% end -%>
 	fixed                <%= fixed %>
 	propagate            <%= propagate %>
 	register             <%= register %>
 }
-
