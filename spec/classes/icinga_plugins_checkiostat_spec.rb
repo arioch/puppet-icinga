@@ -1,6 +1,7 @@
-require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
+require 'spec_helper'
 
 describe 'icinga' do
+  let(:pre_condition) { '$concat_basedir = "/tmp"' }
   let(:title) { 'icinga' }
   let(:node)  { 'icinga' }
 
@@ -31,7 +32,7 @@ describe 'icinga' do
           :plugins => 'checkiostat',
         }
       }
-  
+
       it { should contain_file('/etc/nrpe.d/iostat.cfg') }
       it { should contain_package('nagios-plugins-iostat') }
       it { should_not raise_error(Puppet::ParseError) }
@@ -53,7 +54,7 @@ describe 'icinga' do
           :plugins => 'checkiostat',
         }
       }
-  
+
       it do
         should contain_file('/etc/nrpe.d/iostat.cfg')
         should contain_package('nagios-plugins-iostat')
@@ -84,7 +85,7 @@ describe 'icinga' do
           :plugins => 'checkiostat',
         }
       }
-  
+
       it do
         should contain_file('/etc/nagios/nrpe.d/iostat.cfg')
         should contain_package('nagios-plugin-check-iostat')
@@ -115,7 +116,7 @@ describe 'icinga' do
           :plugins => 'checkiostat',
         }
       }
-  
+
       it do
         should create_class('icinga')
         should include_class('icinga::config::server')

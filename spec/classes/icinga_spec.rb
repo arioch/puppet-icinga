@@ -1,6 +1,7 @@
-require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
+require 'spec_helper'
 
 describe 'icinga' do
+  let(:pre_condition) { '$concat_basedir = "/tmp"' }
   let(:title) { 'icinga' }
   let(:node)  { 'icinga' }
 
@@ -24,7 +25,7 @@ describe 'icinga' do
       }
 
       let(:params) {
-        { 
+        {
           :client => 'true',
         }
       }
@@ -102,7 +103,7 @@ describe 'icinga' do
       it { should include_class('icinga::plugins') }
       it { should include_class('icinga::collect') }
       it { should include_class('icinga::service') }
- 
+
       it { should_not contain_package('icinga').with_ensure('present') }
       it { should_not contain_service('icinga').with_ensure('running') }
       it { should_not contain_service('icinga').with_enable('true') }

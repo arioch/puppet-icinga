@@ -1,6 +1,7 @@
-require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
+require 'spec_helper'
 
 describe 'icinga' do
+  let(:pre_condition) { '$concat_basedir = "/tmp"' }
   let(:title) { 'icinga' }
   let(:node)  { 'icinga' }
 
@@ -31,7 +32,7 @@ describe 'icinga' do
           :plugins => 'checkhttpd',
         }
       }
-  
+
       it { should contain_package('nagios-plugins-apache-auto') }
       it { should_not raise_error(Puppet::ParseError) }
     end
@@ -52,7 +53,7 @@ describe 'icinga' do
           :plugins => 'checkhttpd',
         }
       }
-  
+
       it { should contain_package('nagios-plugins-apache-auto') }
       it { should_not raise_error(Puppet::ParseError) }
     end
@@ -80,7 +81,7 @@ describe 'icinga' do
           :plugins => 'checkhttpd',
         }
       }
-  
+
       it { should contain_package('nagios-plugin-check-apache-auto') }
       it { should_not raise_error(Puppet::ParseError) }
     end
@@ -108,7 +109,7 @@ describe 'icinga' do
           :plugins => 'checkhttpd',
         }
       }
-  
+
       it { should create_class('icinga') }
       it { should include_class('icinga::config::server') }
       it { should include_class('icinga::plugins::checkhttpd') }

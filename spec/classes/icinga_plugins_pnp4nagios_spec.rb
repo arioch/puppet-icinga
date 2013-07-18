@@ -1,6 +1,7 @@
-require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
+require 'spec_helper'
 
 describe 'icinga' do
+  let(:pre_condition) { '$concat_basedir = "/tmp"' }
   let(:title) { 'icinga' }
   let(:node)  { 'icinga' }
 
@@ -30,7 +31,7 @@ describe 'icinga' do
           :plugins => 'pnp4nagios',
         }
       }
-  
+
       it { should include_class('icinga::plugins::pnp4nagios') }
       it { should contain_file('/etc/pnp4nagios/apache2-pnp4nagios.conf') }
       it { should_not raise_error(Puppet::ParseError) }

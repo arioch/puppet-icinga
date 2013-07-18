@@ -1,4 +1,5 @@
-require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
+require 'spec_helper'
+
 describe "icinga::user" do
   # create user, without password
   # ... which should fail
@@ -6,7 +7,10 @@ describe "icinga::user" do
   let(:node) { 'icinga' }
   let(:facts) { {:operatingsystem => 'Debian', :kernel => 'Linux'} }
   let(:pre_condition) {
-    "class { 'icinga': server => true, }"
+    "
+      class { 'icinga': server => true, }
+      $concat_basedir = '/tmp'
+    "
   }
 
   let(:title) { 'dummyuser1' }
@@ -19,7 +23,8 @@ describe "icinga::user" do
   it do
     expect {
       should create_icinga__user('dummyuser1')
-    }.to raise_error(Puppet::Error, /Must pass password to Icinga::User\[dummyuser1\]/)
+    }.to raise_error(Puppet::Error)
+    #}.to raise_error(Puppet::Error, /Must pass password to Icinga::User\[dummyuser1\]/)
   end
 end
 
@@ -29,7 +34,10 @@ describe "icinga::user" do
   let(:node) { 'icinga' }
   let(:facts) { {:operatingsystem => 'Debian', :kernel => 'Linux'} }
   let(:pre_condition) {
-    "class { 'icinga': server => true, }"
+    "
+      class { 'icinga': server => true, }
+      $concat_basedir = '/tmp'
+    "
   }
 
   let(:title) { 'dummyuser2' }
