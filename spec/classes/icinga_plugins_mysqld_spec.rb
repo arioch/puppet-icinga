@@ -1,6 +1,7 @@
-require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
+require 'spec_helper'
 
 describe 'icinga' do
+  let(:pre_condition) { '$concat_basedir = "/tmp"' }
   let(:title) { 'icinga' }
   let(:node)  { 'icinga' }
 
@@ -31,7 +32,7 @@ describe 'icinga' do
           :plugins => 'checkmysqld',
         }
       }
-  
+
       it { should contain_file('/etc/nrpe.d/mysqld_performance.cfg') }
       it { should contain_package('nagios-plugins-mysqld') }
       it { should_not raise_error(Puppet::ParseError) }
@@ -53,7 +54,7 @@ describe 'icinga' do
           :plugins => 'checkmysqld',
         }
       }
-  
+
       it { should contain_file('/etc/nrpe.d/mysqld_performance.cfg') }
       it { should contain_package('nagios-plugins-mysqld') }
       it { should_not raise_error(Puppet::ParseError) }
@@ -82,7 +83,7 @@ describe 'icinga' do
           :plugins => 'checkmysqld',
         }
       }
-  
+
       it { should contain_file('/etc/nagios/nrpe.d/mysqld_performance.cfg') }
       it { should contain_package('nagios-plugin-check-mysqld') }
       it { should_not raise_error(Puppet::ParseError) }
@@ -111,7 +112,7 @@ describe 'icinga' do
           :plugins => 'checkmysqld',
         }
       }
-  
+
       it { should create_class('icinga') }
       it { should include_class('icinga::config::server') }
       it { should include_class('icinga::plugins::checkmysqld') }
