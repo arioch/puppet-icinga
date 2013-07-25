@@ -11,6 +11,7 @@ class icinga::params {
   $nrpe_allowed_hosts          = [ '127.0.0.1,', $::ipaddress ]
   $nrpe_server_address         = $::ipaddress
   $icinga_admins               = '*'
+  $collect_ipaddress           = $::ipaddress
   $collect_hostname            = $::fqdn
   $notification_cmd_host       = 'notify-host-by-email'
   $notification_cmd_service    = 'notify-service-by-email'
