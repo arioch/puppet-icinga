@@ -30,8 +30,8 @@ class icinga::config::server::common {
 
   file{"${::icinga::sharedir_server}/bin/sched_down.pl":
     ensure => 'present',
-    owner  => "${server_user}",
-    group  => "${server_group}",
+    owner  => "${::icinga::server_user}",
+    group  => "${::icinga::server_group}",
     source => 'puppet:///modules/icinga/sched_down.pl',
   }
 
