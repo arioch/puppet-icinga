@@ -9,13 +9,13 @@ class icinga::plugins::checktotalprocs (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-  $check_warning         = $::icinga::params::checktotalprocs_warning_level,
-  $check_critical        = $::icinga::params::checktotalprocs_critical_level,
+  $warning_level         = $::icinga::params::checktotalprocs_warning_level,
+  $critical_level        = $::icinga::params::checktotalprocs_critical_level,
 ) inherits icinga {
 
   if $icinga::client {
     @@nagios_service { "check_total_procs_${::fqdn}":
-      check_command         => "check_nrpe_command_args!check_total_procs!${check_warning} ${check_critical}",
+      check_command         => "check_nrpe_command_args!check_total_procs!${icinga::plugins::checktotalprocs::warning_level} ${icinga::plugins::checktotalprocs::critical_level}",
       service_description   => 'Total processes',
       contact_groups        => $contact_groups,
       host_name             => $::fqdn,

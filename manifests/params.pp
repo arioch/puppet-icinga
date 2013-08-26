@@ -108,7 +108,7 @@ class icinga::params {
       $package_client_ensure     = 'present'
       $package_server_ensure     = 'present'
       case $::operatingsystemrelease {
-        /^7/: { 
+        /^7/: {
           $package_client        = [ 'nrpe', 'nagios-plugins', 'nagios-plugins-all' ]
         }
         default: {
@@ -175,11 +175,10 @@ class icinga::params {
     default: {}
   }
 
-  # Plugin defaults
-  $checktotalprocs_warning_level  = 250
-  $checktotalprocs_critical_level = 350
+  # Plugin Defaults
+  $checktotalprocs_warning_level  = 700
+  $checktotalprocs_critical_level = 2000
 
   # Needs to be down here since $usrlib is defined in the distro specific params
   $plugindir                 = "${usrlib}/nagios/plugins"
-
 }
