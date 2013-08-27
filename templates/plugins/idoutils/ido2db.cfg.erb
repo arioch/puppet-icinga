@@ -13,7 +13,7 @@
 # This is the lockfile that IDO2DB will use to store its PID number
 # in when it is running in daemon mode.
 
-lock_file=/var/icinga/ido2db.lock
+lock_file=/var/run/icinga/ido2db.lock
 
 
 
@@ -44,7 +44,7 @@ socket_type=unix
 # This option is only valid if the socket type specified above
 # is "unix".
 
-socket_name=/var/icinga/ido.sock
+socket_name=/var/lib/icinga/ido.sock
 
 
 
@@ -268,7 +268,7 @@ debug_verbosity=1
 # DEBUG FILE
 # This option determines where the daemon should write debugging information.
 
-debug_file=/var/icinga/ido2db.debug
+debug_file=/var/log/icinga/ido2db.debug
 
 
 
