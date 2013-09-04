@@ -2,7 +2,7 @@
 #
 # This class provides the percona plugin.
 #
-#	http://www.percona.com/doc/percona-monitoring-plugins/nagios/
+# http://www.percona.com/doc/percona-monitoring-plugins/nagios/
 #
 class icinga::plugins::percona_replication_running (
   $ensure                = present,
@@ -11,12 +11,12 @@ class icinga::plugins::percona_replication_running (
   $notifications_enabled = $::icinga::notifications_enabled,
   $warning                = '1',
   $critical               = '1',
-  $host 								 = $::fqdn,
-  $user 								 = 'mysql',
-  $pass 								 = undef,
-  $port						 			 = 3306,
-  $socket								 = '/var/lib/mysql/mysql.sock',
-  $defaults_file				 = '/etc/my.cnf',
+  $host                  = $::fqdn,
+  $user                  = 'mysql',
+  $pass                  = undef,
+  $port                  = 3306,
+  $socket                = '/var/lib/mysql/mysql.sock',
+  $defaults_file         = '/etc/my.cnf',
 
 ) inherits icinga {
 
@@ -48,9 +48,9 @@ class icinga::plugins::percona_replication_running (
     notify  => Service[$::icinga::service_client],
   }
 
-	@@nagios_service { "check_percona_replication_running${::fqdn}":
+  @@nagios_service { "check_percona_replication_running${::fqdn}":
     check_command       => 'check_nrpe_command!check_percona_replication_running',
     service_description => 'Percona: Replication Running',
-	}
+  }
 
 }
