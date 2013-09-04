@@ -4,7 +4,7 @@
 #
 # http://www.percona.com/doc/percona-monitoring-plugins/nagios/
 #
-class icinga::plugins::percona_replication_delay (
+class icinga::plugins::checkpercona-replication-delay (
   $serverid,
   $ensure                = present,
   $max_check_attempts    = $::icinga::max_check_attempts,
@@ -12,12 +12,6 @@ class icinga::plugins::percona_replication_delay (
   $notifications_enabled = $::icinga::notifications_enabled,
   $warning               = '300',
   $critical              = '600',
-  $host                  = $::fqdn,
-  $user                  = 'mysql',
-  $pass                  = undef,
-  $port                  = 3306,
-  $socket                = '/var/lib/mysql/mysql.sock',
-  $defaults_file         = '/etc/my.cnf',
 
 ) inherits icinga {
 
@@ -45,7 +39,7 @@ class icinga::plugins::percona_replication_delay (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_percona_replication_delay]=${::icinga::plugindir}/pmp-check-mysql-replication-delay -H ${host} -l ${user} -p ${pass} -P ${port} -s ${serverid} -S ${socket} -w ${warning} -c ${critical}\n",
+    content => "command[check_percona_replication_delay]=${::icinga::plugindir}/pmp-check-mysql-replication-delay -s ${serverid} -w ${warning} -c ${critical}\n",
     notify  => Service[$::icinga::service_client],
   }
 

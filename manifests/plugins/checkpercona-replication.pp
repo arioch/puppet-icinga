@@ -4,17 +4,13 @@
 #
 # http://www.percona.com/doc/percona-monitoring-plugins/nagios/
 #
-class icinga::plugins::percona_replication_running (
+class icinga::plugins::checkpercona-replication (
   $ensure                = present,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
   $warning                = '1',
   $critical               = '1',
-  $host                  = $::fqdn,
-  $user                  = 'mysql',
-  $pass                  = undef,
-  $port                  = 3306,
   $socket                = '/var/lib/mysql/mysql.sock',
   $defaults_file         = '/etc/my.cnf',
 
@@ -44,7 +40,7 @@ class icinga::plugins::percona_replication_running (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_percona_replication_running]=${::icinga::plugindir}/pmp-check-mysql-replication-running -H ${host} -l ${user} -p ${pass} -P ${port} -S ${socket} -w ${warning} -c ${critical}\n",
+    content => "command[check_percona_replication_running]=${::icinga::plugindir}/pmp-check-mysql-replication-running -w ${warning} -c ${critical}\n",
     notify  => Service[$::icinga::service_client],
   }
 
