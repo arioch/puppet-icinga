@@ -41,7 +41,7 @@ class icinga::plugins::checkpercona-replication-delay (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_percona_replication_delay]=${::icinga::plugindir}/pmp-check-mysql-replication-delay -s ${serverid} -w ${warning} -c ${critical}\n",
+    content => "command[check_percona_replication_delay]=sudo ${::icinga::plugindir}/pmp-check-mysql-replication-delay -s ${serverid} -w ${warning} -c ${critical}\n",
     notify  => Service[$::icinga::service_client],
   }
 

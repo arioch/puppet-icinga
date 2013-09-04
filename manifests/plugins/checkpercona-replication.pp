@@ -42,7 +42,7 @@ class icinga::plugins::checkpercona-replication (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_percona_replication_running]=${::icinga::plugindir}/pmp-check-mysql-replication-running -w ${warning} -c ${critical}\n",
+    content => "command[check_percona_replication_running]=sudo ${::icinga::plugindir}/pmp-check-mysql-replication-running -w ${warning} -c ${critical}\n",
     notify  => Service[$::icinga::service_client],
   }
 
