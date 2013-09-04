@@ -20,10 +20,12 @@ class icinga::plugins::checkpercona-replication-delay (
     /Debian|Ubuntu/                       => 'percona-nagios-plugins',
   }
 
-  package {
-    $pkg_percona_nagios:
-      ensure => $ensure,
-      notify => Service[$icinga::service_client];
+  if ! defined(Package[$pkg_percona_nagios]) {
+    package {
+      $pkg_percona_nagios:
+        ensure => $ensure,
+        notify => Service[$icinga::service_client];
+    }
   }
 
   Nagios_service {
