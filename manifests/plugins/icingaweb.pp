@@ -17,8 +17,6 @@
 #  }
 #
 class icinga::plugins::icingaweb {
-  motd::register {'icinga-web':}
-
   if $icinga::server {
     include icinga::plugins::icingaweb::install
     include icinga::plugins::icingaweb::config
