@@ -74,7 +74,7 @@ class icinga::params {
 
       # Plugin: Icinga Web
       $icingaweb_pkg     = [ 'icinga-web', 'icinga-web-module-pnp' ]
-      $icingaweb_pkg_dep = [ 'perl-Locale-PO', 'php-ldap', 'php-pear', 'php-xml', 'php-mysql']
+      $icingaweb_pkg_dep = [ ]
       $icingaweb_confdir = '/usr/share/icinga-web'
       $icingaweb_bindir  = "${icingaweb_confdir}/bin:${::path}"
       $icingaweb_logdir  = '/usr/share/icinga-web/log'
