@@ -6,10 +6,6 @@ class icinga::plugins::icingaweb::config {
     owner   => $icinga::params::webserver_user,
     group   => $icinga::params::webserver_group,
     require => Package[$icinga::params::icingaweb_pkg],
-    notify  => [
-      Service[$icinga::params::service_server],
-      Service[$icinga::params::service_webserver],
-    ]
   }
 
   file {
