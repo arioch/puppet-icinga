@@ -81,7 +81,7 @@ class icinga::params {
       $icingaweb_dbname  = 'icinga_web'
       $icingaweb_dbuser  = 'icinga_web'
       $icingaweb_dbpass  = 'icinga_web'
-      $icingaweb_vhost   = '/etc/httpd/conf.d/icinga-web.conf'
+      $icingaweb_vhost   = '/etc/apache2/conf.d/icinga-web.conf'
 
       # IDOUTILS: TO BE REFACTORED
       $idoutils_pkg     = 'icinga-idoutils'
