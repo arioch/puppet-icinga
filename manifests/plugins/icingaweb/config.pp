@@ -20,8 +20,10 @@ class icinga::plugins::icingaweb::config {
       notify   => Exec['icinga_web-db-initialize'];
 
     '/etc/icinga-web/conf.d/databases.xml':
-      ensure   => present,
-      content  => template('icinga/plugins/icingaweb/databases.xml');
+      ensure  => present,
+      owner   => 'root',
+      mode    => '0640',
+      content => template('icinga/plugins/icingaweb/databases.xml');
   }
 
   exec {
