@@ -77,7 +77,7 @@ class icinga::params {
       $icingaweb_pkg_dep = [ ]
       $icingaweb_confdir = '/usr/share/icinga-web'
       $icingaweb_bindir  = "${icingaweb_confdir}/bin:${::path}"
-      $icingaweb_logdir  = '/usr/share/icinga-web/log'
+      $icingaweb_logdir  = '/var/log/icinga-web'
       $icingaweb_dbname  = 'icinga_web'
       $icingaweb_dbuser  = 'icinga_web'
       $icingaweb_dbpass  = 'icinga_web'
