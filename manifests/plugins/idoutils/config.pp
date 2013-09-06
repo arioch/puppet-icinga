@@ -4,8 +4,6 @@
 #
 class icinga::plugins::idoutils::config {
   File {
-    owner   => $icinga::server_user,
-    group   => $icinga::server_group,
     require => Package[$icinga::idoutils_pkg],
     notify  => Service[$icinga::service_server],
   }
@@ -16,6 +14,9 @@ class icinga::plugins::idoutils::config {
 
     "${::icinga::confdir_server}/ido2db.cfg":
       ensure  => present,
+      mode    => '0640',
+      owner   => $icinga::server_user,
+      group   => $icinga::server_group,
       content => template('icinga/plugins/idoutils/ido2db.cfg.erb');
 
     "${::icinga::confdir_server}/idomod.cfg":
