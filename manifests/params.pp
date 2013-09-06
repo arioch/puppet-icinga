@@ -73,7 +73,7 @@ class icinga::params {
       $logdir_server             = '/var/log/icinga'
 
       # Plugin: Icinga Web
-      $icingaweb_pkg     = [ 'icinga-web', 'icinga-web-module-pnp' ]
+      $icingaweb_pkg     = [ 'icinga-web', 'icinga-web-pnp' ]
       $icingaweb_pkg_dep = [ ]
       $icingaweb_confdir = '/usr/share/icinga-web'
       $icingaweb_bindir  = "${icingaweb_confdir}/bin:${::path}"
