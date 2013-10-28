@@ -9,8 +9,9 @@ class icinga::plugins::checkpercona-replication (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-  $warning                = '1',
-  $critical               = '1',
+  $contact_groups        = $::environment,
+  $warning               = '1',
+  $critical              = '1',
   $socket                = '/var/lib/mysql/mysql.sock',
   $defaults_file         = '/etc/my.cnf',
 
@@ -34,6 +35,7 @@ class icinga::plugins::checkpercona-replication (
     max_check_attempts    => $max_check_attempts,
     notification_period   => $notification_period,
     notifications_enabled => $notifications_enabled,
+    contact_groups        => $contact_groups,
     target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 

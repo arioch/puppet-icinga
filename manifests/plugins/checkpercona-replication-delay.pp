@@ -10,6 +10,7 @@ class icinga::plugins::checkpercona-replication-delay (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
+  $contact_groups        = $::environment,
   $warning               = '300',
   $critical              = '600',
 
@@ -33,6 +34,7 @@ class icinga::plugins::checkpercona-replication-delay (
     max_check_attempts    => $max_check_attempts,
     notification_period   => $notification_period,
     notifications_enabled => $notifications_enabled,
+    contact_groups        => $contact_groups,
     target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 
