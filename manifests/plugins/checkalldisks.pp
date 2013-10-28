@@ -6,6 +6,7 @@ class icinga::plugins::checkalldisks (
   $check_warning         = '10%',
   $check_critical        = '5%',
   $max_check_attempts    = $::icinga::max_check_attempts,
+  $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
 ) inherits icinga {
@@ -24,6 +25,7 @@ class icinga::plugins::checkalldisks (
       check_command         => 'check_nrpe_command!check_all_disks',
       service_description   => 'Disks',
       host_name             => $::fqdn,
+      contact_groups        => $contact_groups,
       max_check_attempts    => $max_check_attempts,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,

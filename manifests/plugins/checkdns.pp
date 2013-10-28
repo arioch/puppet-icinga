@@ -5,6 +5,7 @@
 define icinga::plugins::checkdns (
   $dnsname               = $name,
   $expected_answer,
+  $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notifications_enabled = $::icinga::notifications_enabled,
@@ -17,6 +18,7 @@ define icinga::plugins::checkdns (
       check_command         => "check_dns!-H ${dnsname} -a ${expected_answer}",
       service_description   => "DNS - ${dnsname}",
       host_name             => $::fqdn,
+      contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       max_check_attempts    => $max_check_attempts,
       notifications_enabled => $notifications_enabled,

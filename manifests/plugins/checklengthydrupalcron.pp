@@ -13,6 +13,7 @@ define icinga::plugins::checklengthydrupalcron (
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
   $host_name              = $::fqdn,
+  $contact_groups         = $::environment,
   $warning                = '1800',
   $critical               = '3600',
 ) {
@@ -41,6 +42,7 @@ define icinga::plugins::checklengthydrupalcron (
       service_description   => "Check Long Running Drupal Cron ${host_name}",
       host_name             => $host_name,
       use                   => 'generic-service',
+      contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
       target                => "${::icinga::targetdir}/services/${host_name}.cfg",

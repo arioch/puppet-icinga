@@ -4,6 +4,7 @@
 #
 class icinga::plugins::checkprocstat (
   $ensure                = present,
+  $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
@@ -29,6 +30,7 @@ class icinga::plugins::checkprocstat (
     check_command         => 'check_nrpe_command!check_procstat',
     host_name             => $::fqdn,
     max_check_attempts    => $max_check_attempts,
+    contact_groups        => $contact_groups,
     service_description   => 'procstat',
     notification_period   => $notification_period,
     notifications_enabled => $notifications_enabled,

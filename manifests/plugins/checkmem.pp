@@ -3,6 +3,7 @@
 # This class provides a checkmem plugin.
 #
 class icinga::plugins::checkmem (
+  $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
@@ -17,6 +18,7 @@ class icinga::plugins::checkmem (
       check_command         => 'check_nrpe_command!check_mem',
       service_description   => 'RAM',
       host_name             => $::fqdn,
+      contact_groups        => $contact_groups,
       max_check_attempts    => $max_check_attempts,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,

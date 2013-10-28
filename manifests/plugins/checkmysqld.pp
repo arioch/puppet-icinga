@@ -5,6 +5,7 @@
 class icinga::plugins::checkmysqld (
   $ensure                = present,
   $perfdata              = true,
+  $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
@@ -48,6 +49,7 @@ class icinga::plugins::checkmysqld (
 
     Nagios_service {
       host_name             => $::fqdn,
+      contact_groups        => $contact_groups,
       max_check_attempts    => $max_check_attempts,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,

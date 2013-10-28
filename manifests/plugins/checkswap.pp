@@ -3,6 +3,7 @@
 # This class provides a checkssh plugin.
 #
 class icinga::plugins::checkswap (
+  $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
 ) inherits icinga {
@@ -22,6 +23,7 @@ class icinga::plugins::checkswap (
       service_description   => 'Swap Usage',
       host_name             => $::fqdn,
       use                   => 'generic-service',
+      contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",

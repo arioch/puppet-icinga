@@ -7,6 +7,7 @@ define icinga::plugins::checkbacula (
   $jobname               = $::fqdn,
   $warning               = '1',
   $critical              = '0',
+  $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
 ) {
@@ -34,6 +35,7 @@ define icinga::plugins::checkbacula (
       service_description   => "Bacula Job: ${jobname}",
       host_name             => $::fqdn,
       use                   => 'generic-service',
+      contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
