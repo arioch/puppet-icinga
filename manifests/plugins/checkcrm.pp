@@ -1,12 +1,14 @@
 # == Class: icinga::plugins::checkcrm
 #
-# This class provides a checkcrm plugin.
+# This class provides a check_crm plugin.
 #
 # Checks pacemaker
 #
+# Source:  http://exchange.nagios.org/directory/Plugins/Clustering-and-High-2DAvailability/Check-CRM/details
+#
 define icinga::plugins::checkcrm (
   $pkgname                = $::operatingsystem ? {
-    'centos' => ['nagios-plugins-check-crm','perl-Nagios-Plugin'],
+    'centos' => ['nagios-plugins-checkcrm','perl-Nagios-Plugin'],
     default  => fail('Unsupported operatingsystem'),
   },
   $notification_period    = $::icinga::notification_period,
