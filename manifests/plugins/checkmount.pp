@@ -1,5 +1,8 @@
 define icinga::plugins::checkmount (
-  $pkgname               = 'nagios-plugins-mount',
+  $pkgname                = $::operatingsystem ? {
+    'centos' => 'nagios-plugins-mount',
+    'debian' => 'nagios-plugin-mount',
+  },
   $mountpoint            = undef,
   $type                  = undef,
   $contact_groups        = $::environment,
