@@ -1,14 +1,12 @@
 # == Class: icinga::plugins::checkcrm
 #
-# This class provides a checkcrm plugin.
+# This class provides a check_crm plugin.
 #
 # Checks pacemaker
 #
-define icinga::plugins::checkcrm (
-  $pkgname                = $::operatingsystem ? {
-    'centos' => ['nagios-plugins-check-crm','perl-Nagios-Plugin'],
-    default  => fail('Unsupported operatingsystem'),
-  },
+# Source:  http://exchange.nagios.org/directory/Plugins/Clustering-and-High-2DAvailability/Check-CRM/details
+#
+class icinga::plugins::checkcrm (
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
   $host_name              = $::fqdn,
@@ -19,11 +17,24 @@ define icinga::plugins::checkcrm (
 
   if $icinga::client {
 
-    if ! defined(Package[$pkgname]) {
-      package{$pkgname:
-        ensure => 'latest',
-      }
+    $pkg_nagios_plugin_checkcrm = $::operatingsystem ? {
+      /CentOS|RedHat/ => 'nagios-plugins-checkcrm',
+      default         => fail('Operating system not supported'),
     }
+
+    $pkg_perl_nagios_plugin = $::operatingsystem ? {
+      /CentOS|RedHat/ => 'perl-Nagios-Plugin',
+      default         => fail('Operating system not supported'),
+    }
+
+    package { $pkg_nagios_plugin_checkcrm:
+      ensure => installed,
+    }
+
+    package { $pkg_perl_nagios_plugin:
+      ensure => installed,
+    }
+
 
     file{"${::icinga::includedir_client}/check_crm_${host_name}.cfg":
       ensure  => 'file',
