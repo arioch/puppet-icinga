@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Author:  Jan Collijs
+# Email:   jan.collijs@inuits.eu
+# Date:    Augustus 2013
+# Purpose: Icinga-check to monitor a solr instance based on the PingRequestHandler
+#          http://lucene.apache.org/solr/4_1_0/solr-core/org/apache/solr/handler/PingRequestHandler.html
+ 
+PROGNAME=`basename $0`
+PROGPATH=`echo $0 | sed -e 's,[\\/][^\\/][^\\/]*$,,'`
+REVISION=`echo '$Revision: 1.00 $' | sed -e 's/[^0-9.]//g'`
+ 
+. $PROGPATH/utils.sh
+ 
+# Retrieving the healthchech state
+SOLR_URL='localhost:8983/solr/admin/ping'
+STATUS=`curl -s $SOLR_URL | grep status | awk '{print $6}' | sed -e 's/\(^.*>\)\(.*\)\(<.*$\)/\2/'`
+ 
+## Compiling the healthcheck message
+case "$STATUS" in
+   "OK")
+      SERVICE="OK: solr health check"
+      STATE=$STATE_OK
+   ;;
+   *)
+      SERVICE="CRITICAL: solr health check is failing"
+      STATE=$STATE_CRITICAL
+   ;;
+esac
+ 
+echo $SERVICE
+exit $STATE 
