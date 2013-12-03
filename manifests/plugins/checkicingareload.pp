@@ -12,7 +12,7 @@ class icinga::plugins::checkicingareload (
   require ::icinga
 
   $command_name = 'icinga_reload_check'
-  $script_name  = 'checkicingareload'
+  $script_name  = 'check_icinga_config'
 
   if ! defined(Package[$pkgname]) {
     package{ $pkgname:
