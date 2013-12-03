@@ -11,7 +11,8 @@ class icinga::plugins::checkicingareload (
 
   require ::icinga
 
-  $command_name = 'icinga-reload-check'
+  $command_name = 'icinga_reload_check'
+  $script_name  = 'checkicingareload'
 
   if ! defined(Package[$pkgname]) {
     package{ $pkgname:
@@ -25,7 +26,7 @@ class icinga::plugins::checkicingareload (
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
     notify  => Service[$::icinga::service_client],
-    content => "command[${command_name}]=cd ${::icinga::plugindir}/; ./checkicingareload",
+    content => "command[${command_name}]=cd ${::icinga::plugindir}/; ./${script_name}",
   }
 
   nagios_service { "check_icinga_reload":
