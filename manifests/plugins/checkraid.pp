@@ -20,7 +20,7 @@ class icinga::plugins::checkraid (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_linux_raid]=sudo ${::icinga::plugindir}/check_linux_raid\n",
+      content => "command[check_linux_raid]=${::icinga::plugindir}/check_linux_raid\n",
       notify  => Service[$::icinga::service_client],
     }
 
