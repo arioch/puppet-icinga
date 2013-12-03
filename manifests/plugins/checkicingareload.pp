@@ -2,7 +2,7 @@ define icinga::plugins::checkicingareload (
   $pkgname                                  = $::operatingsystem ? {
     'centos' => 'nagios-plugins-icinga-reload-check',
     'debian' => 'nagios-plugin-icinga-reload-check',
-  }
+  },
   $contact_groups                           = $::environment,
   $max_check_attempts                       = $::icinga::params::max_check_attempts,
   $notification_period                      = $::icinga::notification_period,
