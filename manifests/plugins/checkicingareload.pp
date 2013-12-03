@@ -29,7 +29,7 @@ define icinga::plugins::checkicingareload (
   }
 
   nagios_service { "check_icinga_reload":
-    check_command         => $command_name,
+    check_command         => "check_nrpe_command!${command_name}",
     service_description   => "See if the icinga configuration has been successfully loaded",
     host_name             => $::fqdn,
     contact_groups        => $contact_groups,
