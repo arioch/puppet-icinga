@@ -22,16 +22,16 @@ define icinga::plugins::checkicingareload (
   file { "${::icinga::includedir_client}/${command_name}.cfg":
     ensure  => 'file',
     mode    => '0644',
-    owner   => $::icinga::client_user, 
+    owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
     notify  => Service[$::icinga::service_client],
-    content => "command[${command_name}]=cd ${::icinga::plugindir}/; ./checkicingareload",   
+    content => "command[${command_name}]=cd ${::icinga::plugindir}/; ./checkicingareload",
   }
 
   nagios_service { "check_icinga_reload":
     check_command         => $command_name,
     service_description   => "See if the icinga configuration has been successfully loaded",
-    host_name             => $::fqdn,                                                                             
+    host_name             => $::fqdn,
     contact_groups        => $contact_groups,
     max_check_attempts    => $max_check_attempts,
     notification_period   => $notification_period,
