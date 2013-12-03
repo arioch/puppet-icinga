@@ -1,4 +1,4 @@
-define icinga::plugins::checkicingareload (
+class icinga::plugins::checkicingareload (
   $pkgname                                  = $::operatingsystem ? {
     'centos' => 'nagios-plugins-icinga-reload-check',
     'debian' => 'nagios-plugin-icinga-reload-check',
