@@ -13,6 +13,7 @@ class icinga::plugins::checkicingareload (
 
   $command_name = 'icinga_reload_check'
   $script_name  = 'check_icinga_config'
+  $description  = 'Icinga configuration reload'
 
   if ! defined(Package[$pkgname]) {
     package{ $pkgname:
@@ -31,7 +32,7 @@ class icinga::plugins::checkicingareload (
 
   nagios_service { "check_icinga_reload":
     check_command         => "check_nrpe_command!${command_name}",
-    service_description   => "See if the icinga configuration has been successfully loaded",
+    service_description   => $description,
     host_name             => $::fqdn,
     contact_groups        => $contact_groups,
     max_check_attempts    => $max_check_attempts,
