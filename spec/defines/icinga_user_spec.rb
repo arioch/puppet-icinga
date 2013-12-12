@@ -24,7 +24,6 @@ describe "icinga::user" do
     expect {
       should create_icinga__user('dummyuser1')
     }.to raise_error(Puppet::Error)
-    #}.to raise_error(Puppet::Error, /Must pass password to Icinga::User\[dummyuser1\]/)
   end
 end
 
