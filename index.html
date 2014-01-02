@@ -28,9 +28,11 @@
         </ul>
       </header>
       <section>
-        <h1>Sample Usage</h1>
+        <h1>
+<a name="sample-usage" class="anchor" href="#sample-usage"><span class="octicon octicon-link"></span></a>Sample Usage</h1>
 
-<h3>cat site.pp</h3>
+<h3>
+<a name="cat-sitepp" class="anchor" href="#cat-sitepp"><span class="octicon octicon-link"></span></a>cat site.pp</h3>
 
 <pre><code>Nagios_service {
   host_name           =&gt; $::fqdn,
@@ -52,7 +54,8 @@ Nagios_contact {
 }
 </code></pre>
 
-<h3>cat nodes.pp</h3>
+<h3>
+<a name="cat-nodespp" class="anchor" href="#cat-nodespp"><span class="octicon octicon-link"></span></a>cat nodes.pp</h3>
 
 <pre><code>node client {
   class { 'icinga': }
@@ -83,7 +86,8 @@ node server {
 }
 </code></pre>
 
-<h3>Inside your existing modules</h3>
+<h3>
+<a name="inside-your-existing-modules" class="anchor" href="#inside-your-existing-modules"><span class="octicon octicon-link"></span></a>Inside your existing modules</h3>
 
 <pre><code>@@nagios_service { "check_tcp_123_${::fqdn}":
   check_command       =&gt; 'check_tcp!123',
@@ -91,23 +95,28 @@ node server {
 }
 </code></pre>
 
-<h3>PuppetDoc</h3>
+<h3>
+<a name="puppetdoc" class="anchor" href="#puppetdoc"><span class="octicon octicon-link"></span></a>PuppetDoc</h3>
 
 <p>Parsed PuppetDoc can be found <a href="http://arioch.github.com/puppet-icinga/">here</a>.</p>
 
-<h3>Unit testing</h3>
+<h3>
+<a name="unit-testing" class="anchor" href="#unit-testing"><span class="octicon octicon-link"></span></a>Unit testing</h3>
 
 <pre><code>bundle exec rake
 </code></pre>
 
-<h3>Nagios plugin packages</h3>
+<h3>
+<a name="nagios-plugin-packages" class="anchor" href="#nagios-plugin-packages"><span class="octicon octicon-link"></span></a>Nagios plugin packages</h3>
 
 <p>Packages for RHEL based operating systems can be found at Inuits' <a href="http://repo.inuits.eu">RPM repository</a>
 A Debian mirror is currently not available yet. Building your own packages is very easy. You will find any necessary information on Inuits' <a href="https://github.com/Inuits/nagios-plugins">nagios-plugins</a> repository at Github.</p>
 
-<h3>Known issues</h3>
+<h3>
+<a name="known-issues" class="anchor" href="#known-issues"><span class="octicon octicon-link"></span></a>Known issues</h3>
 
-<h4>General</h4>
+<h4>
+<a name="general" class="anchor" href="#general"><span class="octicon octicon-link"></span></a>General</h4>
 
 <ul>
 <li>Needs proper testing</li>
@@ -118,7 +127,8 @@ A Debian mirror is currently not available yet. Building your own packages is ve
 to ["someuser"] at /etc/puppet/environments/refactor/modules/icinga/manifests/user.pp:48;
 resource ["Nagios_contact", "someuser"] already declared</p>
 </li>
-</ul><h4>RedHat</h4>
+</ul><h4>
+<a name="redhat" class="anchor" href="#redhat"><span class="octicon octicon-link"></span></a>RedHat</h4>
 
 <ul>
 <li>
@@ -131,12 +141,13 @@ taken from this repository otherwise a lot of EPEL packages or plugins will
 break horribly.</p>
 
 <p>The easy way out:
-class { icinga: manage_repo =&gt; true; }</p>
+  class { icinga: manage_repo =&gt; true; }</p>
 
 <p>A more advanced approach would be to set up your own repo.
 Hipsters these days seem to be fond of <a href="https://github.com/pulp/pulp">Pulp</a> for this purpose.</p>
 </li>
-</ul><h4>Debian</h4>
+</ul><h4>
+<a name="debian" class="anchor" href="#debian"><span class="octicon octicon-link"></span></a>Debian</h4>
 
 <ul>
 <li>Some plugins may or may not work</li>
