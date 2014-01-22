@@ -2,7 +2,7 @@
 #
 # This class provides a checkdrbd plugin.
 #
-define icinga::plugins::checkdrbd (
+class icinga::plugins::checkdrbd (
   $pkgname                = $::operatingsystem ? {
     'centos' => 'nagios-plugins-drbd',
     'debian' => 'nagios-plugin-drbd',
