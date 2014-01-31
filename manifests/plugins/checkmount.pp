@@ -1,5 +1,8 @@
 define icinga::plugins::checkmount (
-  $pkgname               = 'nagios-plugins-mount',
+  $pkgname                = $::operatingsystem ? {
+    'centos' => 'nagios-plugins-mount',
+    'debian' => 'nagios-plugin-mount',
+  },
   $mountpoint            = undef,
   $type                  = undef,
   $contact_groups        = $::environment,
@@ -27,7 +30,7 @@ define icinga::plugins::checkmount (
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
     notify  => Service[$::icinga::service_client],
-    content => "command[check_mount${sanitized_mount}]=${::icinga::plugindir}/check_mount.pl -m ${mountpoint}${type_option}\n",
+    content => "command[check_mount${sanitized_mount}]=cd ${::icinga::plugindir}/; ./check_mount.pl -m ${mountpoint}${type_option}\n",
   }
 
   @@nagios_service{"check_mount_${mountpoint}_${::fqdn}":

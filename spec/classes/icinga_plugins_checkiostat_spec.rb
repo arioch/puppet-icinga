@@ -35,7 +35,6 @@ describe 'icinga' do
 
       it { should contain_file('/etc/nrpe.d/iostat.cfg') }
       it { should contain_package('nagios-plugins-iostat') }
-      it { should_not raise_error(Puppet::ParseError) }
     end
 
     describe "#{os}, 64bit OS with checkiostat plugin" do
@@ -58,7 +57,6 @@ describe 'icinga' do
       it do
         should contain_file('/etc/nrpe.d/iostat.cfg')
         should contain_package('nagios-plugins-iostat')
-        should_not raise_error(Puppet::ParseError)
       end
     end
   end
@@ -89,7 +87,6 @@ describe 'icinga' do
       it do
         should contain_file('/etc/nagios/nrpe.d/iostat.cfg')
         should contain_package('nagios-plugin-check-iostat')
-        should_not raise_error(Puppet::ParseError)
       end
     end
   end
@@ -119,10 +116,8 @@ describe 'icinga' do
 
       it do
         should create_class('icinga')
-        should include_class('icinga::config::server')
-        should include_class('icinga::plugins::checkiostat')
-
-        should_not raise_error(Puppet::ParseError)
+        should contain_class('icinga::config::server')
+        should contain_class('icinga::plugins::checkiostat')
       end
     end
   end

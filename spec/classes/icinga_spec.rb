@@ -31,7 +31,6 @@ describe 'icinga' do
       }
 
       it { should contain_file('/usr/lib/nagios/plugins') }
-      it { should_not raise_error(Puppet::ParseError) }
     end
 
     describe "#{os}, with parameters: /usr/lib path, 64 bit" do
@@ -75,7 +74,6 @@ describe 'icinga' do
       }
 
       it { should contain_file('/usr/lib/nagios/plugins') }
-      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 
@@ -96,19 +94,17 @@ describe 'icinga' do
 
       it { should create_class('icinga') }
 
-      it { should include_class('icinga::preinstall') }
-      it { should include_class('icinga::install') }
-      it { should include_class('icinga::config') }
-      it { should include_class('icinga::config::client') }
-      it { should include_class('icinga::plugins') }
-      it { should include_class('icinga::collect') }
-      it { should include_class('icinga::service') }
+      it { should contain_class('icinga::preinstall') }
+      it { should contain_class('icinga::install') }
+      it { should contain_class('icinga::config') }
+      it { should contain_class('icinga::config::client') }
+      it { should contain_class('icinga::plugins') }
+      it { should contain_class('icinga::collect') }
+      it { should contain_class('icinga::service') }
 
       it { should_not contain_package('icinga').with_ensure('present') }
       it { should_not contain_service('icinga').with_ensure('running') }
       it { should_not contain_service('icinga').with_enable('true') }
-
-      it { should_not raise_error(Puppet::ParseError) }
     end
   end
 end
