@@ -108,6 +108,7 @@ class icinga (
   $vardir_server             = $::icinga::params::vardir_server,
   $webserver_group           = $::icinga::params::webserver_group,
   $webserver_user            = $::icinga::params::webserver_user,
+  $collect_resources         = $::icinga::params::collect_resources,
   $collect_hostname          = $::icinga::params::collect_hostname,
   $collect_ipaddress         = $::icinga::params::collect_ipaddress,
   $parents                   = $::icinga::params::parents,

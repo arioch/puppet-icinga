@@ -4,7 +4,7 @@
 #
 class icinga::collect {
 
-  if $::icinga::server {
+  if $::icinga::server and $::icinga::collect_resources {
     # Set defaults for collected resources.
     Nagios_host <<| |>>              { notify => Service[$::icinga::service_server] }
     Nagios_service <<| |>>           { notify => Service[$::icinga::service_server] }
