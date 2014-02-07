@@ -26,7 +26,7 @@ class icinga::collect {
       notify => Service[$::icinga::service_server],
       target => "${::icinga::targetdir}/timeperiods.cfg",
     }
-    Icinga::Downtime <<| |>> {  }
+    Icinga::Downtime <<| |>>         { notify => Service[$::icinga::service_server] }
   }
 
   if $::icinga::client {
