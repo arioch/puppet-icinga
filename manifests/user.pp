@@ -11,6 +11,7 @@ define icinga::user (
   $hash                          = undef,
   $pager                         = undef,
   $password,
+  $local                         = false,
   $host_notification_commands    = $::icinga::notification_cmd_host,
   $host_notification_period      = $::icinga::notification_period,
   $host_notifications_enabled    = $::icinga::notification_host_enable,
@@ -61,22 +62,42 @@ define icinga::user (
       }
     }
 
-    @@nagios_contact { $name:
-      ensure                        => $ensure,
-      can_submit_commands           => $can_submit_commands,
-      contact_name                  => $contact_name,
-      contactgroups                 => $contactgroups,
-      email                         => $email,
-      pager                         => $pager,
-      target                        => $target,
-      host_notification_commands    => $host_notification_commands,
-      host_notification_period      => $host_notification_period,
-      host_notifications_enabled    => $host_notifications_enabled,
-      host_notification_options     => $host_notification_options,
-      service_notification_commands => $service_notification_commands,
-      service_notification_period   => $service_notification_period,
-      service_notifications_enabled => $service_notifications_enabled,
-      service_notification_options  => $service_notification_options,
+    if ($local) {
+      nagios_contact { $name:
+        ensure                        => $ensure,
+        can_submit_commands           => $can_submit_commands,
+        contact_name                  => $contact_name,
+        contactgroups                 => $contactgroups,
+        email                         => $email,
+        pager                         => $pager,
+        target                        => $target,
+        host_notification_commands    => $host_notification_commands,
+        host_notification_period      => $host_notification_period,
+        host_notifications_enabled    => $host_notifications_enabled,
+        host_notification_options     => $host_notification_options,
+        service_notification_commands => $service_notification_commands,
+        service_notification_period   => $service_notification_period,
+        service_notifications_enabled => $service_notifications_enabled,
+        service_notification_options  => $service_notification_options,
+      }
+    } else {
+      @@nagios_contact { $name:
+        ensure                        => $ensure,
+        can_submit_commands           => $can_submit_commands,
+        contact_name                  => $contact_name,
+        contactgroups                 => $contactgroups,
+        email                         => $email,
+        pager                         => $pager,
+        target                        => $target,
+        host_notification_commands    => $host_notification_commands,
+        host_notification_period      => $host_notification_period,
+        host_notifications_enabled    => $host_notifications_enabled,
+        host_notification_options     => $host_notification_options,
+        service_notification_commands => $service_notification_commands,
+        service_notification_period   => $service_notification_period,
+        service_notifications_enabled => $service_notifications_enabled,
+        service_notification_options  => $service_notification_options,
+      }
     }
   }
 }
