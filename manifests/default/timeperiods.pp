@@ -1,6 +1,11 @@
 class icinga::default::timeperiods {
 
-  @@nagios_timeperiod{'24x7':
+  Nagios_timeperiod {
+    notify => Service[$::icinga::service_server],
+    target => "${::icinga::targetdir}/timeperiods.cfg",
+  }
+
+  nagios_timeperiod{'24x7':
     timeperiod_name => '24x7',
     alias           => 'Purgatory',
     monday          => '00:00-24:00',
@@ -12,7 +17,7 @@ class icinga::default::timeperiods {
     sunday          => '00:00-24:00',
   }
 
-  @@nagios_timeperiod{'workhours':
+  nagios_timeperiod{'workhours':
     timeperiod_name => 'workhours',
     alias           => 'Daily Routine',
     monday          => '09:00-18:00',
@@ -22,7 +27,7 @@ class icinga::default::timeperiods {
     friday          => '09:00-18:00',
   }
 
-  @@nagios_timeperiod{'nonworkhours':
+  nagios_timeperiod{'nonworkhours':
     timeperiod_name => 'nonworkhours',
     alias           => 'On Call Doody',
     monday          => '00:00-09:00,18:00-24:00',
@@ -34,7 +39,7 @@ class icinga::default::timeperiods {
     sunday          => '00:00-24:00',
   }
 
-  @@nagios_timeperiod{'never':
+  nagios_timeperiod{'never':
     timeperiod_name => 'never',
     alias           => 'Ignorance Is Bliss',
   }
