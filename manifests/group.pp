@@ -13,7 +13,7 @@ define icinga::group (
   $group = $::icinga::server_group
 
   if $::icinga::server {
-    @@nagios_contactgroup { $name:
+    nagios_contactgroup { $name:
       ensure               => $ensure,
       contactgroup_name    => $contactgroup_name,
       contactgroup_members => $contactgroup_members,

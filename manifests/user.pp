@@ -61,7 +61,7 @@ define icinga::user (
       }
     }
 
-    @@nagios_contact { $name:
+    nagios_contact { $name:
       ensure                        => $ensure,
       can_submit_commands           => $can_submit_commands,
       contact_name                  => $contact_name,
