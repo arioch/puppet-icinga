@@ -21,6 +21,7 @@ class icinga::params {
   $notification_service_enable = '1'
   $notification_service_opts   = 'w,u,c,r'
   $max_check_attempts          = '4'
+  $use_ido                     = false
   $parents                     = undef
   $hostgroups                  = 'default'
   $notifications_enabled       = '1'

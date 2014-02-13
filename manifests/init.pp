@@ -87,6 +87,7 @@ class icinga (
   $package_server_ensure     = $::icinga::params::package_server_ensure,
   $plugindir                 = $::icinga::params::plugindir,
   $plugins                   = $::icinga::params::plugins,
+  $use_ido                   = $::icinga::params::use_ido,
   $server                    = $::icinga::params::server,
   $server_cmd_group          = $::icinga::params::server_cmd_group,
   $server_group              = $::icinga::params::server_group,
