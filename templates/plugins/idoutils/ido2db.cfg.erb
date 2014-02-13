@@ -13,7 +13,7 @@
 # This is the lockfile that IDO2DB will use to store its PID number
 # in when it is running in daemon mode.
 
-lock_file=/var/icinga/ido2db.lock
+lock_file=/var/run/ido2db.pid
 
 
 
@@ -44,8 +44,15 @@ socket_type=unix
 # This option is only valid if the socket type specified above
 # is "unix".
 
-socket_name=/var/icinga/ido.sock
+socket_name=/var/spool/icinga/ido.sock
 
+
+# SOCKET PERMISSIONS
+# This option determines the permissions of the Unix domain
+# socket. This option is only valid if the socket type specified
+# above is "unix". Default permissions are set to 0755.
+
+socket_perm=0755
 
 
 # TCP PORT
@@ -268,7 +275,7 @@ debug_verbosity=1
 # DEBUG FILE
 # This option determines where the daemon should write debugging information.
 
-debug_file=/var/icinga/ido2db.debug
+debug_file=/var/log/icinga/ido2db.debug
 
 
 
@@ -304,4 +311,14 @@ oci_errors_to_syslog=1
 # 12 – Bind Variables and Wait Events
 
 oracle_trace_level=0
+
+# ENABLE SLA - DEPRECATED!
+# This setting enables collection of SLA data in the slahistory table
+# Values: 0 = disabled, 1 = enabled
+#
+# WARNING: This setting will be deprecated in 1.9 and not developed
+# anymore, as it has never been used by any Icinga application.
+
+enable_sla=0
+
 
