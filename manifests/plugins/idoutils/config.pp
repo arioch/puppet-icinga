@@ -3,10 +3,10 @@
 # This class provides the idoutils plugin's configuration.
 #
 class icinga::plugins::idoutils::config {
-  mysqldb { $icinga::idoutils_dbname:
-    user     => $icinga::idoutils_dbuser,
-    password => $icinga::idoutils_dbpass,
-  }
+  # mysqldb { $icinga::idoutils_dbname:
+  #   user     => $icinga::idoutils_dbuser,
+  #   password => $icinga::idoutils_dbpass,
+  # }
 
   File {
     owner   => $icinga::server_user,
