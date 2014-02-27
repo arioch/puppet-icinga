@@ -17,7 +17,7 @@ class icinga::plugins::checkalldisks (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_all_disks]=sudo ${::icinga::plugindir}/check_disk -w ${check_warning} -c ${check_critical}\n",
+      content => "command[check_all_disks]=sudo ${::icinga::plugindir}/check_disk -w ${check_warning} -c ${check_critical} -W ${check_warning} -C ${check_critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
