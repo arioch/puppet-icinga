@@ -16,7 +16,7 @@ class icinga::config::server::common {
   }
 
   file{"${::icinga::confdir_server}/resource.cfg":
-    content => template('icinga/redhat/resource.cfg.erb'),
+    content => template('icinga/common/resource.cfg.erb'),
   }
 
   file{$::icinga::targetdir:
