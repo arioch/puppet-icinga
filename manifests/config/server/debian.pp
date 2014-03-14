@@ -14,11 +14,6 @@ class icinga::config::server::debian {
     ],
   }
 
-  nagios_command{'check_nrpe_command':
-    command_line => '$USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$',
-    target       => "${::icinga::targetdir}/commands/check_nrpe_command.cfg",
-  }
-
   file{$::icinga::icinga_vhost:
     content => template('icinga/debian/apache2.conf'),
     notify  => Service[$::icinga::service_webserver],

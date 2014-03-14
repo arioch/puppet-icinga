@@ -43,10 +43,6 @@ class icinga::config::server::redhat {
     recurse => true,
   }
 
-  file{"${::icinga::targetdir}/commands.cfg":
-    content => template('icinga/redhat/commands.cfg.erb'),
-  }
-
   file{"${::icinga::targetdir}/notifications.cfg":
     content => template('icinga/redhat/notifications.cfg.erb'),
   }
