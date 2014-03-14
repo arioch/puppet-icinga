@@ -12,7 +12,6 @@ class icinga::config::server::redhat {
     notify  => [
       Service[$::icinga::service_client],
       Service[$::icinga::service_server],
-      Group[$::icinga::server_cmd_group],
       Exec['fix_collected_permissions']
     ],
   }

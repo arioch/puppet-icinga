@@ -11,7 +11,6 @@ class icinga::config::server::debian {
     notify  => [
       Service[$::icinga::service_client],
       Service[$::icinga::service_server],
-      Group[$::icinga::server_cmd_group]
     ],
   }
 
