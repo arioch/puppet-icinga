@@ -15,6 +15,10 @@ class icinga::config::server::common {
     purge   => true,
   }
 
+  file{"${::icinga::confdir_server}/resource.cfg":
+    content => template('icinga/redhat/resource.cfg.erb'),
+  }
+
   file{$::icinga::targetdir:
     recurse => true,
     purge   => true,

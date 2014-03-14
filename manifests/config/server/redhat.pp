@@ -84,8 +84,4 @@ class icinga::config::server::redhat {
     ensure => directory,
   }
 
-  file{"${::icinga::confdir_server}/resource.cfg":
-    content => template('icinga/redhat/resource.cfg.erb'),
-  }
-
 }
