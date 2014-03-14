@@ -16,6 +16,7 @@ class icinga::config::server::common {
   }
 
   file{"${::icinga::confdir_server}/resource.cfg":
+    ensure  => present,
     content => template('icinga/common/resource.cfg.erb'),
   }
 
