@@ -72,6 +72,16 @@ class icinga::config::server::common {
     content => template('icinga/common/commands.cfg.erb'),
   }
 
+  file{"${::icinga::targetdir}/generic-host.cfg":
+    ensure  => 'present',
+    content => template('icinga/common/generic-host.cfg'),
+  }
+
+  file{"${::icinga::targetdir}/generic-service.cfg":
+    ensure  => 'present',
+    content => template('icinga/common/generic-service.cfg'),
+  }
+
   file{"${::icinga::sharedir_server}/images/logos":}
 
   file{"${::icinga::sharedir_server}/images/logos/os":

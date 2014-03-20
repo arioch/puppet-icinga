@@ -27,8 +27,4 @@ class icinga::config::server::debian {
     content => template('icinga/debian/cgi.cfg'),
   }
 
-  file{"${::icinga::confdir_server}/objects/generic-host_icinga.cfg":
-    content => template('icinga/debian/objects/generic-host_icinga.cfg'),
-  }
-
 }

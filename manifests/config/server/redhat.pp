@@ -55,14 +55,6 @@ class icinga::config::server::redhat {
     content => template('icinga/redhat/cgi.cfg.erb'),
   }
 
-  file{"${::icinga::targetdir}/generic-host.cfg":
-    content => template('icinga/redhat/generic-host.cfg'),
-  }
-
-  file{"${::icinga::targetdir}/generic-service.cfg":
-    content => template('icinga/redhat/generic-service.cfg'),
-  }
-
   file{"${::icinga::confdir_server}/icinga.cfg":
     content => template('icinga/redhat/icinga.cfg.erb'),
   }
