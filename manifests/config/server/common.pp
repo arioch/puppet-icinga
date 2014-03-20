@@ -68,6 +68,7 @@ class icinga::config::server::common {
   }
 
   file{"${::icinga::targetdir}/commands.cfg":
+    ensure  => 'present',
     content => template('icinga/common/commands.cfg.erb'),
   }
 
