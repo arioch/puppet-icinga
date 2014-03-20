@@ -29,7 +29,7 @@ class icinga::collect {
     Icinga::Downtime <<| |>>         { notify => Service[$::icinga::service_server] }
   }
 
-  if $::icinga::client {
+  if $::icinga::client and $::icinga::export_resources {
     @@nagios_host{$::icinga::collect_hostname:
       ensure                => present,
       address               => $::icinga::collect_ipaddress,

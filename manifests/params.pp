@@ -25,6 +25,7 @@ class icinga::params {
   $parents                     = undef
   $hostgroups                  = 'default'
   $notifications_enabled       = '1'
+  $export_resources            = true
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {

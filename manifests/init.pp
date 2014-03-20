@@ -115,6 +115,7 @@ class icinga (
   $parents                   = $::icinga::params::parents,
   $hostgroups                = $::icinga::params::hostgroups,
   $notifications_enabled     = $::icinga::params::notifications_enabled,
+  $export_resources          = $::icinga::params::export_resources,
 ) inherits icinga::params {
 
   # motd::register { 'icinga-refactor': }
