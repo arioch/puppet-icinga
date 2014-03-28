@@ -4,7 +4,7 @@
 #
 class icinga::plugins::checkedc (
   $daemon_name           = 'dummy',
-  $ensure                = 'present'
+  $ensure                = 'present',
   $check_warning         = '2:',
   $check_critical        = '1:10',
   $contact_groups        = $::environment,
