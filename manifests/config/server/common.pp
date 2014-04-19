@@ -16,7 +16,7 @@ class icinga::config::server::common {
   }
 
   file{"${::icinga::confdir_server}/resource.cfg":
-    ensure  => present,
+    ensure  => file,
     content => template('icinga/common/resource.cfg.erb'),
   }
 
@@ -34,7 +34,7 @@ class icinga::config::server::common {
   }
 
   file{"${::icinga::sharedir_server}/bin/sched_down.pl":
-    ensure => 'present',
+    ensure => file,
     owner  => $::icinga::server_user,
     group  => $::icinga::server_group,
     source => 'puppet:///modules/icinga/sched_down.pl',
@@ -68,17 +68,17 @@ class icinga::config::server::common {
   }
 
   file{"${::icinga::targetdir}/commands.cfg":
-    ensure  => 'present',
+    ensure  => file,
     content => template('icinga/common/commands.cfg.erb'),
   }
 
   file{"${::icinga::targetdir}/generic-host.cfg":
-    ensure  => 'present',
+    ensure  => file,
     content => template('icinga/common/generic-host.cfg'),
   }
 
   file{"${::icinga::targetdir}/generic-service.cfg":
-    ensure  => 'present',
+    ensure  => file,
     content => template('icinga/common/generic-service.cfg'),
   }
 
