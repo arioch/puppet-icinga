@@ -78,6 +78,8 @@ class icinga (
   $max_check_attempts        = $::icinga::params::max_check_attempts,
   $notification_period       = $::icinga::params::notification_period,
   $nrpe_allowed_hosts        = $::icinga::params::nrpe_allowed_hosts,
+  $nrpe_command_timeout      = $::icinga::params::nrpe_command_timeout,
+  $nrpe_connect_timeout      = $::icinga::params::nrpe_connect_timeout,
   $nrpe_server_address       = $::icinga::params::nrpe_server_address,
   $pidfile_client            = $::icinga::params::pidfile_client,
   $pidfile_server            = $::icinga::params::pidfile_server,
