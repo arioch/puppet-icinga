@@ -111,7 +111,7 @@ dont_blame_nrpe=<%= scope.lookupvar('icinga::nrpe_allow_arguments') %>
 # syslog facility.
 # Values: 0=debugging off, 1=debugging on
 
-debug=1
+debug=<%= scope.lookupvar('icinga::nrpe_enable_debug') %>
 
 
 

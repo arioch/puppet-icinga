@@ -15,6 +15,7 @@ class icinga::params {
   $nrpe_server_address         = $::ipaddress
   $nrpe_server_port            = '5666'
   $nrpe_allow_arguments        = '0'
+  $nrpe_enable_debug           = '0'
   $icinga_admins               = '*'
   $collect_hostname            = $::fqdn
   $notification_cmd_host       = 'notify-host-by-email'
