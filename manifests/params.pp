@@ -13,6 +13,7 @@ class icinga::params {
   $nrpe_command_timeout        = '60'
   $nrpe_connect_timeout        = '300'
   $nrpe_server_address         = $::ipaddress
+  $nrpe_server_port            = '5666'
   $icinga_admins               = '*'
   $collect_hostname            = $::fqdn
   $notification_cmd_host       = 'notify-host-by-email'
