@@ -82,6 +82,7 @@ class icinga (
   $nrpe_connect_timeout      = $::icinga::params::nrpe_connect_timeout,
   $nrpe_server_address       = $::icinga::params::nrpe_server_address,
   $nrpe_server_port          = $::icinga::params::nrpe_server_port,
+  $nrpe_allow_arguments      = $::icinga::params::nrpe_allow_arguments,
   $pidfile_client            = $::icinga::params::pidfile_client,
   $pidfile_server            = $::icinga::params::pidfile_server,
   $package_client            = $::icinga::params::package_client,
