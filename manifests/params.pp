@@ -28,6 +28,13 @@ class icinga::params {
   $hostgroups                  = 'default'
   $notifications_enabled       = '1'
   $export_resources            = true
+  case $::architecture {
+    'x86_64': { $usrlib = '/usr/lib64' }
+    default:  { $usrlib = '/usr/lib'   }
+  }
+  $logdir_client             = '/var/log/nrpe'
+  $logdir_server             = '/var/log/icinga'
+  $plugindir                 = "${usrlib}/nagios/plugins"
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
@@ -59,8 +66,6 @@ class icinga::params {
       $vardir_server             = '/var/lib/icinga'
       $sharedir_server           = '/usr/share/icinga/htdocs'
       $includedir_client         = '/etc/nagios/nrpe.d'
-      $usrlib                    = '/usr/lib'
-      $plugindir                 = "${usrlib}/nagios/plugins"
       $service_webserver         = 'apache2'
       $webserver_user            = 'www-data'
       $webserver_group           = 'www-data'
@@ -73,8 +78,6 @@ class icinga::params {
       $targetdir                 = "${confdir_server}/objects"
       $targetdir_contacts        = "${targetdir}/contacts/contacts.cfg"
       $icinga_vhost              = '/etc/icinga/apache2.conf'
-      $logdir_client             = '/var/log/nrpe'
-      $logdir_server             = '/var/log/icinga'
 
       # IDOUTILS: TO BE REFACTORED
       $idoutils_pkg     = 'icinga-idoutils'
@@ -86,11 +89,6 @@ class icinga::params {
     }
 
     'RedHat', 'CentOS', 'Scientific', 'OEL', 'Amazon': {
-      case $::architecture {
-        'x86_64': { $usrlib = '/usr/lib64' }
-        default:  { $usrlib = '/usr/lib'   }
-      }
-
       # Icinga
       $package_client_ensure     = 'present'
       $package_server_ensure     = 'present'
@@ -115,7 +113,6 @@ class icinga::params {
       $vardir_server             = '/var/icinga'
       $sharedir_server           = '/usr/share/icinga'
       $includedir_client         = '/etc/nrpe.d'
-      $plugindir                 = "${usrlib}/nagios/plugins"
       $service_webserver         = 'httpd'
       $webserver_user            = 'apache'
       $webserver_group           = 'apache'
@@ -128,8 +125,6 @@ class icinga::params {
       $targetdir                 = "${confdir_server}/objects"
       $targetdir_contacts        = "${targetdir}/contacts/contacts.cfg"
       $icinga_vhost              = '/etc/icinga/apache2.conf'
-      $logdir_client             = '/var/log/nrpe'
-      $logdir_server             = '/var/log/icinga'
 
       # Plugin: Icinga Web
       $icingaweb_pkg     = [ 'icinga-web' ]

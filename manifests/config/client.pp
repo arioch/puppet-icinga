@@ -1,19 +1,36 @@
-# == Class: icinga::config::client
+# == Class: icinga::config::client::common
 #
-# This class provides client configuration.
+# This class provides common client configuration.
 #
 class icinga::config::client {
-  case $::operatingsystem {
-    'Debian', 'Ubuntu': {
-      include icinga::config::client::debian
-    }
 
-    'RedHat', 'CentOS', 'Scientific', 'OEL', 'Amazon': {
-      include icinga::config::client::redhat
-    }
-
-    default: {
-      fail "Operatingsystem ${::operatingsystem} not supported."
-    }
+  File {
+    owner   => $::icinga::client_user,
+    group   => $::icinga::client_group,
+    notify  => Service[$::icinga::service_client],
+    require => Class['icinga::install'],
   }
+
+  file{$::icinga::confdir_client:
+    ensure  => directory,
+    recurse => true,
+  }
+
+  file{$::icinga::plugindir:
+    ensure => directory,
+  }
+
+  file{"${::icinga::confdir_client}/nrpe.cfg":
+    ensure  => present,
+    content => template('icinga/common/nrpe.cfg.erb'),
+  }
+
+  file{$::icinga::logdir_client:
+    ensure => directory,
+  }
+
+  file{$::icinga::includedir_client:
+    ensure => directory,
+  }
+
 }

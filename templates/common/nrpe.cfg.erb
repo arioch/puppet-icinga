@@ -33,7 +33,7 @@ server_port=5666
 # and you do not want nrpe to bind on all interfaces.
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-#server_address=127.0.0.1
+#server_address=<%= scope.lookupvar('icinga::nrpe_server_address') %>
 
 # NRPE USER
 # This determines the effective user that the NRPE daemon should run as.
@@ -66,8 +66,6 @@ nrpe_group=<%= scope.lookupvar('icinga::client_group') %>
 #
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-# List of allowed icinga hosts
-#allowed_hosts=127.0.0.1
 allowed_hosts=<% scope.lookupvar('icinga::nrpe_allowed_hosts').each do |i| -%><%= i %>,<% end -%>
 
 
@@ -187,23 +185,7 @@ include_dir=<%= scope.lookupvar('icinga::includedir_client') %>
 # The following examples use hardcoded command arguments...
 
 command[check_users]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_users -w 5 -c 10
+command[check_disk]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10%
 command[check_zombie_procs]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_procs -w 5 -c 10 -s Z
-command[check_boot]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /boot
-command[check_root]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /
-command[check_home]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /home
-command[check_opt]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /opt
-command[check_tmp]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /tmp
-command[check_usr]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /usr
-command[check_var]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /var
-command[check_varlog]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10% -p /var/log
-command[check_mysql]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_mysql
-
-# The following examples allow user-supplied arguments and can
-# only be used if the NRPE daemon was compiled with support for
-# command arguments *AND* the dont_blame_nrpe directive in this
-# config file is set to '1'.  This poses a potential security risk, so
-# make sure you read the SECURITY file before doing this.
-
-#command[check_users]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_users -w $ARG1$ -c $ARG2$
-#command[check_disk]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
-#command[check_procs]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$
+command[check_total_procs]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_procs -w 250 -c 350
+command[check_mem]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_mem -w 90,25 -c 95,50
