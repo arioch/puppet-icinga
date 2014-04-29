@@ -33,7 +33,7 @@ server_port=5666
 # and you do not want nrpe to bind on all interfaces.
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-#server_address=<%= scope.lookupvar('icinga::nrpe_server_address') %>
+server_address=<%= scope.lookupvar('icinga::nrpe_server_address') %>
 
 # NRPE USER
 # This determines the effective user that the NRPE daemon should run as.
