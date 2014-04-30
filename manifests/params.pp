@@ -77,6 +77,7 @@ class icinga::params {
       $targetdir                 = "${confdir_server}/objects"
       $targetdir_contacts        = "${targetdir}/contacts/contacts.cfg"
       $icinga_vhost              = '/etc/icinga/apache2.conf'
+      $mail_command              = '/usr/bin/mail'
 
       # IDOUTILS: TO BE REFACTORED
       $idoutils_pkg     = 'icinga-idoutils'
@@ -129,6 +130,7 @@ class icinga::params {
       $targetdir                 = "${confdir_server}/objects"
       $targetdir_contacts        = "${targetdir}/contacts/contacts.cfg"
       $icinga_vhost              = '/etc/icinga/apache2.conf'
+      $mail_command              = '/bin/mail'
 
       # Plugin: Icinga Web
       $icingaweb_pkg     = [ 'icinga-web' ]
