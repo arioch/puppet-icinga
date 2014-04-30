@@ -33,7 +33,6 @@ class icinga::params {
   $export_resources            = true
   $logdir_client             = '/var/log/nrpe'
   $logdir_server             = '/var/log/icinga'
-  $plugindir                 = "${usrlib}/nagios/plugins"
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
@@ -153,5 +152,8 @@ class icinga::params {
 
     default: {}
   }
-}
 
+  # Needs to be down here since $usrlib is defined in the distro specific params
+  $plugindir                 = "${usrlib}/nagios/plugins"
+
+}
