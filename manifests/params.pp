@@ -31,10 +31,6 @@ class icinga::params {
   $hostgroups                  = 'default'
   $notifications_enabled       = '1'
   $export_resources            = true
-  case $::architecture {
-    'x86_64': { $usrlib = '/usr/lib64' }
-    default:  { $usrlib = '/usr/lib'   }
-  }
   $logdir_client             = '/var/log/nrpe'
   $logdir_server             = '/var/log/icinga'
   $plugindir                 = "${usrlib}/nagios/plugins"
@@ -69,6 +65,7 @@ class icinga::params {
       $vardir_server             = '/var/lib/icinga'
       $sharedir_server           = '/usr/share/icinga/htdocs'
       $includedir_client         = '/etc/nagios/nrpe.d'
+      $usrlib                    = '/usr/lib'
       $service_webserver         = 'apache2'
       $webserver_user            = 'www-data'
       $webserver_group           = 'www-data'
@@ -92,6 +89,11 @@ class icinga::params {
     }
 
     'RedHat', 'CentOS', 'Scientific', 'OEL', 'Amazon': {
+      case $::architecture {
+        'x86_64': { $usrlib = '/usr/lib64' }
+        default:  { $usrlib = '/usr/lib'   }
+      }
+
       # Icinga
       $package_client_ensure     = 'present'
       $package_server_ensure     = 'present'
