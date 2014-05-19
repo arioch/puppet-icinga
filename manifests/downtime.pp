@@ -11,12 +11,12 @@
 # "downtime_period" is similar to the definition found in time periods meaning that any of the following should be valid:
 #
 define icinga::downtime(
+  $author,
+  $comment,
   $hostname            = undef,
   $hostgroups          = undef,
   $servicegroups       = undef,
   $service_description = undef,
-  $author,
-  $comment,
   $duration            = undef,
   $downtime_period     = [],
   $fixed               = undef,
@@ -24,8 +24,8 @@ define icinga::downtime(
   $register            = '1',
 ) {
 
-  concat::fragment{"$name":
-    target  => "$::icinga::confdir_server/downtime.cfg",
+  concat::fragment{$name:
+    target  => "${::icinga::confdir_server}/downtime.cfg",
     order   => 10,
     content => template('icinga/common/downtime.cfg.erb'),
   }
