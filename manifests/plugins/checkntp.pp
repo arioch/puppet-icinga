@@ -13,7 +13,7 @@ class icinga::plugins::checkntp (
 ) inherits ::icinga {
 
   if is_array($ntp_server) {
-    $_ntp_server = $ntp_server[1]
+    $_ntp_server = $ntp_server[0]
   } else {
     $_ntp_server = $ntp_server
   }
