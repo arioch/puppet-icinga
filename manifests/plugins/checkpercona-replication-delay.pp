@@ -5,7 +5,7 @@
 # http://www.percona.com/doc/percona-monitoring-plugins/nagios/
 #
 class icinga::plugins::checkpercona-replication-delay (
-  $serverid,
+  $serverid              = 'UNSET',
   $ensure                = present,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
@@ -15,6 +15,10 @@ class icinga::plugins::checkpercona-replication-delay (
   $critical              = '600',
 
 ) inherits icinga {
+
+  if($serverid == 'UNSET') {
+    fail('You should provide an serverid but did not set the var')
+  }
 
   $pkg_percona_nagios = $::operatingsystem ? {
     /CentOS|RedHat|Scientific|OEL|Amazon/ => 'percona-nagios-plugins',
