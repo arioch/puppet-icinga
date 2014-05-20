@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkntp
+#
+# This class provides a check_ntp plugin.
+#
 class icinga::plugins::checkntp (
   $ntp_server            = 'pool.ntp.org',
   $warn_value            = '1',
