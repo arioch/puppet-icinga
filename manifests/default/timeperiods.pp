@@ -1,3 +1,7 @@
+# == Class: icinga::default::timeperiods
+#
+# This class provides default time period configuration.
+#
 class icinga::default::timeperiods {
 
   Nagios_timeperiod {

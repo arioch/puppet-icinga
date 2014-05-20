@@ -1,3 +1,7 @@
+# == Class: icinga::default::hostgroups
+#
+# This class provides default hostgroup configuration.
+#
 class icinga::default::hostgroups {
 
   Nagios_hostgroup {
