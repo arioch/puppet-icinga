@@ -3,6 +3,7 @@
 # This class provides the ability to manage Icinga users.
 #
 define icinga::user (
+  $password,
   $ensure                        = present,
   $can_submit_commands           = '0',
   $contact_name                  = $name,
@@ -10,7 +11,6 @@ define icinga::user (
   $email                         = undef,
   $hash                          = undef,
   $pager                         = undef,
-  $password,
   $host_notification_commands    = $::icinga::notification_cmd_host,
   $host_notification_period      = $::icinga::notification_period,
   $host_notifications_enabled    = $::icinga::notification_host_enable,
