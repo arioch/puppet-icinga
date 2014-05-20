@@ -24,7 +24,7 @@ class icinga::plugins::checkload (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_load]=${::icinga::plugindir}/check_load -w $check_warning -c $check_critical\n",
+      content => "command[check_load]=${::icinga::plugindir}/check_load -w ${check_warning} -c ${check_critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
