@@ -1,1 +1,2 @@
 --no-80chars-check
+--no-names_containing_dash-check
