@@ -3,8 +3,8 @@
 # This define provides a checkdns plugin.
 #
 define icinga::plugins::checkdns (
-  $dnsname               = $name,
   $expected_answer,
+  $dnsname               = $name,
   $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
   $max_check_attempts    = $::icinga::max_check_attempts,
