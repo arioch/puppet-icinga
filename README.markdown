@@ -1,3 +1,5 @@
+[![Build
+Status](https://travis-ci.org/Inuits/puppet-icinga.svg)](https://travis-ci.org/Inuits/puppet-icinga)
 # Sample Usage
 
 ### cat site.pp
