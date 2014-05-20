@@ -1,3 +1,8 @@
+# == Define: icinga::plugins::checkmount
+#
+# This define provides a checkmount plugin.
+#
+
 define icinga::plugins::checkmount (
   $pkgname                = $::operatingsystem ? {
     'centos' => 'nagios-plugins-mount',
@@ -19,7 +24,7 @@ define icinga::plugins::checkmount (
     }
   }
 
-  $sanitized_mount = inline_template("<%= mountpoint.gsub('/', '_') %>")
+  $sanitized_mount = inline_template('<%= mountpoint.gsub(\'/\', \'_\') %>')
   if $type {
     $type_option = " -t ${type}"
   }
