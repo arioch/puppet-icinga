@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkicingareload
+#
+# This class provides the check_icinga_reload plugin.
+#
 class icinga::plugins::checkicingareload (
   $pkgname                                  = $::operatingsystem ? {
     'centos' => 'nagios-plugins-icinga-reload-check',
@@ -30,7 +34,7 @@ class icinga::plugins::checkicingareload (
     content => "command[${command_name}]=cd ${::icinga::plugindir}/; ./${script_name}",
   }
 
-  nagios_service { "check_icinga_reload":
+  nagios_service { 'check_icinga_reload':
     check_command         => "check_nrpe_command!${command_name}",
     service_description   => $description,
     host_name             => $::fqdn,
