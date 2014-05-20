@@ -1,3 +1,7 @@
+# == Class: icinga::config::server::common
+#
+# This class provides common server configuration
+#
 class icinga::config::server::common {
 
   File {
@@ -44,9 +48,9 @@ class icinga::config::server::common {
     ensure => 'present',
   }
 
-  concat{"$::icinga::confdir_server/downtime.cfg":}
+  concat{"${::icinga::confdir_server}/downtime.cfg":}
   concat::fragment {'header':
-    target  => "$::icinga::confdir_server/downtime.cfg",
+    target  => "${::icinga::confdir_server}/downtime.cfg",
     order   => 0,
     content => "# Managed by Puppet\n",
   }
@@ -95,7 +99,7 @@ class icinga::config::server::common {
   }
 
   nagios_command {'schedule_script':
-    command_line  => "${::icinga::sharedir_server}/bin/sched_down.pl -c ${::icinga::confdir_server}/icinga.cfg -s $::icinga::confdir_server/downtime.cfg \$ARG1\$",
+    command_line  => "${::icinga::sharedir_server}/bin/sched_down.pl -c ${::icinga::confdir_server}/icinga.cfg -s ${::icinga::confdir_server}/downtime.cfg \$ARG1\$",
     target        => "${::icinga::targetdir}/commands/schedule_script.cfg",
   }
 
@@ -107,7 +111,7 @@ class icinga::config::server::common {
   nagios_service {'schedule_downtimes':
     check_command       => 'schedule_script!-d0',
     service_description => 'Schedule Downtimes',
-    host_name           => "${::fqdn}",
+    host_name           => $::fqdn,
     target              => "/etc/icinga/objects/services/${::fqdn}.cfg",
     max_check_attempts  => '4',
   }
