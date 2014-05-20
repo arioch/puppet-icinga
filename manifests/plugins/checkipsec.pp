@@ -1,3 +1,7 @@
+# == Class: icinga::plugins::checkipsec
+#
+# This class provides the check_ipsec plugin.
+#
 class icinga::plugins::checkipsec (
   $pkgname               = 'nagios-plugins-ipsec',
   $tunnels               = '1',
