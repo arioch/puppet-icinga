@@ -5,7 +5,7 @@
 # http://www.percona.com/doc/percona-monitoring-plugins/nagios/
 #
 class icinga::plugins::checkpercona-replication-delay (
-  $serverid              = 'UNSET',
+  $serverid              = undef,
   $ensure                = present,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
@@ -16,7 +16,7 @@ class icinga::plugins::checkpercona-replication-delay (
 
 ) inherits icinga {
 
-  if($serverid == 'UNSET') {
+  if $serverid {
     fail('You should provide an serverid but did not set the var')
   }
 

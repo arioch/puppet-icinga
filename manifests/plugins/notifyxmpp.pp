@@ -3,28 +3,28 @@
 # This class provides an xmpp notification plugin.
 #
 class icinga::plugins::notifyxmpp (
-  $xmpp_client = 'UNSET',
-  $xmpp_jid    = 'UNSET',
-  $xmpp_server = 'UNSET',
-  $xmpp_auth   = 'UNSET',
+  $xmpp_client = undef,
+  $xmpp_jid    = undef,
+  $xmpp_server = undef,
+  $xmpp_auth   = undef,
   $xmpp_port   = '5222'
 ) {
 
   require ::icinga
 
-  if $xmpp_client == 'UNSET' {
+  if $xmpp_client {
     fail('You should provide an xmpp_client but did not set the var')
   }
 
-  if $xmpp_jid == 'UNSET' {
+  if $xmpp_jid {
     fail('You should provide an xmpp_jid but did not set the var')
   }
 
-  if $xmpp_server == 'UNSET' {
+  if $xmpp_server {
     fail('You should provide an xmpp_server but did not set the var')
   }
 
-  if $xmpp_auth == 'UNSET' {
+  if $xmpp_auth {
     fail('You should provide an xmpp_auth but did not set the var')
   }
 
