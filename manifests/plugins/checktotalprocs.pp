@@ -15,6 +15,7 @@ class icinga::plugins::checktotalprocs (
       check_command         => 'check_nrpe_command!check_total_procs',
       service_description   => 'Total processes',
       contact_groups        => $contact_groups,
+      host_name             => $::fqdn,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
