@@ -77,6 +77,7 @@ class icinga (
   $manage_repo               = $::icinga::params::manage_repo,
   $max_check_attempts        = $::icinga::params::max_check_attempts,
   $notification_period       = $::icinga::params::notification_period,
+  $notifiation_interval      = $::icinga::params::notification_interval,
   $nrpe_allowed_hosts        = $::icinga::params::nrpe_allowed_hosts,
   $nrpe_command_timeout      = $::icinga::params::nrpe_command_timeout,
   $nrpe_connect_timeout      = $::icinga::params::nrpe_connect_timeout,
