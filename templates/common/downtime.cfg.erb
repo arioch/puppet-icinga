@@ -1,31 +1,31 @@
 define downtime {
 <% if @hostname -%>
-	host_name            <%= hostname %>
+	host_name            <%= @hostname %>
 <% end -%>
 <% if @hostgroups -%>
-	hostgroups           <%= hostgroups.join(' ') %>
+	hostgroups           <%= @hostgroups.join(' ') %>
 <% end -%>
 <% if @servicegroups -%>
-	servicegroups        <%= servicegroups.join(' ') %>
+	servicegroups        <%= @servicegroups.join(' ') %>
 <% end -%>
 <% if @service_description -%>
-	service_description  <%= service_description %>
+	service_description  <%= @service_description %>
 <% end -%>
 <% if @author -%>
-	author               <%= author %>
+	author               <%= @author %>
 <% end -%>
 <% if @comment -%>
-	comment              <%= comment %>
+	comment              <%= @comment %>
 <% end -%>
 <% if @duration -%>
-	duration             <%= duration %>
+	duration             <%= @duration %>
 <% end -%>
 <% @downtime_period.each do |val| -%>
 	downtime_period      <%= val %>
 <% end -%>
 <% if @fixed -%>
-	fixed                <%= fixed %>
+	fixed                <%= @fixed %>
 <% end -%>
-	propagate            <%= propagate %>
-	register             <%= register %>
+	propagate            <%= @propagate %>
+	register             <%= @register %>
 }
