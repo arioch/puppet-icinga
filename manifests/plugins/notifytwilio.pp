@@ -10,7 +10,7 @@ class icinga::plugins::notifytwilio {
       group   => 'root',
       content => template('icinga/plugins/notify-by-twilio'),
       notify  => Service[$::icinga::service_server],
-      require => Class[$::icinga::config],
+      require => Class['::icinga::config'],
     }
 
     @@nagios_command{'notify-host-by-twilio':
