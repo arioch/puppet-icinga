@@ -12,19 +12,19 @@ class icinga::plugins::notifyxmpp (
 
   require ::icinga
 
-  if $xmpp_client {
+  if ! $xmpp_client {
     fail('You should provide an xmpp_client but did not set the var')
   }
 
-  if $xmpp_jid {
+  if ! $xmpp_jid {
     fail('You should provide an xmpp_jid but did not set the var')
   }
 
-  if $xmpp_server {
+  if ! $xmpp_server {
     fail('You should provide an xmpp_server but did not set the var')
   }
 
-  if $xmpp_auth {
+  if ! $xmpp_auth {
     fail('You should provide an xmpp_auth but did not set the var')
   }
 
