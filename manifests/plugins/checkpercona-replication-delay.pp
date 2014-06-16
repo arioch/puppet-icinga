@@ -16,7 +16,7 @@ class icinga::plugins::checkpercona-replication-delay (
 
 ) inherits icinga {
 
-  if ($serverid == undef) {
+  if ! $serverid {
     fail('You should provide an serverid but did not set the var')
   }
 
