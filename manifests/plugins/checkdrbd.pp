@@ -34,7 +34,7 @@ class icinga::plugins::checkdrbd (
 
     @@nagios_service{"check_drbd_${host_name}_${title}":
       check_command         => 'check_nrpe_command!check_drbd',
-      service_description   => 'Check DRBD',
+      service_description   => 'DRBD',
       host_name             => $host_name,
       use                   => 'generic-service',
       contact_groups        => $contact_groups,

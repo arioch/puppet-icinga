@@ -39,7 +39,7 @@ define icinga::plugins::checkdrupalcron (
 
     @@nagios_service{"check_drupal_cron_${host_name}_${title}":
       check_command         => "check_nrpe_command!check_drupal_cron_${title}",
-      service_description   => "Check Drupal Cron ${title}",
+      service_description   => "Drupal Cron ${title}",
       host_name             => $host_name,
       use                   => 'generic-service',
       contact_groups        => $contact_groups,
