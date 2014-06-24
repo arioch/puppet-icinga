@@ -4,6 +4,7 @@
 #
 class icinga::plugins::checkcron (
   $contact_groups        = $::environment,
+  $max_cron_
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
@@ -22,7 +23,7 @@ class icinga::plugins::checkcron (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_cron]=${::icinga::plugindir}/check_procs -c 1:20 -C ${cron_proc_name}\n",
+      content => "command[check_cron]=${::icinga::plugindir}/check_procs -c 1: -C ${cron_proc_name}\n",
       notify  => Service[$::icinga::service_client],
     }
 
