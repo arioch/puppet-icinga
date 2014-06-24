@@ -4,7 +4,6 @@
 #
 class icinga::plugins::checkcron (
   $contact_groups        = $::environment,
-  $max_cron_
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
