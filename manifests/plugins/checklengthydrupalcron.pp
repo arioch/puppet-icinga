@@ -33,7 +33,7 @@ define icinga::plugins::checklengthydrupalcron (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_lengthy_drupal_cron_${host_name}]=${::icinga::plugindir}/check_procs -m ELAPSED -a /cron.php -w ${warning} -c ${critical}\n",
+      content => "command[check_lengthy_drupal_cron_${host_name}]=${::icinga::plugindir}/check_procs -m ELAPSED --ereg-argument-array='(\/cron.php|drush cron)' -w ${warning} -c ${critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
