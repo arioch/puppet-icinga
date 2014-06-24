@@ -22,7 +22,7 @@ class icinga::plugins::checkcron (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_cron]=${::icinga::plugindir}/check_procs -c 1 -C ${cron_proc_name}\n",
+      content => "command[check_cron]=${::icinga::plugindir}/check_procs -c 1:20 -C ${cron_proc_name}\n",
       notify  => Service[$::icinga::service_client],
     }
 
