@@ -46,6 +46,10 @@ class icinga::reports (
     package {'unzip': ensure => 'installed'}
   }
 
+if (!defined(Package['wget'])) {
+    package {'wget': ensure => 'installed'}
+  }
+
   $jasperHome = $jasperserver::jasperHome
   $tomcatHome = $jasperserver::tomcatHome
   $tomcatName = $tomcat6::params::tomcat_name
