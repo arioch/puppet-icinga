@@ -41,7 +41,7 @@ class icinga::reports (
   $tomcatName = $tomcat6::params::tomcat_name
 
   # required for icinga-web connector
-  php::extension { ['php-soap']: }
+  php::module{ 'php-soap': }
 
   Exec['get-icinga-reports'] -> Exec['unzip-icinga-reports'] -> Exec['install-tomcat-mysql-connector']
     -> Exec['install-tomcat-mysql-connector-restart-tomcat'] -> Exec['js-import-icinga']
