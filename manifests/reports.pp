@@ -24,7 +24,7 @@ class icinga::reports (
   $IdoDbUsername = 'icinga',
   $IdoDbPassword = 'icinga',
 ) {
-  include $db_module
+
   include tomcat6
   include php
 
