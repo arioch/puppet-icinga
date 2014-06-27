@@ -28,7 +28,7 @@ class icinga::reports (
   include tomcat6
   include php
 
-  class {'jasperserver'
+  class {'jasperserver':
     db_module => $db_module,
   }
 
