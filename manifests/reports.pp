@@ -32,6 +32,16 @@ class icinga::reports (
     db_module => $db_module,
   }
 
+  case $db_module {
+    'percona':   {
+      $db_service_name = $percona::service_name
+    }
+    'mysql':     {
+      $db_service_name = 'mysqld'
+    }
+    default:     { fail('Unsupported DB puppet module') }
+  }
+
   if (!defined(Package['unzip'])) {
     package {'unzip': ensure => 'installed'}
   }
@@ -100,6 +110,6 @@ class icinga::reports (
     path    => '/bin:/usr/bin:/sbin:/usr/sbin',
     unless  => "mysql -u${IdoDbUsername} -p${IdoDbPassword} ${IdoDbName} -e 'select name from mysql.proc where name='${icingaAvailabilityFunctionName}';'",
     command => "mysql -u${IdoDbUsername} -p${IdoDbPassword} ${IdoDbName} < ${icingaReportsHome}/icinga-reports-${icingaReportsVersion}/db/icinga/mysql/availability.sql",
-    require => [ Service['mysqld'], Exec['install-jar-files'] ]
+    require => [ Service[$db_service_name], Exec['install-jar-files'] ]
   }
 }
