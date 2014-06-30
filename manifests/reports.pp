@@ -59,10 +59,14 @@ if (!defined(Package['wget'])) {
 
   file { $::icinga::params::jasper_vhost:
     ensure  => file,
-    owner   => $::icinga::params::webserver_user,
-    group   => $::icinga::params::webserver_group,
     content => template('icinga/common/jasperserver.conf.erb'),
     notify  => Service[$::icinga::params::service_webserver],
+  }
+
+  file { $icingaReportsHome:
+    ensure => 'directory',
+    owner  => $::icinga::params::server_user,
+    group  => $::icinga::params::server_group,
   }
 
   Exec['get-icinga-reports'] -> Exec['unzip-icinga-reports'] -> Exec['install-tomcat-mysql-connector']
