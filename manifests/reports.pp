@@ -63,7 +63,7 @@ if (!defined(Package['wget'])) {
     notify  => Service[$::icinga::params::service_webserver],
   }
 
-  file { $icingaReportsHome:
+  file { "${icingaReportsHome}/icinga-reports-${icingaReportsVersion}":
     ensure => 'directory',
     owner  => $::icinga::params::server_user,
     group  => $::icinga::params::server_group,
