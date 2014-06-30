@@ -20,9 +20,9 @@ class icinga::reports (
   $icingaReportsVersion = '1.10.0',
   $icingaReportsHome = $::icinga::params::confdir_server,
   $icingaAvailabilityFunctionName = 'icinga_availability',
-  $IdoDbName = 'icinga',
-  $IdoDbUsername = 'icinga',
-  $IdoDbPassword = 'icinga',
+  $IdoDbName = $::icinga::params::idoutils_dbname,
+  $IdoDbUsername = $::icinga::params::idoutils_dbuser,
+  $IdoDbPassword = $::icinga::params::idoutils_dbpass,
 ) {
 
   include tomcat6
@@ -56,6 +56,14 @@ if (!defined(Package['wget'])) {
 
   # required for icinga-web connector
   php::module{ 'soap': }
+
+  file { $::icinga::params::jasper_vhost:
+    ensure  => file,
+    owner   => $::icinga::params::webserver_user,
+    group   => $::icinga::params::webserver_group,
+    content => template('icinga/common/jasperserver.conf.erb'),
+    notify  => Service[$::icinga::params::service_webserver],
+  }
 
   Exec['get-icinga-reports'] -> Exec['unzip-icinga-reports'] -> Exec['install-tomcat-mysql-connector']
     -> Exec['install-tomcat-mysql-connector-restart-tomcat'] -> Exec['js-import-icinga']
