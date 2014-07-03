@@ -4,6 +4,8 @@
 #
 class icinga::config::server::common {
 
+  include icinga
+
   File {
     ensure  => 'directory',
     owner   => $::icinga::server_user,
