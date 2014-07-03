@@ -11,7 +11,7 @@ class icinga::params {
   $plugins                     = [ 'checkpuppet' ]
   $nrpe_allowed_hosts          = [ '127.0.0.1,', $::ipaddress ]
   $nrpe_command_timeout        = '60'
-  $nrpe_connect_timeout        = '300'
+  $nrpe_connect_timeout        = '10'
   $nrpe_server_address         = $::ipaddress
   $nrpe_server_port            = '5666'
   $nrpe_allow_arguments        = '0'
