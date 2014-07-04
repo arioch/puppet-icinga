@@ -20,7 +20,7 @@ define icinga::plugins::checkredis (
       'debian' => 'libredis-perl',
     }
 
-    if (!defined(Package[$pkg]))
+    if (!defined(Package[$pkg])) {
       package { $pkg: }
     }
 
@@ -40,8 +40,8 @@ define icinga::plugins::checkredis (
     }
 
     @@nagios_service{"check_redis_${host_name}_${title}":
-      check_command         => "check_nrpe_command!check_redis",
-      service_description   => "Redis",
+      check_command         => 'check_nrpe_command!check_redis',
+      service_description   => 'Redis',
       host_name             => $host_name,
       use                   => 'generic-service',
       contact_groups        => $contact_groups,
