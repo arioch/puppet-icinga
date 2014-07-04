@@ -35,12 +35,12 @@ define icinga::plugins::checkredis (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_redis_${title}]=${::icinga::plugindir}/check_redis -H ${bind_address} -p ${port}\n",
+      content => "command[check_redis]=${::icinga::plugindir}/check_redis -H ${bind_address} -p ${port}\n",
       notify  => Service[$::icinga::service_client],
     }
 
     @@nagios_service{"check_redis_${host_name}_${title}":
-      check_command         => "check_nrpe_command!check_redis_${title}",
+      check_command         => "check_nrpe_command!check_redis",
       service_description   => "Redis",
       host_name             => $host_name,
       use                   => 'generic-service',
