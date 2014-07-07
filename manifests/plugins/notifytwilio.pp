@@ -1,4 +1,14 @@
-class icinga::plugins::notifytwilio {
+class icinga::plugins::notifytwilio (
+  $from          = undef,
+  $user_id       = undef,
+  $auth_token    = undef,
+  $timeout       = 5,
+  $split_big_msg = 0,
+  $deferred_dir  = "/tmp",
+  $defer_enabled = 1,
+  $max_tries     = 3,
+  $msg_rewrite   = 0,
+) {
 
  require ::icinga
 
@@ -13,12 +23,20 @@ class icinga::plugins::notifytwilio {
       require => Class['::icinga::config'],
     }
 
+    file { "${::icinga::confdir_server}/notify-by-twilio.conf.erb":
+      ensure  => file,
+      mode    => '0755',
+      owner   => 'icinga',
+      group   => 'icinga',
+      content => template('icinga/plugins/notify-by-twilio.conf'),
+    }
+
     @@nagios_command{'notify-host-by-twilio':
       ensure       => present,
       command_line => '$USER1$/notify-by-twilio -m \"[$NOTIFICATIONTYPE$]: $HOSTALIAS$ is $HOSTSTATE$\" -- $CONTACTPAGER$',
       target       => "${::icinga::targetdir}/commands/notify-by-twilio.cfg",
     }
-     
+
     @@nagios_command{'notify-service-by-twilio':
       ensure       => present,
       command_line => '$USER1$/notify-by-twilio -m "[$NOTIFICATIONTYPE$]: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$" -- $CONTACTPAGER$',
