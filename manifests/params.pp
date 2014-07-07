@@ -3,38 +3,38 @@
 # Full description of class icinga here.
 #
 class icinga::params {
-  $manage_repo                 = false
-  $client                      = true
-  $server                      = false
-  $collect_resources           = true
-  $use_auth                    = true
-  $plugins                     = [ 'checkpuppet' ]
-  $nrpe_allowed_hosts          = [ '127.0.0.1,', $::ipaddress ]
-  $nrpe_command_timeout        = '60'
-  $nrpe_connect_timeout        = '300'
-  $nrpe_server_address         = $::ipaddress
-  $nrpe_server_port            = '5666'
-  $nrpe_allow_arguments        = '0'
-  $nrpe_enable_debug           = '0'
-  $icinga_admins               = '*'
-  $collect_hostname            = $::fqdn
-  $notification_cmd_host       = 'notify-host-by-email'
-  $notification_cmd_service    = 'notify-service-by-email'
-  $notification_period         = '24x7'
-  $notification_host_enable    = '1'
-  $notification_host_opts      = 'd,r'
-  $notification_service_enable = '1'
-  $notification_service_opts   = 'w,u,c,r'
-  $notification_interval       = '0'
-  $max_check_attempts          = '4'
-  $use_ido                     = false
-  $parents                     = undef
-  $hostgroups                  = 'default'
-  $notifications_enabled       = '1'
-  $export_resources            = true
-  $logdir_client               = '/var/log/nrpe'
-  $logdir_server               = '/var/log/icinga'
-  $set_expire_ack_by_default     = '0',
+  $manage_repo                   = false
+  $client                        = true
+  $server                        = false
+  $collect_resources             = true
+  $use_auth                      = true
+  $plugins                       = [ 'checkpuppet' ]
+  $nrpe_allowed_hosts            = [ '127.0.0.1,', $::ipaddress ]
+  $nrpe_command_timeout          = '60'
+  $nrpe_connect_timeout          = '300'
+  $nrpe_server_address           = $::ipaddress
+  $nrpe_server_port              = '5666'
+  $nrpe_allow_arguments          = '0'
+  $nrpe_enable_debug             = '0'
+  $icinga_admins                 = '*'
+  $collect_hostname              = $::fqdn
+  $notification_cmd_host         = 'notify-host-by-email'
+  $notification_cmd_service      = 'notify-service-by-email'
+  $notification_period           = '24x7'
+  $notification_host_enable      = '1'
+  $notification_host_opts        = 'd,r'
+  $notification_service_enable   = '1'
+  $notification_service_opts     = 'w,u,c,r'
+  $notification_interval         = '0'
+  $max_check_attempts            = '4'
+  $use_ido                       = false
+  $parents                       = undef
+  $hostgroups                    = 'default'
+  $notifications_enabled         = '1'
+  $export_resources              = true
+  $logdir_client                 = '/var/log/nrpe'
+  $logdir_server                 = '/var/log/icinga'
+  $set_expire_ack_by_default     = '0'
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
