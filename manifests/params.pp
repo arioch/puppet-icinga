@@ -34,7 +34,7 @@ class icinga::params {
   $export_resources              = true
   $logdir_client                 = '/var/log/nrpe'
   $logdir_server                 = '/var/log/icinga'
-  $set_expire_ack_by_default     = '0',
+  $set_expire_ack_by_default     = '0'
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
