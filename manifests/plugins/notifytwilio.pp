@@ -31,6 +31,8 @@ class icinga::plugins::notifytwilio (
       content => template('icinga/plugins/notify-by-twilio.conf.erb'),
     }
 
+    package { 'perl-IO-Socket-SSL': }
+
     @@nagios_command{'notify-host-by-twilio':
       ensure       => present,
       command_line => '$USER1$/notify-by-twilio -m \"[$NOTIFICATIONTYPE$]: $HOSTALIAS$ is $HOSTSTATE$\" -- $CONTACTPAGER$',
