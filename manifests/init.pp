@@ -122,6 +122,7 @@ class icinga (
   $hostgroups                = $::icinga::params::hostgroups,
   $notifications_enabled     = $::icinga::params::notifications_enabled,
   $export_resources          = $::icinga::params::export_resources,
+  $set_expire_ack_by_default = $::icinga::params::set_expire_ack_by_default,
 ) inherits icinga::params {
 
   # motd::register { 'icinga-refactor': }
