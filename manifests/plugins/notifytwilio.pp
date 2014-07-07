@@ -23,12 +23,12 @@ class icinga::plugins::notifytwilio (
       require => Class['::icinga::config'],
     }
 
-    file { "${::icinga::confdir_server}/notify-by-twilio.conf.erb":
+    file { "${::icinga::confdir_server}/notify-by-twilio.conf":
       ensure  => file,
       mode    => '0755',
       owner   => 'icinga',
       group   => 'icinga',
-      content => template('icinga/plugins/notify-by-twilio.conf'),
+      content => template('icinga/plugins/notify-by-twilio.conf.erb'),
     }
 
     @@nagios_command{'notify-host-by-twilio':
