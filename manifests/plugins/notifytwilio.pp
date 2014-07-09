@@ -25,7 +25,7 @@ class icinga::plugins::notifytwilio (
 
     file { "${::icinga::confdir_server}/notify-by-twilio.conf":
       ensure  => file,
-      mode    => '0755',
+      mode    => '0644',
       owner   => 'icinga',
       group   => 'icinga',
       content => template('icinga/plugins/notify-by-twilio.conf.erb'),
