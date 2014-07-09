@@ -35,7 +35,7 @@ class icinga::plugins::notifytwilio (
 
     @@nagios_command{'notify-host-by-twilio':
       ensure       => present,
-      command_line => '$USER1$/notify-by-twilio -m \"[$NOTIFICATIONTYPE$]: $HOSTALIAS$ is $HOSTSTATE$\" -- $CONTACTPAGER$',
+      command_line => '$USER1$/notify-by-twilio -m "[$NOTIFICATIONTYPE$]: $HOSTALIAS$ is $HOSTSTATE$" -- $CONTACTPAGER$',
       target       => "${::icinga::targetdir}/commands/notify-by-twilio.cfg",
     }
 
