@@ -30,7 +30,7 @@ class icinga::plugins::checkmysqld (
       notify => Service[$icinga::service_client];
   }
 
-  file { "${::icinga::plugindir}/check_mysqld":
+  file { "${::icinga::includedir_client}/mysqld.cfg":
     ensure  => 'file',
     mode    => '0644',
     owner   => $::icinga::client_user,
