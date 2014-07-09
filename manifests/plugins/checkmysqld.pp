@@ -30,6 +30,15 @@ class icinga::plugins::checkmysqld (
       notify => Service[$icinga::service_client];
   }
 
+  file { "${::icinga::plugindir}/check_mysqld":
+    ensure  => 'file',
+    mode    => '0644',
+    owner   => $::icinga::client_user,
+    group   => $::icinga::client_group,
+    notify  => Service[$::icinga::service_client],
+    content => "command[check_mysqld]=${::icinga::plugindir}/check_mysqld.pl",
+  }
+
   @@nagios_service { "check_mysqld_performance_${::fqdn}":
     check_command       => 'check_nrpe_command!check_mysqld',
     service_description => 'mysqld',
