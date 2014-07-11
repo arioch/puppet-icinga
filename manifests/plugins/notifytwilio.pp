@@ -1,18 +1,20 @@
+# Class: icinga::plugins::notifytwilio
+#
 class icinga::plugins::notifytwilio (
   $from          = undef,
   $user_id       = undef,
   $auth_token    = undef,
   $timeout       = 5,
   $split_big_msg = 0,
-  $deferred_dir  = "/tmp",
+  $deferred_dir  = '/tmp',
   $defer_enabled = 1,
   $max_tries     = 3,
   $msg_rewrite   = 0,
 ) {
 
- require ::icinga
+  require ::icinga
 
- if $::icinga::server {
+  if $::icinga::server {
     file{"${::icinga::plugindir}/notify-by-twilio":
       ensure  => present,
       mode    => '0755',

@@ -11,7 +11,7 @@ class icinga::plugins::checkcron (
 
   if $icinga::client {
 
-    $cron_proc_name = $osfamily ? {
+    $cron_proc_name = $::osfamily ? {
         'Debian'    => 'cron',
         'RedHat'    => 'crond',
         default     => 'crond',

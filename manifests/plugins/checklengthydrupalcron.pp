@@ -39,7 +39,7 @@ define icinga::plugins::checklengthydrupalcron (
 
     @@nagios_service{"check_lengthy_drupal_cron_${host_name}_${host_name}":
       check_command         => "check_nrpe_command!check_lengthy_drupal_cron_${host_name}",
-      service_description   => "Long Running Drupal Cron",
+      service_description   => 'Long Running Drupal Cron',
       host_name             => $host_name,
       use                   => 'generic-service',
       contact_groups        => $contact_groups,
