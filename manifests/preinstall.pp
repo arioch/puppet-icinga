@@ -50,7 +50,7 @@ class icinga::preinstall {
 
         $inuits_mirror = $::operatingsystemrelease ? {
           /^5/     => 'http://repo.inuits.eu/centos/5/os',
-          /^6/     => 'http://repo.inuits.eu/centos/6/os',
+          /^6/     => 'http://repo.inuits.eu/pulp/centos/6/os/x86_64',
           default  => Fail['Operating system or release version not supported.'],
         }
 
