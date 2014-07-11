@@ -11,7 +11,7 @@ class icinga::params {
   $plugins                       = [ 'checkpuppet' ]
   $nrpe_allowed_hosts            = [ '127.0.0.1,', $::ipaddress ]
   $nrpe_command_timeout          = '60'
-  $nrpe_connect_timeout          = '300'
+  $nrpe_connect_timeout          = '10'
   $nrpe_server_address           = $::ipaddress
   $nrpe_server_port              = '5666'
   $nrpe_allow_arguments          = '0'
@@ -88,6 +88,9 @@ class icinga::params {
       $idoutils_dbname  = 'icinga'
       $idoutils_dbuser  = 'icinga'
       $idoutils_dbpass  = 'icinga'
+
+      # Plugin: Report
+      $jasper_vhost              = '/etc/apache2/conf.d/jasperserver.conf'
     }
 
     'RedHat', 'CentOS', 'Scientific', 'OEL', 'Amazon': {
@@ -135,23 +138,26 @@ class icinga::params {
       $mail_command              = '/bin/mail'
 
       # Plugin: Icinga Web
-      $icingaweb_pkg     = [ 'icinga-web' ]
-      $icingaweb_pkg_dep = [ 'perl-Locale-PO', 'php-ldap', 'php-pear', 'php-xml', 'php-mysql' ]
-      $icingaweb_confdir = '/usr/share/icinga-web'
-      $icingaweb_bindir  = "${icingaweb_confdir}/bin:${::path}"
-      $icingaweb_logdir  = '/usr/share/icinga-web/log'
-      $icingaweb_dbname  = 'icinga_web'
-      $icingaweb_dbuser  = 'icinga_web'
-      $icingaweb_dbpass  = 'icinga_web'
-      $icingaweb_vhost   = '/etc/httpd/conf.d/icinga-web.conf'
+      $icingaweb_pkg             = [ 'icinga-web' ]
+      $icingaweb_pkg_dep         = [ 'perl-Locale-PO', 'php-ldap', 'php-pear', 'php-xml', 'php-mysql' ]
+      $icingaweb_confdir         = '/usr/share/icinga-web'
+      $icingaweb_bindir          = "${icingaweb_confdir}/bin:${::path}"
+      $icingaweb_logdir          = '/usr/share/icinga-web/log'
+      $icingaweb_dbname          = 'icinga_web'
+      $icingaweb_dbuser          = 'icinga_web'
+      $icingaweb_dbpass          = 'icinga_web'
+      $icingaweb_vhost           = '/etc/httpd/conf.d/icinga-web.conf'
 
       # Plugin: IDOUtils
-      $idoutils_pkg     = [ 'icinga-idoutils', 'libdbi', 'libdbi-devel', 'libdbi-drivers', 'libdbi-dbd-mysql' ]
-      $idoutils_confdir = '/etc/icinga/idoutils'
-      $idoutils_service = 'ido2db'
-      $idoutils_dbname  = 'icinga'
-      $idoutils_dbuser  = 'icinga'
-      $idoutils_dbpass  = 'icinga'
+      $idoutils_pkg              = [ 'icinga-idoutils', 'libdbi', 'libdbi-devel', 'libdbi-drivers', 'libdbi-dbd-mysql' ]
+      $idoutils_confdir          = '/etc/icinga/idoutils'
+      $idoutils_service          = 'ido2db'
+      $idoutils_dbname           = 'icinga'
+      $idoutils_dbuser           = 'icinga'
+      $idoutils_dbpass           = 'icinga'
+
+      # Plugin: Report
+      $jasper_vhost              = '/etc/httpd/conf.d/jasperserver.conf'
     }
 
     default: {}

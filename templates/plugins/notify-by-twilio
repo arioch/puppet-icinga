@@ -1,5 +1,7 @@
 #!/usr/bin/perl
-
+#
+# nagios: -epn
+#
 # Copyright (c) 2013, Brane F. Gracnar
 # All rights reserved.
 #
