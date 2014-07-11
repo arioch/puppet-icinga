@@ -883,7 +883,7 @@ process_performance_data=1
 #service_perfdata_file=/tmp/service-perfdata
 
 host_perfdata_file=/usr/local/pnp4nagios/var/host-perfdata
-service_perfdata_file=/usr/local/pnp4nagios/var/service-perfdata
+service_perfdata_file=<%= scope.lookupvar('icinga::service_perfdata_file') %>
 
 
 
@@ -900,8 +900,7 @@ service_perfdata_file=/usr/local/pnp4nagios/var/service-perfdata
 
 
 host_perfdata_file_template=DATATYPE::HOSTPERFDATA\tTIMET::$TIMET$\tHOSTNAME::$HOSTNAME$\tHOSTPERFDATA::$HOSTPERFDATA$\tHOSTCHECKCOMMAND::$HOSTCHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::$HOSTSTATETYPE$
-service_perfdata_file_template=DATATYPE::SERVICEPERFDATA\tTIMET::$TIMET$\tHOSTNAME::$HOSTNAME$\tSERVICEDESC::$SERVICEDESC$\tSERVICEPERFDATA::$SERVICEPERFDATA$\tSERVICECHECKCOMMAND::$SERVICECHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::$HOSTSTATETYPE$\tSERVICESTATE::$SERVICESTATE$\tSERVICESTATETYPE::$SERVICESTATETYPE
-
+service_perfdata_file_template=<%= scope.lookupvar('icinga::service_perfdata_file_template') %>
 
 # HOST AND SERVICE PERFORMANCE DATA FILE MODES
 # This option determines whether or not the host and service
@@ -922,7 +921,7 @@ service_perfdata_file_mode=a
 # processed.
 
 host_perfdata_file_processing_interval=15
-service_perfdata_file_processing_interval=15
+service_perfdata_file_processing_interval=<%= scope.lookupvar('icinga::service_perfdata_file_processing_interval') %>
 
 
 
@@ -932,7 +931,7 @@ service_perfdata_file_processing_interval=15
 # processing occurs is determined by the options above.
 
 host_perfdata_file_processing_command=process-host-perfdata-file
-service_perfdata_file_processing_command=process-service-perfdata-file
+service_perfdata_file_processing_command=<%= scope.lookupvar('icinga::process_service_perfdata_file') %>
 
 
 

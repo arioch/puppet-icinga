@@ -1,0 +1,9 @@
+#!/bin/bash
+carbon_host=<%= scope.lookupvar('icinga::plugins::perfdatatographite::carbon_host') %>
+carbon_port=<%= scope.lookupvar('icinga::plugins::perfdatatographite::carbon_port') %>
+awk_script="/usr/local/lib/transform_perfdata.awk"
+
+tmpfile="$(mktemp)"
+mv "$1" "${tmpfile}"
+awk -f "${awk_script}"< "$tmpfile" > /dev/tcp/${carbon_host}/${carbon_port}
+rm "${tmpfile}"

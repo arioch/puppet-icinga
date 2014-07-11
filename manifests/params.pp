@@ -3,38 +3,42 @@
 # Full description of class icinga here.
 #
 class icinga::params {
-  $manage_repo                   = false
-  $client                        = true
-  $server                        = false
-  $collect_resources             = true
-  $use_auth                      = true
-  $plugins                       = [ 'checkpuppet' ]
-  $nrpe_allowed_hosts            = [ '127.0.0.1,', $::ipaddress ]
-  $nrpe_command_timeout          = '60'
-  $nrpe_connect_timeout          = '10'
-  $nrpe_server_address           = $::ipaddress
-  $nrpe_server_port              = '5666'
-  $nrpe_allow_arguments          = '0'
-  $nrpe_enable_debug             = '0'
-  $icinga_admins                 = '*'
-  $collect_hostname              = $::fqdn
-  $notification_cmd_host         = 'notify-host-by-email'
-  $notification_cmd_service      = 'notify-service-by-email'
-  $notification_period           = '24x7'
-  $notification_host_enable      = '1'
-  $notification_host_opts        = 'd,r'
-  $notification_service_enable   = '1'
-  $notification_service_opts     = 'w,u,c,r'
-  $notification_interval         = '0'
-  $max_check_attempts            = '4'
-  $use_ido                       = false
-  $parents                       = undef
-  $hostgroups                    = 'default'
-  $notifications_enabled         = '1'
-  $export_resources              = true
-  $logdir_client                 = '/var/log/nrpe'
-  $logdir_server                 = '/var/log/icinga'
-  $set_expire_ack_by_default     = '0'
+  $manage_repo                               = false
+  $client                                    = true
+  $server                                    = false
+  $collect_resources                         = true
+  $use_auth                                  = true
+  $plugins                                   = [ 'checkpuppet' ]
+  $nrpe_allowed_hosts                        = [ '127.0.0.1,', $::ipaddress ]
+  $nrpe_command_timeout                      = '60'
+  $nrpe_connect_timeout                      = '10'
+  $nrpe_server_address                       = $::ipaddress
+  $nrpe_server_port                          = '5666'
+  $nrpe_allow_arguments                      = '0'
+  $nrpe_enable_debug                         = '0'
+  $icinga_admins                             = '*'
+  $collect_hostname                          = $::fqdn
+  $notification_cmd_host                     = 'notify-host-by-email'
+  $notification_cmd_service                  = 'notify-service-by-email'
+  $notification_period                       = '24x7'
+  $notification_host_enable                  = '1'
+  $notification_host_opts                    = 'd,r'
+  $notification_service_enable               = '1'
+  $notification_service_opts                 = 'w,u,c,r'
+  $notification_interval                     = '0'
+  $max_check_attempts                        = '4'
+  $use_ido                                   = false
+  $parents                                   = undef
+  $hostgroups                                = 'default'
+  $notifications_enabled                     = '1'
+  $export_resources                          = true
+  $logdir_client                             = '/var/log/nrpe'
+  $logdir_server                             = '/var/log/icinga'
+  $set_expire_ack_by_default                 = '0'
+  $service_perfdata_file                     = '/usr/local/pnp4nagios/var/service-perfdata'
+  $process_service_perfdata_file             = 'process-service-perfdata-file'
+  $service_perfdata_file_template            = 'DATATYPE::SERVICEPERFDATA\tTIMET::$TIMET$\tHOSTNAME::$HOSTNAME$\tSERVICEDESC::$SERVICEDESC$\tSERVICEPERFDATA::$SERVICEPERFDATA$\tSERVICECHECKCOMMAND::$SERVICECHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::$HOSTSTATETYPE$\tSERVICESTATE::$SERVICESTATE$\tSERVICESTATETYPE::$SERVICESTATETYPE'
+  $service_perfdata_file_processing_interval = '15'
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {
