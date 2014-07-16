@@ -27,7 +27,7 @@ class icinga::plugins::idoutils::config {
       content => template('icinga/plugins/idoutils/ido2db.cfg.erb');
 
     "${::icinga::confdir_server}/idomod.cfg":
-      source => 'puppet:///modules/icinga/idomod.cfg';
+      content => template('icinga/plugins/idoutils/idomod.cfg'),
 
     "${::icinga::idoutils_confdir}/mysql/icinga-web-priv.sql":
       content => template('icinga/plugins/idoutils/icinga-web-priv.sql.erb'),
