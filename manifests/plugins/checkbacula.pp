@@ -17,7 +17,7 @@ define icinga::plugins::checkbacula (
   if $icinga::client {
     if ! defined(Package[$pkgname]) {
       package{$pkgname:
-        ensure => '0.0.5-2',
+        ensure => '0.0.5-2'
       }
     }
 
