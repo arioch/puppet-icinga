@@ -38,7 +38,9 @@ define icinga::plugins::checkbacula (
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
-      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+      # FIXME: use ${::icinga::targetdir}} instead of hardcoded path
+      target                => "/etc/icinga/objects/services/${::fqdn}.cfg",
+
     }
   }
 
