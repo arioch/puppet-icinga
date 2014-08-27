@@ -187,6 +187,6 @@ include_dir=<%= scope.lookupvar('icinga::includedir_client') %>
 command[check_users]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_users -w 5 -c 10
 command[check_disk]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_disk -w 20% -c 10%
 command[check_zombie_procs]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_procs -w 5 -c 10 -s Z
-command[check_total_procs]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_procs -w 250 -c 350
+command[check_total_procs]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_procs -w $ARG1$ -c $ARG2$
 command[check_mem]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_mem -w 90,25 -c 95,50
 command[check_ping]=<%= scope.lookupvar('icinga::usrlib') %>/nagios/plugins/check_ping -H $ARG1$ -4 -w $ARG2$ -c $ARG3$ -p 5
