@@ -3,4 +3,3 @@ command[check_mongodb_database]=<%= @plugindir %>/check_mongodb.py -H <%= @mongo
 command[check_mongodb_collection]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A $ARG1$ -P $ARG2$ -W $ARG3$ -C $ARG4$ -d $ARG5$ -c $ARG6$
 command[check_mongodb_replicaset]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %>-A $ARG1$ -P $ARG2$ -W $ARG3$ -C $ARG4$ -r $ARG5$ 
 command[check_mongodb_query]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A $ARG1$ -P $ARG2$ -W $ARG3$ -C $ARG4$ -q $ARG5$
-}
