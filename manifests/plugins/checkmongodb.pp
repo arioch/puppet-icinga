@@ -18,9 +18,12 @@ class icinga::plugins::checkmongodb (
       }
     }
 
-    package { 'pymongo':
-        ensure => $ensure,
+    if !defined(Package['pymongo']) {
+      package { 'pymongo':
+        ensure => 'present',
+        provider => 'pip',
         require => Package['python-pip'],
+      }
     }
 
     file { "${::icinga::plugindir}/check_mongodb.py":
