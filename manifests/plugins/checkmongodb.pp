@@ -9,6 +9,7 @@ class icinga::plugins::checkmongodb (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
+  $mongod_bind_ip        = hiera('mongod_bind_ip'),
 
 ) inherits icinga {
   if $icinga::client {
@@ -46,7 +47,7 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_replication_lag_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_mongodb!replication_lag!27017!15!30',
+      check_command         => 'check_nrpe_command!check_mongodb_replication_lag',
       service_description   => 'MongoDB Replication Lag',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
@@ -57,7 +58,7 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_replication_lag_percentage_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_mongodb!replication_lag_percent!27017!50!75',
+      check_command         => 'check_nrpe_command!check_mongodb_replication_lag_percentage',
       service_description   => 'MongoDB Replication Lag Percentage',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
@@ -68,7 +69,7 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_replicaset_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_mongodb_replicaset!replica_primary!27017!0!1!your-replicaset',
+      check_command         => 'check_nrpe_command!check_mongodb_replicaset',
       service_description   => 'MongoDB Replicaset',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
