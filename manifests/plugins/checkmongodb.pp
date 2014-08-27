@@ -20,7 +20,7 @@ class icinga::plugins::checkmongodb (
 
     if !defined(Package['pymongo']) {
       package { 'pymongo':
-        ensure => 'present',
+        ensure => present,
         provider => 'pip',
         require => Package['python-pip'],
       }
@@ -31,7 +31,7 @@ class icinga::plugins::checkmongodb (
       mode    => '0755',
       owner   => 'root',
       group   => 'root',
-      source => 'puppet:///modules/icinga/check_monodb.py',
+      source => 'puppet:///modules/icinga/check_mongodb.py',
       notify  => Service[$icinga::service_client],
       require => Class['icinga::config'];
     }
