@@ -46,8 +46,8 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_replication_lag_${::fqdn}":
-      check_command         => 'check_mongodb!replication_lag!27017!15!30',
-      service_description   => 'MongoDB Replication lag',
+      check_command         => 'check_nrpe_command!check_mongodb!replication_lag!27017!15!30',
+      service_description   => 'MongoDB Replication Lag',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
@@ -57,7 +57,7 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_replication_lag_percentage_${::fqdn}":
-      check_command         => 'check_mongodb!replication_lag_percent!27017!50!75',
+      check_command         => 'check_nrpe_command!check_mongodb!replication_lag_percent!27017!50!75',
       service_description   => 'MongoDB Replication Lag Percentage',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
@@ -68,7 +68,7 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_replicaset_${::fqdn}":
-      check_command         => 'check_mongodb_replicaset!replica_primary!27017!0!1!your-replicaset',
+      check_command         => 'check_nrpe_command!check_mongodb_replicaset!replica_primary!27017!0!1!your-replicaset',
       service_description   => 'MongoDB Replicaset',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
