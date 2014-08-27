@@ -166,10 +166,11 @@ class icinga::params {
 
     default: {}
   }
-  # Plugin Defaults
-  $checktotalprocs_warning_level  = 700
-  $checktotalprocs_critical_level = 2000
-}
+
+  # Plugin defaults
+  $checktotalprocs_warning_level  = 250
+  $checktotalprocs_critical_level = 350
+
   # Needs to be down here since $usrlib is defined in the distro specific params
   $plugindir                 = "${usrlib}/nagios/plugins"
 
