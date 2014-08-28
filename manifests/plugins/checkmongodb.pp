@@ -10,6 +10,7 @@ class icinga::plugins::checkmongodb (
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
   $mongod_bind_ip        = hiera('mongod_bind_ip'),
+  $mongod_replica_set    = 'edc',
 
 ) inherits icinga {
   if $icinga::client {
