@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+### File managed with puppet ###
+
 #
 # A MongoDB Nagios check script
 #
