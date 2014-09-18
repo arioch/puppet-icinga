@@ -22,9 +22,9 @@ class icinga::plugins::checkmongodb (
 
     if !defined(Package['pymongo']) {
       package { 'pymongo':
-        ensure => present,
+        ensure   => present,
         provider => 'pip',
-        require => Package['python-pip'],
+        require  => Package['python-pip'],
       }
     }
 
@@ -72,6 +72,39 @@ class icinga::plugins::checkmongodb (
     @@nagios_service { "check_mongodb_replicaset_${::fqdn}":
       check_command         => 'check_nrpe_command!check_mongodb_replicaset',
       service_description   => 'MongoDB Replicaset',
+      host_name             => $::fqdn,
+      contact_groups        => $contact_groups,
+      notification_period   => $notification_period,
+      notifications_enabled => $notifications_enabled,
+      max_check_attempts    => $max_check_attempts,
+      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+    }
+
+    @@nagios_service { "check_mongodb_connect_${::fqdn}":
+      check_command         => 'check_nrpe_command!connect',
+      service_description   => 'MongoDB Connection Time',
+      host_name             => $::fqdn,
+      contact_groups        => $contact_groups,
+      notification_period   => $notification_period,
+      notifications_enabled => $notifications_enabled,
+      max_check_attempts    => $max_check_attempts,
+      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+    }
+
+    @@nagios_service { "check_mongodb_connections_${::fqdn}":
+      check_command         => 'check_nrpe_command!connections',
+      service_description   => 'MongoDB Connections Percentage',
+      host_name             => $::fqdn,
+      contact_groups        => $contact_groups,
+      notification_period   => $notification_period,
+      notifications_enabled => $notifications_enabled,
+      max_check_attempts    => $max_check_attempts,
+      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+    }
+
+    @@nagios_service { "check_mongodb_replset_state_${::fqdn}":
+      check_command         => 'check_nrpe_command!replset_state',
+      service_description   => 'MongoDB Replication State',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
