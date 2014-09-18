@@ -81,7 +81,7 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_connect_${::fqdn}":
-      check_command         => 'check_nrpe_command!connect',
+      check_command         => 'check_nrpe_command!check_mongodb_connect',
       service_description   => 'MongoDB Connection Time',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
@@ -92,7 +92,7 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_connections_${::fqdn}":
-      check_command         => 'check_nrpe_command!connections',
+      check_command         => 'check_nrpe_command!check_mongodb_connections',
       service_description   => 'MongoDB Connections Percentage',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
@@ -103,7 +103,7 @@ class icinga::plugins::checkmongodb (
     }
 
     @@nagios_service { "check_mongodb_replset_state_${::fqdn}":
-      check_command         => 'check_nrpe_command!replset_state',
+      check_command         => 'check_nrpe_command!check_mongodb_replset_state',
       service_description   => 'MongoDB Replication State',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
