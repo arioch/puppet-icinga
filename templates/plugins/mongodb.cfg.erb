@@ -8,4 +8,4 @@ command[check_mongodb_replication_lag_percentage]=<%= @plugindir %>/check_mongod
 command[check_mongodb_replicaset]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A replica_primary -P 27017 -W 0 -C 1 -r <%= @mongod_replica_set %>
 command[check_mongodb_connect]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A connect -P 27017 -W 2 -C 4
 command[check_mongodb_connections]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A connections -P 27017 -W 70 -C 80
-command[check_mongodb_replset_state]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A replset_state -P 27017 -W 0 -C 0
+command[check_mongodb_replset_state]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A replset_state -P 27017
