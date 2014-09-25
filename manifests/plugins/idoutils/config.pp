@@ -43,10 +43,10 @@ class icinga::plugins::idoutils::config {
 
   exec {
     'icinga-db-priv':
-      command   => "/usr/bin/mysql -u ${::icinga::idoutils_dbuser} --password=${::icinga::idoutils_dbpass} ${::icinga::idoutils_dbname} < ${::icinga::idoutils_confdir}/mysql/icinga-web-priv.sql",
-      unless    => "/usr/bin/mysql -e \"select * from information_schema.user_privileges\" | grep ${::icinga::idoutils_dbname}";
+      command => "/usr/bin/mysql -u ${::icinga::idoutils_dbuser} --password=${::icinga::idoutils_dbpass} ${::icinga::idoutils_dbname} < ${::icinga::idoutils_confdir}/mysql/icinga-web-priv.sql",
+      unless  => "/usr/bin/mysql -e \"select * from information_schema.user_privileges\" | grep ${::icinga::idoutils_dbname}";
     'icinga-db-tables':
-      command   => "/usr/bin/mysql -u ${::icinga::idoutils_dbuser} --password=${::icinga::idoutils_dbpass} ${::icinga::idoutils_dbname} < ${::icinga::idoutils_confdir}/mysql/mysql.sql",
-      unless    => "/usr/bin/mysqlshow ${::icinga::idoutils_dbname} | grep icinga_contacts",
+      command => "/usr/bin/mysql -u ${::icinga::idoutils_dbuser} --password=${::icinga::idoutils_dbpass} ${::icinga::idoutils_dbname} < ${::icinga::idoutils_confdir}/mysql/mysql.sql",
+      unless  => "/usr/bin/mysqlshow ${::icinga::idoutils_dbname} | grep icinga_contacts",
   }
 }

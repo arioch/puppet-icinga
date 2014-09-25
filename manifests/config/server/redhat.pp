@@ -64,8 +64,8 @@ class icinga::config::server::redhat {
   }
 
   file{"${::icinga::vardir_server}/rw":
-    ensure  => directory,
-    group   => $::icinga::server_cmd_group,
+    ensure => directory,
+    group  => $::icinga::server_cmd_group,
   }
 
   file{"${::icinga::vardir_server}/checkresults":

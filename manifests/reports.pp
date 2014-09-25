@@ -70,14 +70,14 @@ if (!defined(Package['wget'])) {
   }
 
   exec { 'get-icinga-reports':
-    path      => '/bin:/usr/bin:/sbin:/usr/sbin',
-    command   => "/usr/bin/wget -O /tmp/icinga-reports-${icingaReportsVersion}.zip https://github.com/Icinga/icinga-reports/archive/v${icingaReportsVersion}.zip",
-    timeout   => 0,
-    provider  => 'shell',
-    user      => root,
-    unless    => "test -d ${icingaReportsHome}/icinga-reports-${icingaReportsVersion}",
-    require   => Package['wget'],
-    notify    => Exec[unzip-icinga-reports],
+    path     => '/bin:/usr/bin:/sbin:/usr/sbin',
+    command  => "/usr/bin/wget -O /tmp/icinga-reports-${icingaReportsVersion}.zip https://github.com/Icinga/icinga-reports/archive/v${icingaReportsVersion}.zip",
+    timeout  => 0,
+    provider => 'shell',
+    user     => root,
+    unless   => "test -d ${icingaReportsHome}/icinga-reports-${icingaReportsVersion}",
+    require  => Package['wget'],
+    notify   => Exec[unzip-icinga-reports],
   }
 
   exec { 'unzip-icinga-reports':
