@@ -3,16 +3,18 @@
 # This class provides a checkmongodb plugin.
 #
 class icinga::plugins::checkmongodb (
-  $ensure                = present,
-  $perfdata              = true,
-  $contact_groups        = $::environment,
-  $max_check_attempts    = $::icinga::max_check_attempts,
-  $notification_period   = $::icinga::notification_period,
-  $notifications_enabled = $::icinga::notifications_enabled,
-  $mongod_bind_ip        = hiera('mongod_bind_ip'),
-  $mongod_replica_set    = hiera('mongod_replica_set'),
-
+  $ensure                       = present,
+  $perfdata                     = true,
+  $contact_groups               = $::environment,
+  $max_check_attempts           = $::icinga::max_check_attempts,
+  $notification_period          = $::icinga::notification_period,
+  $notifications_enabled        = $::icinga::notifications_enabled,
+  $mongod_bind_ip               = hiera('mongod_bind_ip'),
+  $mongod_replica_set           = hiera('mongod_replica_set'),
+  $mongod_graphite_io_read_url  = hiera('mongod_graphite_io_read_url'),
+  $mongod_graphite_io_write_url = hiera('mongod_graphite_io_write_url'),
 ) inherits icinga {
+
   if $icinga::client {
     if !defined(Package['python-pip']) {
       package { 'python-pip':
@@ -111,6 +113,30 @@ class icinga::plugins::checkmongodb (
       notifications_enabled => $notifications_enabled,
       max_check_attempts    => $max_check_attempts,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+    }
+
+    require icinga::plugins::checkgraphite
+
+    @@nagios_service{"check_mongod_io_read_operations${::fqdn}":
+      check_command         => "check_graphite!${mongod_graphite_io_read_url}!10000000!50000000",
+      service_description   => 'MongoDB IO Read Operations',
+      host_name             => $host_name,
+      use                   => 'generic-service',
+      contact_groups        => $contact_groups,
+      notification_period   => $notification_period,
+      notifications_enabled => $notifications_enabled,
+      target                => "${::icinga::targetdir}/services/${host_name}.cfg",
+    }
+
+    @@nagios_service{"check_mongod_io_write_operations${::fqdn}":
+      check_command         => "check_graphite!${mongod_graphite_io_write_url}!10000000!50000000",
+      service_description   => 'MongoDB IO Write Operations',
+      host_name             => $host_name,
+      use                   => 'generic-service',
+      contact_groups        => $contact_groups,
+      notification_period   => $notification_period,
+      notifications_enabled => $notifications_enabled,
+      target                => "${::icinga::targetdir}/services/${host_name}.cfg",
     }
   }
 }
