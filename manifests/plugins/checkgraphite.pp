@@ -17,7 +17,7 @@ class icinga::plugins::checkgraphite (
 
     @@nagios_command{'check_graphite':
       ensure       => present,
-      command_line => '/usr/bin/check_graphite -u \'$ARG1$\' -w $ARG2$ -c $ARG3$', 
+      command_line => '$USER1$/check_graphite -u \'$ARG1$\' -w $ARG2$ -c $ARG3$',
       target       => "${::icinga::targetdir}/commands/check_graphite.cfg",
     }
   }
