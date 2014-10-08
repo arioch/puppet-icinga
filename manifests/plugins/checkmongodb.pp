@@ -115,28 +115,26 @@ class icinga::plugins::checkmongodb (
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
 
-    require icinga::plugins::checkgraphite
-
     @@nagios_service{"check_mongod_io_read_operations${::fqdn}":
       check_command         => "check_graphite!${mongod_graphite_io_read_url}!10000000!50000000",
       service_description   => 'MongoDB IO Read Operations',
-      host_name             => $host_name,
+      host_name             => $::fqdn,
       use                   => 'generic-service',
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
-      target                => "${::icinga::targetdir}/services/${host_name}.cfg",
+      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
 
     @@nagios_service{"check_mongod_io_write_operations${::fqdn}":
       check_command         => "check_graphite!${mongod_graphite_io_write_url}!10000000!50000000",
       service_description   => 'MongoDB IO Write Operations',
-      host_name             => $host_name,
+      host_name             => $::fqdn,
       use                   => 'generic-service',
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
-      target                => "${::icinga::targetdir}/services/${host_name}.cfg",
+      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
   }
 }
