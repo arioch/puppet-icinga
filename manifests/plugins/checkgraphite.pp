@@ -4,10 +4,6 @@
 #
 class icinga::plugins::checkgraphite (
   $pkgname                = 'nagios-plugins-graphite',
-  $notification_period    = $::icinga::notification_period,
-  $notifications_enabled  = $::icinga::notifications_enabled,
-  $host_name              = $::fqdn,
-  $contact_groups         = $::environment,
 ) {
 
   require icinga
