@@ -5,6 +5,7 @@
 class icinga::plugins::checkhttpd (
   $ensure                = present,
   $perfdata              = false,
+  $perfargs              = '',
   $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
