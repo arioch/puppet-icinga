@@ -10,7 +10,6 @@ class icinga::plugins::checkmongodb (
   $notification_period          = $::icinga::notification_period,
   $notifications_enabled        = $::icinga::notifications_enabled,
   $mongod_bind_ip               = hiera('mongod_bind_ip'),
-  $mongod_replica_set           = hiera('mongod_replica_set'),
   $mongod_graphite_io_read_url  = hiera('mongod_graphite_io_read_url'),
   $mongod_graphite_io_write_url = hiera('mongod_graphite_io_write_url'),
 ) inherits icinga {
