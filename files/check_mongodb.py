@@ -132,7 +132,7 @@ def main(argv):
     p.add_option('-C', '--critical', action='store', dest='critical', default=None, help='The critical threshold we want to set')
     p.add_option('-A', '--action', action='store', type='choice', dest='action', default='connect', help='The action you want to take',
                  choices=['connect', 'connections', 'replication_lag', 'replication_lag_percent', 'replset_state', 'memory', 'memory_mapped', 'lock',
-                          'flushing', 'last_flush_time', 'index_miss_ratio', 'databases', 'collections', 'database_size', 'database_indexes', 'collection_indexes',
+                          'flushing', 'last_flush_time', 'index_miss_ratio', 'databases', 'collections', 'database_size', 'database_indexes', 'collection_indexes', 'collection_size',
                           'queues', 'oplog', 'journal_commits_in_wl', 'write_data_files', 'journaled', 'opcounters', 'current_lock', 'replica_primary', 'page_faults',
                           'asserts', 'queries_per_second', 'page_faults', 'chunks_balance', 'connect_primary', 'collection_state', 'row_count', 'replset_quorum'])
     p.add_option('--max-lag', action='store_true', dest='max_lag', default=False, help='Get max replication lag (for replication_lag action only)')
@@ -168,8 +168,14 @@ def main(argv):
     ssl = options.ssl
     replicaset = options.replicaset
 
-    if action == 'replica_primary' and replicaset is None:
-        return "replicaset must be passed in when using replica_primary check"
+    if action == 'replica_primary':
+        err_f, con_f = mongo_connect(host, port, ssl, user, passwd)
+        if err_f != 0:
+            return err_f
+        if not replicaset:
+            replicaset = con_f.admin.command("replSetGetStatus")['set']
+        if not replicaset:
+            return "replicaset must be passed in when using replica_primary check"
     elif not action == 'replica_primary' and replicaset:
         return "passing a replicaset while not checking replica_primary does not work"
 
@@ -225,6 +231,8 @@ def main(argv):
         return check_database_indexes(con, database, warning, critical, perf_data)
     elif action == "collection_indexes":
         return check_collection_indexes(con, database, collection, warning, critical, perf_data)
+    elif action == "collection_size":
+        return check_collection_size(con, database, collection, warning, critical, perf_data)
     elif action == "journaled":
         return check_journaled(con, warning, critical, perf_data)
     elif action == "write_data_files":
@@ -890,6 +898,28 @@ def check_queues(con, warning, critical, perf_data):
     except Exception, e:
         return exit_with_general_critical(e)
 
+def check_collection_size(con, database, collection, warning, critical, perf_data):
+    warning = warning or 100
+    critical = critical or 1000
+    perfdata = ""
+    try:
+        set_read_preference(con.admin)
+        data = con[database].command('collstats', collection)
+        size = data['size'] / 1024 / 1024
+        if perf_data:
+            perfdata += " | collection_size=%i;%i;%i" % (size, warning, critical)
+
+        if size >= critical:
+            print "CRITICAL - %s.%s size: %.0f MB %s" % (database, collection, size, perfdata)
+            return 2
+        elif size >= warning:
+            print "WARNING - %s.%s size: %.0f MB %s" % (database, collection, size, perfdata)
+            return 1
+        else:
+            print "OK - %s.%s size: %.0f MB %s" % (database, collection, size, perfdata)
+            return 0
+    except Exception, e:
+        return exit_with_general_critical(e)
 
 def check_queries_per_second(con, query_type, warning, critical, perf_data):
     warning = warning or 250
