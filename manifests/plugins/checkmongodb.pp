@@ -9,9 +9,9 @@ class icinga::plugins::checkmongodb (
   $max_check_attempts           = $::icinga::max_check_attempts,
   $notification_period          = $::icinga::notification_period,
   $notifications_enabled        = $::icinga::notifications_enabled,
-  $mongod_bind_ip               = hiera('mongod_bind_ip'),
-  $mongod_graphite_io_read_url  = hiera('mongod_graphite_io_read_url'),
-  $mongod_graphite_io_write_url = hiera('mongod_graphite_io_write_url'),
+  $mongod_bind_ip               = '127.0.0.1',
+  $mongod_graphite_io_read_url  = 'http://graphite/render?target=mongo_host.processes.mongod.ps_disk_octets.read&from=-5minutes&rawData=true',
+  $mongod_graphite_io_write_url = 'http://graphite/render?target=mongo_host.processes.mongod.ps_disk_octets.write&from=-5minutes&rawData=true',
 ) inherits icinga {
 
   if $icinga::client {
