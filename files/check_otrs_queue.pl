@@ -28,10 +28,15 @@ my $opt_c;
 my $opt_t;      #0=Neue Tickets;1=offene Tickets
 my $opt_q;      #3=Queue Servicehotline
 my $status  ="0";
-my $count;
+my $count = 0;
 my $sql;
 my $result;
 my $message;
+my $message_tickets = "";
+my @data;
+my $ticket_number;
+my $queue_name;
+
 
 sub check_otrs {
 #Check DatabaseConnection
@@ -53,12 +58,12 @@ my $dbhm2=DBI->connect("dbi:mysql:$DBname:$DBhost","$DBuser","$DBpass",
 if ( $opt_t == "0" ) {
     # New Tickets
     #$sql = "Select count(*) as Count from ticket where queue_id='".$opt_q."' and ticket_state_id='1'";    
-    $sql = "Select count(*) as Count from ticket where ticket_state_id='1'";    
+    $sql = "SELECT ticket.tn,queue.name FROM ticket LEFT JOIN queue ON ticket.queue_id = queue.id WHERE ticket.ticket_state_id='1' AND ( queue.calendar_name = 1 OR ( queue.calendar_name = 2 AND ( HOUR(CURTIME()) > 7 AND HOUR(CURTIME()) < 17 ) ) );";    
     
 } elsif ( $opt_t == "1" ) {
      # Open Tickets
      #$sql = "Select count(*) as Count from ticket where queue_id='".$opt_q."' and ticket_state_id='4'";    
-     $sql = "Select count(*) as Count from ticket where ticket_state_id='4'";    
+     $sql = "SELECT ticket.tn,queue.name FROM ticket LEFT JOIN queue ON ticket.queue_id = queue.id WHERE ticket.ticket_state_id='1' AND ( queue.calendar_name = 4 OR ( queue.calendar_name = 2 AND ( HOUR(CURTIME()) > 7 AND HOUR(CURTIME()) < 17 ) ) );";    
 }
 
 my $sqlp=$dbhm->prepare($sql);
@@ -66,16 +71,29 @@ if (!$sqlp->execute()){
     print "CRITICAL - Unable to Execute SQL-Query";
     $status = $ERRORS{'CRITICAL'};
     }    
-$result=$sqlp->fetchrow_hashref();
-#Set Optimize Text for Nagios
-    $count=$result->{Count};
-    $message = "Count ";               #Count
-    if ( $opt_t == "0" )
-        {$message .= "new ";}          #New
-    if ( $opt_t == "1" )
-        {$message .="open ";}          #Open
 
-    $message = $message."Tickets: $result->{Count}";
+#$result=$sqlp->fetchrow_hashref();
+#Set Optimize Text for Nagios
+#    $count=$result->{Count};
+
+if ( $opt_t == "0" )
+    {$message .= "New";}          #New
+if ( $opt_t == "1" )
+    {$message .="Open";}          #Open
+
+
+while (@data = $sqlp->fetchrow_array()) {
+    $count++;
+    $ticket_number = $data[0];
+    $queue_name = $data[1];
+    if ($message_tickets eq ""){
+        $message_tickets = $ticket_number."(".$queue_name.")";
+    } else {
+        $message_tickets = $message_tickets.", ".$ticket_number."(".$queue_name.")";
+    }
+}
+
+$message = $message." tickets: ".$count.", list: ".$message_tickets;
 
 if    ($count >= $opt_c) 
         {$status = $ERRORS{'CRITICAL'};}
@@ -173,4 +191,3 @@ if( $message ) {
         print "No Data yet\n";
 }
 exit $status;
-
