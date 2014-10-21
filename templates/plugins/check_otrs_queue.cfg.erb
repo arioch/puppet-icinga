@@ -1,0 +1,6 @@
+### File managed with puppet ###
+### Served by:        '<%= scope.lookupvar('::servername') %>'
+### Module:           '<%= scope.to_hash['module_name'] %>'
+### Template source:  '<%= template_source %>'
+
+command[check_otrs_queue]=<%= @plugindir %>/check_otrs_queue.pl -H <%= @mysql_otrs_host %> -u <%= @mysql_otrs_nagios_user %> -p <%= @mysql_otrs_nagios_pass %> -n <%= @mysql_otrs_db %> -w <%= @check_warning %> -c <%= @check_critical %>
