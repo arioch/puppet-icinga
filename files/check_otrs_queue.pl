@@ -58,12 +58,12 @@ my $dbhm2=DBI->connect("dbi:mysql:$DBname:$DBhost","$DBuser","$DBpass",
 if ( $opt_t == "0" ) {
     # New Tickets
     #$sql = "Select count(*) as Count from ticket where queue_id='".$opt_q."' and ticket_state_id='1'";    
-    $sql = "SELECT ticket.tn,queue.name FROM ticket LEFT JOIN queue ON ticket.queue_id = queue.id WHERE ticket.ticket_state_id='1' AND ( queue.calendar_name = 1 OR ( queue.calendar_name = 2 AND ( HOUR(CURTIME()) > 7 AND HOUR(CURTIME()) < 17 ) ) );";    
+    $sql = "SELECT ticket.tn,queue.name FROM ticket LEFT JOIN queue ON ticket.queue_id = queue.id WHERE ticket.ticket_state_id='1' AND ticket_lock_id='1' AND ((UNIX_TIMESTAMP() - ticket.create_time_unix) > 1800) AND (queue.calendar_name = 1 OR (queue.calendar_name = 2 AND (HOUR(CURTIME()) > 7 AND HOUR(CURTIME()) < 17)));";    
     
 } elsif ( $opt_t == "1" ) {
      # Open Tickets
      #$sql = "Select count(*) as Count from ticket where queue_id='".$opt_q."' and ticket_state_id='4'";    
-     $sql = "SELECT ticket.tn,queue.name FROM ticket LEFT JOIN queue ON ticket.queue_id = queue.id WHERE ticket.ticket_state_id='1' AND ( queue.calendar_name = 4 OR ( queue.calendar_name = 2 AND ( HOUR(CURTIME()) > 7 AND HOUR(CURTIME()) < 17 ) ) );";    
+     $sql = "SELECT ticket.tn,queue.name FROM ticket LEFT JOIN queue ON ticket.queue_id = queue.id WHERE ticket.ticket_state_id='4' AND ticket_lock_id='1' AND ((UNIX_TIMESTAMP() - ticket.create_time_unix) > 1800) AND (queue.calendar_name = 1 OR (queue.calendar_name = 2 AND (HOUR(CURTIME()) > 7 AND HOUR(CURTIME()) < 17)));";    
 }
 
 my $sqlp=$dbhm->prepare($sql);
