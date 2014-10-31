@@ -68,8 +68,11 @@ class icinga::config::server::redhat {
     group  => $::icinga::server_cmd_group,
   }
 
+  file{"${::icinga::vardir_server}/rw/icinga.cmd":
+    group => $::icinga::webserver_group,
+  }
+
   file{"${::icinga::vardir_server}/checkresults":
     ensure => directory,
   }
-
 }
