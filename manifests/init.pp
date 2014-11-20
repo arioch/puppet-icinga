@@ -94,6 +94,7 @@ class icinga (
   $plugindir                                 = $::icinga::params::plugindir,
   $plugins                                   = $::icinga::params::plugins,
   $use_ido                                   = $::icinga::params::use_ido,
+  $use_flapjackfeeder                        = $::icinga::params::use_flapjackfeeder,
   $server                                    = $::icinga::params::server,
   $server_cmd_group                          = $::icinga::params::server_cmd_group,
   $server_group                              = $::icinga::params::server_group,

@@ -28,6 +28,7 @@ class icinga::params {
   $notification_interval                     = '0'
   $max_check_attempts                        = '4'
   $use_ido                                   = false
+  $use_flapjackfeeder                        = false
   $parents                                   = undef
   $hostgroups                                = 'default'
   $notifications_enabled                     = '1'

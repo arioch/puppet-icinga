@@ -247,8 +247,13 @@ event_broker_options=-1
 #broker_module=/somewhere/module1.o
 #broker_module=/somewhere/module2.o arg1 arg2=3 debug=0
 
+
 <%- if @use_ido -%>
 broker_module=/usr/lib64/icinga/idomod.so config_file=/etc/icinga/idomod.cfg
+<% end %>
+
+<%- if @use_flapjackfeeder and not @use_ido -%>
+broker_module=/usr/local/lib/flapjackfeeder.o redis_host=10.0.64.34,redis_port=6380
 <% end %>
 
 # LOG ROTATION METHOD
