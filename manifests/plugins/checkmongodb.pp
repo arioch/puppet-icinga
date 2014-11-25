@@ -56,7 +56,7 @@ class icinga::plugins::checkmongodb (
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
-      max_check_attempts    => $max_check_attempts + 4,
+      max_check_attempts    => $max_check_attempts,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
 
@@ -67,7 +67,7 @@ class icinga::plugins::checkmongodb (
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
-      max_check_attempts    => $max_check_attempts + 4,
+      max_check_attempts    => $max_check_attempts,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
 
