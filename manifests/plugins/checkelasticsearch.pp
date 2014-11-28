@@ -8,11 +8,18 @@ class icinga::plugins::checkelasticsearch (
 
   require icinga
 
+  if !defined(Package['python-pip']){
+    package{'python-pip':
+      ensure => present,
+    }
+  }
+
   if $icinga::server {
     if ! defined(Package[$pkgname]) {
       package{$pkgname:
         ensure   => present,
         provider => 'pip',
+        require  => Package['python-pip'],
       }
     }
 
