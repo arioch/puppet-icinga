@@ -4,7 +4,7 @@
 #
 class icinga::plugins::checkelasticsearch (
   $pkgname               = 'nagios-plugin-elasticsearch',
-) inherits icinga {
+) {
 
   if $icinga::client {
     if !defined(Package['python-pip']){
@@ -31,8 +31,8 @@ class icinga::plugins::checkelasticsearch (
     }
 
     @@nagios_service{"check_elasticsearch_status_${::fqdn}":
-      check_command         => "check_nrpe!check_elasticsearch",
-      service_description   => "Elasticsearch status",
+      check_command         => 'check_nrpe!check_elasticsearch',
+      service_description   => 'Elasticsearch status',
       host_name             => $::fqdn,
       contact_groups        => $::environment,
       use                   => 'generic-service',
