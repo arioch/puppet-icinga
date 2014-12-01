@@ -31,7 +31,7 @@ class icinga::plugins::checkelasticsearch (
     }
 
     @@nagios_service{"check_elasticsearch_status_${::fqdn}":
-      check_command         => 'check_nrpe!check_elasticsearch',
+      check_command         => 'check_nrpe_command!check_elasticsearch',
       service_description   => 'Elasticsearch status',
       host_name             => $::fqdn,
       contact_groups        => $::environment,
