@@ -4,8 +4,8 @@
 #
 class icinga::plugins::checkload (
   $pkgname               = 'nagios-plugins-load',
-  $check_warning         = '15,10,5',
-  $check_critical        = '30,25,20',
+  $check_warning         = hiera('nagios_load_warning', '15,10,5'),
+  $check_critical        = hiera('nagios_load_critical', '30,25,20'),
   $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
