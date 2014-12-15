@@ -63,7 +63,7 @@ check_jstat.sh -s \$ARG1$ -w \$ARG2$ -c \$ARG3$",
     @@nagios_service { "check_jstat_of_${process_name}_${::fqdn}":
       check_command         => "check_nrpe_command_args!check_jstat!\
 ${process_name} ${warning} ${critical}",
-      service_description   => "${process_name} - memory check (jstat)",
+      service_description   => "${process_name} - memory check jstat",
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
