@@ -29,6 +29,11 @@ define icinga::plugins::checkjstat (
       }
     }
 
+    include ::sudo
+    sudo::conf{'nrpe-jstat':
+      content => 'nagios ALL=(root) NOPASSWD: /usr/bin/jstat'
+    }
+
     if !defined(File["${::icinga::plugindir}/check_jstat.sh"]) {
       file { "${::icinga::plugindir}/check_jstat.sh":
         ensure  => present,
@@ -47,13 +52,15 @@ define icinga::plugins::checkjstat (
         mode    => '0644',
         owner   => $::icinga::client_user,
         group   => $::icinga::client_group,
-        content => "command[check_jstat]=${::plugindir}/check_jstat.sh -p $ARG1$ -w $ARG2$ -c $ARG3",
+        content => "command[check_jstat]=${::icinga::includedir_client}/\
+check_jstat.sh -s \$ARG1$ -w \$ARG2$ -c \$ARG3$",
         notify  => Service[$::icinga::service_client],
       }
     }
 
     @@nagios_service { "check_jstat_of_${process_name}_${::fqdn}":
-      check_command         => "check_nrpe_command_args!check_jstat!${process_name} ${warning} ${critical}",
+      check_command         => "check_nrpe_command_args!check_jstat!\
+${process_name} ${warning} ${critical}",
       service_description   => "${process_name} - memory check (jstat)",
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,

@@ -133,7 +133,7 @@ if [ "$proc_name" != "java" ]; then
     exit 2
 fi
 
-gc=$(jstat -gc $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
+gc=$(sudo jstat -gc $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
 if [ -z "$gc" ]; then
     echo "CRITICAL: Can't get GC statistics"
     exit 2
@@ -144,7 +144,7 @@ eu=$(expr "${6}" : '\([0-9]\+\)')
 ou=$(expr "${8}" : '\([0-9]\+\)')
 pu=$(expr "${10}" : '\([0-9]\+\)')
 
-gccapacity=$(jstat -gccapacity $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
+gccapacity=$(sudo jstat -gccapacity $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
 if [ -z "$gccapacity" ]; then
     echo "CRITICAL: Can't get GC capacity"
     exit 2
@@ -168,7 +168,7 @@ permratio=$((($pu * 100) / $pgcmx))
 #echo "perm=${pu}k, (Max=${pgcmx}k, current=${permratio}%)"
 
 
-perfdata="heap is on $heapratio% of memory and perm on $permration% |pid=$pid \
+perfdata="heap is on $heapratio% of memory and perm on $permratio% |pid=$pid \
 heap=$heap;$heapmx;$heapratio;$ws;$cs perm=$pu;$pgcmx;$permratio;$ws;$cs"
 
 if [ $cs -gt 0 -a $permratio -ge $cs ]; then
