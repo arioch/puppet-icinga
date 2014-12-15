@@ -30,8 +30,10 @@ define icinga::plugins::checkjstat (
     }
 
     include ::sudo
-    sudo::conf{'nrpe-jstat':
-      content => 'nagios ALL=(root) NOPASSWD: /usr/bin/jstat'
+    if !defined(Sudo::Conf['nrpe-jstat']) {
+      sudo::conf{'nrpe-jstat':
+        content => 'nagios ALL=(root) NOPASSWD: /usr/bin/jstat'
+      }
     }
 
     if !defined(File["${::icinga::plugindir}/check_jstat.sh"]) {
