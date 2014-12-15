@@ -168,8 +168,9 @@ permratio=$((($pu * 100) / $pgcmx))
 #echo "perm=${pu}k, (Max=${pgcmx}k, current=${permratio}%)"
 
 
-perfdata="heap is on $heapratio% of memory and perm on $permratio% |pid=$pid \
-heap=$heap;$heapmx;$heapratio;$ws;$cs perm=$pu;$pgcmx;$permratio;$ws;$cs"
+perfdata="pid=$pid heap=$heap;$heapmx;$heapratio;$ws;$cs perm=$pu;$pgcmx;\
+$permratio;$ws;$cs|\nHeap size is on $heapratio% and PermGen size on\
+$permratio%"
 
 if [ $cs -gt 0 -a $permratio -ge $cs ]; then
     echo "CRITICAL: jstat process $label critical PermGen size|$perfdata"
