@@ -4,7 +4,6 @@
 #
 class icinga::plugins::checkmongodb (
   $ensure                       = present,
-  $perfdata                     = true,
   $contact_groups               = $::environment,
   $max_check_attempts           = $::icinga::max_check_attempts,
   $notification_period          = $::icinga::notification_period,

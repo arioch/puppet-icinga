@@ -4,12 +4,10 @@
 #
 define icinga::plugins::checkjstat (
   $ensure                       = present,
-  $perfdata                     = true,
   $contact_groups               = $::environment,
   $max_check_attempts           = $::icinga::max_check_attempts,
   $notification_period          = $::icinga::notification_period,
   $notifications_enabled        = $::icinga::notifications_enabled,
-  $mongod_bind_ip               = '127.0.0.1',
   $devel_pkg                    = 'java-1.7.0-openjdk-devel',
   $process_name                 = $name,
   $warning                      = 70,
@@ -63,7 +61,7 @@ check_jstat.sh -s \$ARG1$ -w \$ARG2$ -c \$ARG3$",
     @@nagios_service { "check_jstat_of_${process_name}_${::fqdn}":
       check_command         => "check_nrpe_command_args!check_jstat!\
 ${process_name} ${warning} ${critical}",
-      service_description   => "${process_name} - memory check jstat",
+      service_description   => "${process_name} - memory usage",
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
