@@ -1,6 +1,6 @@
 class icinga::plugins::passivecheck(
   $services = undef,
-  $freshness_threshold = 3600,
+  $freshness_threshold = '3600',
 ){
 
   define passive_checks_from_array() {
