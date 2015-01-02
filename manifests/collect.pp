@@ -79,6 +79,7 @@ class icinga::collect {
     Icinga::Downtime <<| |>>         {
       owner  => $::icinga::server_user,
       group  => $::icinga::server_group,
+    }
   }
 
   if $::icinga::client and $::icinga::export_resources {
