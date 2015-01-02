@@ -6,27 +6,79 @@ class icinga::collect {
 
   if $::icinga::server and $::icinga::collect_resources {
     # Set defaults for collected resources.
-    Nagios_host <<| |>>              { notify => Service[$::icinga::service_server] }
-    Nagios_service <<| |>>           { notify => Service[$::icinga::service_server] }
-    Nagios_hostextinfo <<| |>>       { notify => Service[$::icinga::service_server] }
-    Nagios_command <<| |>>           { notify => Service[$::icinga::service_server] }
-    Nagios_contact <<| |>>           { notify => Service[$::icinga::service_server] }
-    Nagios_contactgroup <<| |>>      { notify => Service[$::icinga::service_server] }
-    Nagios_hostdependency <<| |>>    { notify => Service[$::icinga::service_server] }
-    Nagios_hostescalation <<| |>>    { notify => Service[$::icinga::service_server] }
+    Nagios_host <<| |>>              {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_service <<| |>>           {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_hostextinfo <<| |>>       {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_command <<| |>>           {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_contact <<| |>>           {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_contactgroup <<| |>>      {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_hostdependency <<| |>>    {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_hostescalation <<| |>>    {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
     Nagios_hostgroup <<| |>>         {
       notify => Service[$::icinga::service_server],
       target => "${::icinga::targetdir}/hostgroups.cfg",
     }
-    Nagios_servicedependency <<| |>> { notify => Service[$::icinga::service_server] }
-    Nagios_serviceescalation <<| |>> { notify => Service[$::icinga::service_server] }
-    Nagios_serviceextinfo <<| |>>    { notify => Service[$::icinga::service_server] }
-    Nagios_servicegroup <<| |>>      { notify => Service[$::icinga::service_server] }
+    Nagios_servicedependency <<| |>> {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_serviceescalation <<| |>> {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_serviceextinfo <<| |>>    {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
+    Nagios_servicegroup <<| |>>      {
+      notify => Service[$::icinga::service_server],
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
+    }
     Nagios_timeperiod <<| |>>        {
       notify => Service[$::icinga::service_server],
       target => "${::icinga::targetdir}/timeperiods.cfg",
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
     }
-    Icinga::Downtime <<| |>>         { notify => Service[$::icinga::service_server] }
+    Icinga::Downtime <<| |>>         {
+      owner  => $::icinga::server_user,
+      group  => $::icinga::server_group,
   }
 
   if $::icinga::client and $::icinga::export_resources {

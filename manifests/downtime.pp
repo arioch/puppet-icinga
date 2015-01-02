@@ -22,12 +22,16 @@ define icinga::downtime(
   $fixed               = undef,
   $propagate           = '1',
   $register            = '1',
+  $owner               = undef,
+  $group               = undef,
 ) {
 
   concat::fragment{$name:
     target  => "${::icinga::confdir_server}/downtime.cfg",
     order   => 10,
     content => template('icinga/common/downtime.cfg.erb'),
+    owner   => $owner,
+    group   => $group,
   }
 
 }
