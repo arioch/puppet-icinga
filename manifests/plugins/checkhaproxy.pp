@@ -8,6 +8,9 @@ class icinga::plugins::checkhaproxy (
   $max_check_attempts           = $::icinga::max_check_attempts,
   $notification_period          = $::icinga::notification_period,
   $notifications_enabled        = $::icinga::notifications_enabled,
+  $username                     = hiera('haproxy_username', 'haproxy'),
+  $password                     = hiera('haproxy_pass', 'V3ry_Str0ng_P4ssword'),
+
 ) inherits icinga {
 
 
@@ -20,6 +23,15 @@ class icinga::plugins::checkhaproxy (
       notify  => Service[$icinga::service_client],
       require => Class['icinga::config'];
     }
+    file { "${::icinga::includedir_client}/haproxy.cfg":
+      ensure  => 'file',
+      mode    => '0644',
+      owner   => $::icinga::client_user,
+      group   => $::icinga::client_group,
+      content => template('icinga/plugins/haproxy.cfg.erb'),
+      notify  => Service[$::icinga::service_client],
+    }
+
 
 
     @@nagios_service { "check_haproxy_${::fqdn}":
