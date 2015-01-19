@@ -11,8 +11,15 @@ class icinga::plugins::checkipmi (
 
 ) inherits icinga {
 
+   package { 'perl-IPC-Run.noarch':
+      ensure => present,
+   }
 
-    file { "${::icinga::plugindir}/check_ipmi_sensor":
+   package { 'freeipmi':
+      ensure => present,
+   }
+    
+   file { "${::icinga::plugindir}/check_ipmi_sensor":
       ensure  => present,
       mode    => '0755',
       owner   => 'root',
@@ -45,7 +52,7 @@ class icinga::plugins::checkipmi (
 
     sudo::conf{'ipmi_check_conf':
     content => "Defaults:nagios !requiretty
-    nagios ALL=(ALL) NOPASSWD:/usr/sbin/ipmimonitoring\n",
+    nagios ALL=(ALL) NOPASSWD:/usr/sbin/ipmimonitoring,/usr/sbin/ipmi-sensors\n",
     }
 
   }
