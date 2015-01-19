@@ -33,7 +33,7 @@ class icinga::plugins::checkipmi (
 
 
     @@nagios_service { "check_ipmi_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_ipm',
+      check_command         => 'check_nrpe_command!check_ipmi',
       service_description   => 'IPMI',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
