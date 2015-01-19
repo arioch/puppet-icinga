@@ -46,7 +46,6 @@ class icinga::plugins::checkipmi (
     sudo::conf{'ipmi_check_conf':
     content => "Defaults:nagios !requiretty
     nagios ALL=(ALL) NOPASSWD:/usr/sbin/ipmimonitoring\n",
-    require => File['/usr/sbin/ipmimonitoring'],
     }
 
   }
