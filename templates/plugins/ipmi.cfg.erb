@@ -1,1 +1,5 @@
-command[check_ipmi]=/usr/lib64/nagios/plugins/check_ipmi_sensor -H localhost -x 28
+<% if @ignored_sensors -%>
+command[check_ipmi]=/usr/lib64/nagios/plugins/check_ipmi_sensor -H localhost -x <%= Array(@ignored_sensors).join(',') %>
+<% else %>
+command[check_ipmi]=/usr/lib64/nagios/plugins/check_ipmi_sensor -H localhost
+<% end -%>
