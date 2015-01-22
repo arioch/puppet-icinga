@@ -8,7 +8,7 @@ class icinga::plugins::checkipmi (
   $max_check_attempts           = $::icinga::max_check_attempts,
   $notification_period          = $::icinga::notification_period,
   $notifications_enabled        = $::icinga::notifications_enabled,
-  $ignored_sensors              = hiera('ignored_sensors'),
+  $ignored_sensors              = hiera('ignored_sensors', undef),
 ) inherits icinga {
 
    package { 'perl-IPC-Run.noarch':
