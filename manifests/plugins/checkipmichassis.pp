@@ -10,6 +10,9 @@ class icinga::plugins::checkipmichassis (
   $notifications_enabled        = $::icinga::notifications_enabled,
 ) inherits icinga {
 
+   package { 'perl-Nagios-Plugin':
+    ensure => 'installed'
+   }
     
    file { "${::icinga::plugindir}/check_ipmitool.pl":
       ensure  => present,

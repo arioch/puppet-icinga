@@ -31,7 +31,7 @@ GetOptions(
 my $powerfail=0;
 my %result;
 
-my @ipmicmd=`ipmitool power status 2>&1`;
+my @ipmicmd=`sudo ipmitool power status 2>&1`;
 if ( grep /Error: Unable to establish LAN session/, @ipmicmd) {
   print "Unable to connect\n";
   exit 3;
@@ -80,7 +80,7 @@ $np->nagios_exit( $code, $message );
 
 sub check_chassis {
 
-	my @ipmicmd=`ipmitool chassis status 2>&1`;
+	my @ipmicmd=`sudo ipmitool chassis status 2>&1`;
 
 	my $drive="";
 	my $main="";
