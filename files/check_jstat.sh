@@ -134,6 +134,11 @@ if [ "$proc_name" != "java" ]; then
 fi
 
 gc=$(sudo jstat -gc $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
+
+if [ -z "$gc" ]; then
+gc=$(sudo -u $service jstat -gc $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
+fi
+
 if [ -z "$gc" ]; then
     echo "CRITICAL: Can't get GC statistics"
     exit 2
@@ -145,10 +150,16 @@ ou=$(expr "${8}" : '\([0-9]\+\)')
 pu=$(expr "${10}" : '\([0-9]\+\)')
 
 gccapacity=$(sudo jstat -gccapacity $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
+
+if [ -z "$gccapacity" ]; then
+gccapacity=$(sudo -u $service jstat -gccapacity $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
+fi
+
 if [ -z "$gccapacity" ]; then
     echo "CRITICAL: Can't get GC capacity"
     exit 2
 fi
+
 
 #echo "gccapacity=$gccapacity"
 set -- $gccapacity
