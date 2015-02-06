@@ -136,7 +136,8 @@ fi
 gc=$(sudo jstat -gc $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
 
 if [ -z "$gc" ]; then
-gc=$(sudo -u $service jstat -gc $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
+owner=$(stat -c %U /proc/$pid)
+gc=$(sudo -u $owner jstat -gc $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
 fi
 
 if [ -z "$gc" ]; then
@@ -152,7 +153,8 @@ pu=$(expr "${10}" : '\([0-9]\+\)')
 gccapacity=$(sudo jstat -gccapacity $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
 
 if [ -z "$gccapacity" ]; then
-gccapacity=$(sudo -u $service jstat -gccapacity $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
+owner=$(stat -c %U /proc/$pid)
+gccapacity=$(sudo -u $owner jstat -gccapacity $pid | tail -1 | sed -e 's/[ ][ ]*/ /g')
 fi
 
 if [ -z "$gccapacity" ]; then
