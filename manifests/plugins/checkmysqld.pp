@@ -9,6 +9,7 @@ class icinga::plugins::checkmysqld (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
+  $mgmt_cnf              = '/root/.my.cnf',
 ) inherits icinga {
 
   $pkg_nagios_plugins_mysqld = $::operatingsystem ? {
