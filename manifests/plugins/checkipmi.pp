@@ -18,7 +18,7 @@ class icinga::plugins::checkipmi (
    package { 'freeipmi':
       ensure => present,
    }
-    
+
    file { "${::icinga::plugindir}/check_ipmi_sensor":
       ensure  => present,
       mode    => '0755',
