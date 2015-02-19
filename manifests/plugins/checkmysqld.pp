@@ -37,7 +37,7 @@ class icinga::plugins::checkmysqld (
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
     notify  => Service[$::icinga::service_client],
-    content => "command[check_mysqld]=sudo ${::icinga::plugindir}/check_mysqld.pl -F $mgmt_cnf",
+    content => "command[check_mysqld]=sudo ${::icinga::plugindir}/check_mysqld.pl -F ${mgmt_cnf}",
   }
 
   @@nagios_service { "check_mysqld_performance_${::fqdn}":
