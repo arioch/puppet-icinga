@@ -25,7 +25,7 @@ class icinga::plugins::checkntp (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_ntp_time]=${::icinga::usrlib}/nagios/plugins/check_ntp_time -H ${_ntp_server} -w ${warn_value} -c ${crit_value}\n",
+    content => "command[check_ntp_time]=${::icinga::usrlib}/nagios/plugins/check_ntp_time -q -H ${_ntp_server} -w ${warn_value} -c ${crit_value}\n",
     notify  => Service[$::icinga::service_client],
   }
 
