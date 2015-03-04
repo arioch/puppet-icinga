@@ -33,8 +33,8 @@ class icinga::plugins::check_zimbra_snapshot (
 
 
     @@nagios_service { "check_zimbra_snapshot_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_zimbra_snapshot]',
-      service_description   => 'zimbra snapshot]',
+      check_command         => 'check_nrpe_command!check_zimbra_snapshot',
+      service_description   => 'zimbra snapshot',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
