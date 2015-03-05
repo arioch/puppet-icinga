@@ -3,7 +3,7 @@
 exitStatus = 0
 msg = ""
 ARGV.each { |x|
-  result = `perl check_smart.pl -d #{x}`
+  result = `perl /usr/lib64/nagios/plugins/check_smart.pl -d #{x}`
   #puts result
   if $?.exitstatus > 0
      msg += result + " "
