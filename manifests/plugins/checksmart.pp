@@ -11,9 +11,9 @@ class icinga::plugins::checksmart (
   $smart_devices                = hiera('smart_devices'),
 ) inherits icinga {
 
-   package { 'smartmontools.x86_64':
-      ensure => present,
-   }
+  package { 'smartmontools.x86_64':
+    ensure => present,
+  }
 
 
    file { "${::icinga::plugindir}/check_smart.rb":
