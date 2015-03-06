@@ -53,7 +53,7 @@ class icinga::plugins::checkmongodb (
       service_description   => 'MongoDB Replication Lag',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
-      notification_period   => $notification_period,
+      notification_period   => 'workhours',
       notifications_enabled => $notifications_enabled,
       max_check_attempts    => $max_check_attempts,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
