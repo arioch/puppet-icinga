@@ -9,7 +9,7 @@ class icinga::plugins::checkmegaraid (
   $predictive_errors_ignore_count = '0',
   $other_disk_errors_ignore_count = '0',
   $max_check_attempts             = $::icinga::max_check_attempts,
-  $contact_groups                 = $::environment,
+  $contact_groups                 = $::icinga::contact_groups,
   $notification_period            = $::icinga::notification_period,
   $notifications_enabled          = $::icinga::notifications_enabled,
 ) inherits icinga {

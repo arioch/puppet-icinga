@@ -5,7 +5,7 @@
 define icinga::plugins::checkdns (
   $expected_answer,
   $dnsname               = $name,
-  $contact_groups        = $::environment,
+  $contact_groups        = $::icinga::contact_groups,
   $notification_period   = $::icinga::notification_period,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notifications_enabled = $::icinga::notifications_enabled,

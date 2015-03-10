@@ -6,7 +6,7 @@ class icinga::plugins::checkload (
   $pkgname               = 'nagios-plugins-load',
   $check_warning         = '15,10,5',
   $check_critical        = '30,25,20',
-  $contact_groups        = $::environment,
+  $contact_groups        = $::icinga::contact_groups,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
