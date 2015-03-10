@@ -11,7 +11,7 @@ define icinga::plugins::checkdrupalcron (
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
   $host_name              = $::fqdn,
-  $contact_groups         = $::environment,
+  $contact_groups         = $::icinga::contact_groups,
   $warning                = '3600',
   $critical               = '7200',
   $uri                    = '',

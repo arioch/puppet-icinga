@@ -40,6 +40,7 @@ class icinga::params {
   $process_service_perfdata_file             = 'process-service-perfdata-file'
   $service_perfdata_file_template            = 'DATATYPE::SERVICEPERFDATA\tTIMET::$TIMET$\tHOSTNAME::$HOSTNAME$\tSERVICEDESC::$SERVICEDESC$\tSERVICEPERFDATA::$SERVICEPERFDATA$\tSERVICECHECKCOMMAND::$SERVICECHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::$HOSTSTATETYPE$\tSERVICESTATE::$SERVICESTATE$\tSERVICESTATETYPE::$SERVICESTATETYPE'
   $service_perfdata_file_processing_interval = '15'
+  $contact_groups                            = $::environment
 
   case $::operatingsystem {
     'Debian', 'Ubuntu': {

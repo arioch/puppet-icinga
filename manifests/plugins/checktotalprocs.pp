@@ -5,7 +5,7 @@
 class icinga::plugins::checktotalprocs (
   $check_warning         = '',
   $check_critical        = '',
-  $contact_groups        = $::environment,
+  $contact_groups        = $::icinga::contact_groups,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,

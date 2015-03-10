@@ -9,7 +9,7 @@ class icinga::plugins::checkpercona-replication (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-  $contact_groups        = $::environment,
+  $contact_groups        = $::icinga::contact_groups,
   $warning               = '1',
   $critical              = '1',
   $socket                = '/var/lib/mysql/mysql.sock',
