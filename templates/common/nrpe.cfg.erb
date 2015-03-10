@@ -119,7 +119,7 @@ debug=<%= scope.lookupvar('icinga::nrpe_enable_debug') %>
 # This specifies the maximum number of seconds that the NRPE daemon will
 # allow plugins to finish executing before killing them off.
 
-command_timeout=<%= @nrpe_command_timeout %>
+command_timeout=<%= scope.lookupvar('icinga::nrpe_command_timeout') %>
 
 
 
@@ -130,7 +130,7 @@ command_timeout=<%= @nrpe_command_timeout %>
 # all network sessions are connected. This causes the nrpe daemons to
 # accumulate, eating system resources. Do not set this too low.
 
-connection_timeout=<%= @nrpe_connect_timeout %>
+connection_timeout=<%= scope.lookupvar('icinga::nrpe_connect_timeout') %>
 
 
 
