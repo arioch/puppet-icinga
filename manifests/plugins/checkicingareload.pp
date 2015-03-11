@@ -7,7 +7,7 @@ class icinga::plugins::checkicingareload (
     'centos' => 'nagios-plugins-icinga-reload-check',
     'debian' => 'nagios-plugin-icinga-reload-check',
   },
-  $contact_groups                           = $::environment,
+  $contact_groups                           = $::icinga::contact_groups,
   $max_check_attempts                       = $::icinga::params::max_check_attempts,
   $notification_period                      = $::icinga::notification_period,
   $notifications_enabled                    = $::icinga::notifications_enabled,

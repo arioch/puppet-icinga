@@ -7,7 +7,7 @@ define icinga::plugins::checkbacula (
   $jobname               = $::fqdn,
   $warning               = '1',
   $critical              = '0',
-  $contact_groups        = $::environment,
+  $contact_groups        = $::icinga::contact_groups,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
 ) {
