@@ -1,12 +1,13 @@
 #!/usr/bin/ruby
 
 exitStatus = 0
-msg = ""
+msg = ['', '']
 ARGV.each { |x|
   result = `perl /usr/lib64/nagios/plugins/check_smart.pl -d #{x}`
-  #puts result
   if $?.exitstatus > 0
-    msg = msg + x.sub(' -i', '') + ": " + result +" "
+    arr = result.split('|')
+    msg[0]= msg[0] + x.sub(' -i', '') + ": " + arr[0] +" "
+    msg[1]= msg[1] + x.sub(' -i', '')+": " + arr[1] + " "
   end
   if $?.exitstatus > exitStatus
      exitStatus = $?.exitstatus
@@ -15,6 +16,7 @@ ARGV.each { |x|
 if exitStatus == 0
   puts "S.M.A.R.T. OK"
 elsif
- puts msg
+ puts msg[0]+"|"+msg[1]
 end
 exit exitStatus
+
