@@ -251,7 +251,7 @@ define command{
 
 define  command {
         command_name    check_nrpe_command_args
-        command_line    $USER1$/check_nrpe -t <%= scope.lookupvar('nrpe_command_timeout') %> -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
+        command_line    $USER1$/check_nrpe -t <%= scope.lookupvar('icinga::nrpe_command_timeout') %> -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
 }
 
 define command {
