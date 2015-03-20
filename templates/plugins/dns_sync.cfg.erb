@@ -1,0 +1,11 @@
+<% views=@full_zonelist.keys.select{ |i| i[/^view/] } -%>
+<% domains=[] -%>
+<% customers=[] -%>
+<% views.each do |view| -%>
+<% customers += @full_zonelist[view] -%>
+<% end -%>
+<% customers.each do |customer| -%>
+<%   domains+= @full_zonelist[customer].keys -%>
+<% end -%>
+<% domains.map! {|domain| domain[/[^:]+/]} -%>
+command[check_dns_sync]=/usr/lib64/nagios/plugins/check_dns_sync.pl -T5  <%= Array(domains).uniq.sort.join(" ") %>
