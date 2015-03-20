@@ -357,6 +357,6 @@ if ($error) {
  if ($exit_status == 0) {
  	print "All OK\n";
   } else {
-	print "Domains in warning state: $warning, Domains in critical state: $critical out of " . scalar @ARGV . "|$msg\n";
+	print "Domains in warning state: $warning, Domains in critical state: $critical out of " . scalar @ARGV . "\n $msg\n";
   }
 exit   $exit_status
