@@ -38,7 +38,6 @@ class icinga::collect {
       use                   => 'linux-server',
       parents               => $::icinga::parents,
       hostgroups            => $::icinga::hostgroups,
-      action_url            => '/pnp4nagios/graph?host=$HOSTNAME$',
       notification_period   => $::icinga::notification_period,
       notifications_enabled => $::icinga::notifications_enabled,
       icon_image_alt        => $::operatingsystem,

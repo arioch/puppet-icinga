@@ -46,7 +46,6 @@ class icinga::plugins::checkmysqld (
     host_name           => $::fqdn,
     max_check_attempts  => $max_check_attempts,
     target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
-    action_url          => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
   }
 
   sudo::conf{'nagios_mysqld_conf':
@@ -75,7 +74,6 @@ class icinga::plugins::checkmysqld (
     @@nagios_service { "check_mysqld_performance_1_${::fqdn}":
       check_command       => 'check_nrpe_command!check_mysqld_performance_1',
       service_description => 'mysqld perf 1',
-      action_url          => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
     }
 
     @@nagios_service { "check_mysqld_performance_2_${::fqdn}":

@@ -40,7 +40,6 @@ class icinga::plugins::checkmegaraid (
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
-      action_url            => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
     }
   }
 

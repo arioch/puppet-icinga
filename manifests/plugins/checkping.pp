@@ -20,7 +20,6 @@ class icinga::plugins::checkping (
       max_check_attempts    => $max_check_attempts,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
-      action_url            => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
   }

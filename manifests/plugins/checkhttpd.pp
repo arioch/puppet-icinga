@@ -54,7 +54,6 @@ class icinga::plugins::checkhttpd (
       service_description   => 'Apache',
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
-      action_url            => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
   }

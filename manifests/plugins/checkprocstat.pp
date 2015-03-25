@@ -34,7 +34,6 @@ class icinga::plugins::checkprocstat (
     service_description   => 'procstat',
     notification_period   => $notification_period,
     notifications_enabled => $notifications_enabled,
-    action_url            => '/pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$',
     target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 }
