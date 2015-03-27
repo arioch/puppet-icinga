@@ -6,7 +6,7 @@ class icinga::plugins::check_dns_sync (
   $ensure                       = present,
   $contact_groups               = $::environment,
   $max_check_attempts           = $::icinga::max_check_attempts,
-  $notification_period          = $::icinga::notification_period,
+  $notification_period          = 'workhours',
   $notifications_enabled        = $::icinga::notifications_enabled,
   $full_zonelist                = hiera('bind::full_zonelist'),
 ) inherits icinga {
