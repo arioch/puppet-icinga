@@ -130,7 +130,6 @@ if( defined($optarg{'k'}) ) {
 }
 
 
-#$domain = $ARGV[0];
 foreach my $domain(@ARGV) {
 $res = Net::DNS::Resolver->new(
 	recurse => 1,
@@ -195,7 +194,6 @@ if ( ! defined($ns_reply) ) {
 
 my $name_server;
 my @name_servers;
-#my $ns_ip_type;
 
 # Lookup any nameservers who's IP's were not included in the 'additional' section
 # of the original query
@@ -229,7 +227,7 @@ foreach $name_server ( keys %ns_ip ) {
 }
 
 # Disable recursion for SOA queries
-$res->recurse(0);
+#$res->recurse(0);
 
 
 if($opt_numeric) {
@@ -252,22 +250,7 @@ foreach $name_server ( @name_servers ) {
 	my $ip = Net::IP->new($ns_ip{$name_server});
 if ( $ns_ip{$name_server} ne "IP_not_found" ) {
 	$ns_ip_type = ($ip->iptype());
-#	if ($ns_ip_type eq 'PUBLIC') {
-	if (($ns_ip_type eq 'PUBLIC') && ($opt_key ne "") && ($domain ne 'rug-uat.mediasalsa.eu') &&  (($name_server eq 'ns1.inuits.eu') || ($name_server eq 'ns2.inuits.eu'))) {
-		$tsig = Net::DNS::RR->new($opt_key);
-		$res->tsig($tsig);
-	}
-	#elsif ($ns_ip_type eq 'PRIVATE') {
-	else {
-#                $tsig = Net::DNS::RR->new('internal TSIG Zjo/ztoKV3kk7SLlqL/jrA==');
-		
-		$res->tsig(undef);
-       	}
 
-	#elsif ($ns_ip_type == 'PRIVATE') {
-	#	$tsig = Net::DNS::RR->new('internal TSIG Zjo/ztoKV3kk7SLlqL/jrA==');
-        #        $res->tsig(null);
-	#}
 }	
 	if($opt_numeric) {
 		$res->nameservers ( $name_server );
@@ -305,11 +288,6 @@ if ( $ns_ip{$name_server} ne "IP_not_found" ) {
 		next;
 	}
 	$aa{$name_server} = $soa_reply->header->aa;
-	#if ( $aa{$name_server} == 0 ) {
-	#	$error=1;
-	#	$error_txt{$name_server} = "$name_server is not authoritative (not secondary DNS?)";
-	#	$performance_txt{$name_server} = "Not authoritative";
-	#}
 	$serial{$name_server} = ($soa_reply->answer)[0]->serial;
 	# The master name is copied from the SOA record, and doesn't really affect normal operation
 	$master{$name_server} = ($soa_reply->answer)[0]->mname;
@@ -358,7 +336,6 @@ if ($error) {
  	print "All OK\n";
   } else {
 	print "Domains in warning state: $warnings, Domains in critical state: $critical out of " . scalar @ARGV;
-# . "\n $msg\n";
 	print "\n";
   	print $status;
   }
