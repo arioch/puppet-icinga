@@ -78,7 +78,7 @@ my $status = "";
 my $msg = "";	
 my $ns_ip_type;
 my $critical = 0;
-my $warning = 0;
+my $warnings = 0;
 $getopt_result = getopts('s:T:k:dnVh', \%optarg) ;
 my $exit_status = 0;
 if ( $getopt_result <= 0 || defined($optarg{'h'}) ) {
@@ -305,11 +305,11 @@ if ( $ns_ip{$name_server} ne "IP_not_found" ) {
 		next;
 	}
 	$aa{$name_server} = $soa_reply->header->aa;
-	if ( $aa{$name_server} == 0 ) {
-		$error=1;
-		$error_txt{$name_server} = "$name_server is not authoritative (not secondary DNS?)";
-		$performance_txt{$name_server} = "Not authoritative";
-	}
+	#if ( $aa{$name_server} == 0 ) {
+	#	$error=1;
+	#	$error_txt{$name_server} = "$name_server is not authoritative (not secondary DNS?)";
+	#	$performance_txt{$name_server} = "Not authoritative";
+	#}
 	$serial{$name_server} = ($soa_reply->answer)[0]->serial;
 	# The master name is copied from the SOA record, and doesn't really affect normal operation
 	$master{$name_server} = ($soa_reply->answer)[0]->mname;
@@ -340,23 +340,26 @@ foreach $name_server ( @name_servers ) {
 }
 
 if ($error) {
-	#$status = "$domain: ERROR - serial=$serial{$name_servers[0]}: " . (join "; ", (values %error_txt), (values %warning_txt))."\n" .$status;
+	$status = "$domain: ERROR - serial=$serial{$name_servers[0]}: " . (join "; ", (values %error_txt), (values %warning_txt))."\n" .$status;
         $exit_status = 2;
 	$msg = "$domain: $performance_txt\n$msg";
 	$critical += 1;
 } elsif ($warning) {
-      	#$status = "$domain: WARNING - serial=$serial{$name_servers[0]}: ". (join "; ", (values %warning_txt))."\n".$status;
+	$status = "$domain: WARNING - serial=$serial{$name_servers[0]}: ". (join "; ", (values %warning_txt))."\n".$status;
 	  if ($exit_status == 0) {
                 $exit_status = 1;
           }
 	$msg = "$domain: $performance_txt\n$msg";
-	$warning += 1;
+	$warnings += 1;
 } else {
 }
 }
  if ($exit_status == 0) {
  	print "All OK\n";
   } else {
-	print "Domains in warning state: $warning, Domains in critical state: $critical out of " . scalar @ARGV . "\n $msg\n";
+	print "Domains in warning state: $warnings, Domains in critical state: $critical out of " . scalar @ARGV;
+# . "\n $msg\n";
+	print "\n";
+  	print $status;
   }
 exit   $exit_status
