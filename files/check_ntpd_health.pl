@@ -16,7 +16,9 @@ GetOptions(
 );
 
 my $ntpq_path = `/usr/bin/which ntpq`;
+my $pidof_path = `/usr/bin/which pidof`;
 $ntpq_path =~ s/\n//g;
+$pidof_path =~ s/\n//g;
 my @server_list = `$ntpq_path -pn`;
 my %server_health;
 my $peer_count;
@@ -24,6 +26,30 @@ my $overall_health = 0;
 my $good_count;
 my $selected_primary;
 my $selected_backup = 0;
+
+my $ntpd_uptime = 0;
+my $uptime = 0;
+my $ntpd_elapsed_time = 0;
+
+my $pid_ntpd = `$pidof_path ntpd|cut -d' ' -f 1`;
+$pid_ntpd =~ s/\n//g;
+
+if($pid_ntpd eq  "") {
+        print_overall_health("Critical");
+        print_server_list();
+        exit 2;
+} else {
+        my $ntpd_pid_path = "/proc/$pid_ntpd/stat";
+        $ntpd_uptime = `awk '{print int(\$22 / 100)}' $ntpd_pid_path`;
+        $ntpd_uptime =~ s/\n//g;
+        $uptime = `awk '{print int(\$1)}' /proc/uptime`;
+        $uptime =~ s/\n//g;
+        $ntpd_elapsed_time = $uptime - $ntpd_uptime;
+        if($ntpd_elapsed_time < 900) {
+                print "OK - NTPd deamon started 15 minutes ago, syncing with NTP servers";
+                exit 0;
+        }
+}
 
 # Cleanup server list
 for(my $i = 0; $i < @server_list; $i++) {
@@ -157,4 +183,4 @@ sub display_help {
         print "\t--peer_warning <num>\t-Set the warning threshold for number of peers (default:2)\n";
         print "\t--help|-h\t\t-display this help\n";
         exit 0;
-}
+}>
