@@ -24,7 +24,7 @@ my %server_health;
 my $peer_count;
 my $overall_health = 0;
 my $good_count;
-my $selected_primary;
+my $selected_primary = "false";
 my $selected_backup = 0;
 
 my $ntpd_uptime = 0;
@@ -34,6 +34,7 @@ my $ntpd_elapsed_time = 0;
 my $pid_ntpd = `$pidof_path ntpd|cut -d' ' -f 1`;
 $pid_ntpd =~ s/\n//g;
 
+# Check if ntpd daemon is not just restarted
 if($pid_ntpd eq  "") {
         print_overall_health("Critical");
         print_server_list();
@@ -50,6 +51,28 @@ if($pid_ntpd eq  "") {
                 exit 0;
         }
 }
+
+# Check if there are enough good servers
+for(my $j = 0; $j < @server_list; $j++) {
+        #split each element of the peer line
+        my @tmp_array = split(" ", $server_list[$j]);
+
+        # Check for first character of peer
+        # space = Discarded due to high stratum and/or failed sanity checks.
+        # x = Designated falseticker by the intersection algorithm.
+        # . = Culled from the end of the candidate list.
+        # - = Discarded by the clustering algorithm.
+        # + = Included in the final selection set.
+        # # = Selected for synchronization but distance exceeds maximum.
+        # * = Selected for synchronization.
+        # o = Selected for synchronization, pps signal in use.
+        if(substr($tmp_array[0], 0, 1) eq '*') {
+                $selected_primary = "true";
+        } elsif(substr($tmp_array[0], 0, 1) eq '+') {
+                $selected_backup++;
+        }
+}
+
 
 # Cleanup server list
 for(my $i = 0; $i < @server_list; $i++) {
@@ -78,21 +101,6 @@ $peer_count = @server_list;
 for(my $i = 0; $i < @server_list; $i++) {
         #split each element of the peer line
         my @tmp_array = split(" ", $server_list[$i]);
-
-        # Check for first character of peer
-        # space = Discarded due to high stratum and/or failed sanity checks.
-        # x = Designated falseticker by the intersection algorithm.
-        # . = Culled from the end of the candidate list.
-        # - = Discarded by the clustering algorithm.
-        # + = Included in the final selection set.
-        # # = Selected for synchronization but distance exceeds maximum.
-        # * = Selected for synchronization.
-        # o = Selected for synchronization, pps signal in use.
-        if(substr($tmp_array[0], 0, 1) eq '*') {
-                $selected_primary = "true";
-        } elsif(substr($tmp_array[0], 0, 1) eq '+') {
-                $selected_backup++;
-        }
 
         $good_count = 0;
         # Read in the octal number in column 6
