@@ -27,10 +27,13 @@ my $selected_backup = 0;
 
 # Cleanup server list
 for(my $i = 0; $i < @server_list; $i++) {
-        if(($server_list[$i] =~ /LOCAL/) || ($server_list[$i] =~ /LOCL/)) {
+        if(($server_list[$i] =~ /LOCA?L/) || ($server_list[$i] =~ /INIT/)) {
                 splice(@server_list, $i, 1);
                 $i--;
         } elsif($server_list[$i] =~ /^===/) {
+                splice(@server_list, $i, 1);
+                $i--;
+        } elsif($server_list[$i] =~ /STEP/) {
                 splice(@server_list, $i, 1);
                 $i--;
         } elsif($server_list[$i] =~ /jitter$/) {
