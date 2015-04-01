@@ -25,7 +25,6 @@ use Net::DNS;
 use Getopt::Std;
 use Socket;
 use Net::IP;
-use warnings;
 
 my $rcsid = '$Id: check_dns_secondary.pl,v 1.9 2013/10/17 10:19:39 george Exp george $';
 my $rcslog = '
@@ -339,9 +338,5 @@ if ($error) {
 	print "Domains in warning state: $warnings, Domains in critical state: $critical out of " . scalar @ARGV;
 	print "\n";
   	print $status;
-	open(my $fd, ">>/home/honza/check_output.txt");
-	print $fd $status;
-	print $fd "\n";
-	close $fd;
   }
 exit   $exit_status
