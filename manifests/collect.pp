@@ -6,10 +6,13 @@ class icinga::collect {
 
   if $::icinga::server and $::icinga::collect_resources {
     # Set defaults for collected resources.
-    Nagios_host <<| |>>              {
-                                       notify  => Service[$::icinga::service_server],
-                                     }
-    Nagios_service <<| |>>           { notify => Service[$::icinga::service_server] }
+    Nagios_host <<| |>>              { notify => Service[$::icinga::service_server] }
+
+    # Add default option use => 'generic-service' to all services that are not tagged with 'non-generic'
+    # At the moment of adding this (2015-04-08) that means to every service
+    Nagios_service <<| tag != 'non-generic' |>> { use => 'generic-service', notify => Service[$::icinga::service_server] }
+    Nagios_service <<| tag == 'non-generic' |>> { notify => Service[$::icinga::service_server] }
+
     Nagios_hostextinfo <<| |>>       { notify => Service[$::icinga::service_server] }
     Nagios_command <<| |>>           { notify => Service[$::icinga::service_server] }
     Nagios_contact <<| |>>           { notify => Service[$::icinga::service_server] }
