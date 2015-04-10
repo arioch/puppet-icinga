@@ -136,8 +136,6 @@ class icinga (
     fail("${::operatingsystem} is not supported as a server platform for the moment")
   }
 
-  # motd::register { 'icinga-refactor': }
-
   include icinga::preinstall
   include icinga::install
   include icinga::config
