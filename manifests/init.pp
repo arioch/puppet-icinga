@@ -130,8 +130,6 @@ class icinga (
   $service_perfdata_file_processing_interval = $::icinga::params::service_perfdata_file_processing_interval,
 ) inherits icinga::params {
 
-  # motd::register { 'icinga-refactor': }
-
   include icinga::preinstall
   include icinga::install
   include icinga::config
