@@ -1,8 +1,8 @@
-# == Class: icinga::plugins::check_rsnapshot
+# == Class: icinga::plugins::checkrsnapshot
 #
-# This class provides a check_rsnapshot plugin.
+# This class provides a checkrsnapshot plugin.
 #
-class icinga::plugins::check_rsnapshot (
+class icinga::plugins::checkrsnapshot (
   $ensure                       = present,
   $contact_groups               = $::environment,
   $max_check_attempts           = $::icinga::max_check_attempts,
