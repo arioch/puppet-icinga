@@ -8,7 +8,7 @@ class icinga::plugins::checkmdsbackend (
   $max_check_attempts           = $::icinga::max_check_attempts,
   $notification_period          = $::icinga::notification_period,
   $notifications_enabled        = $::icinga::notifications_enabled,
-  $status_page                  = hiera('status_page'),
+  $mediamosa_vhost_name         = hiera('mediamosa_vhost_name'),
 ) inherits icinga {
 
     file { "${::icinga::plugindir}/mds_backend.rb":
