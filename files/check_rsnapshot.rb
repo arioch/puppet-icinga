@@ -164,7 +164,7 @@ File.open(ARGV[0]).each do |line|
   end
 end
 if !errors.empty?
-     puts stat[1]+"; Backups not found:"+errors.join(", ")
+     puts stat[1].to_s+"; Backups not found:"+errors.join(", ")
      status=2
 else
      puts stat[1] 
