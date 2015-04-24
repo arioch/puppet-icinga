@@ -319,7 +319,7 @@ foreach $name_server ( @name_servers ) {
 
 if ($error) {
 	$status = "$domain: ERROR - serial=$serial{$name_servers[0]}: " . (join "; ", (values %error_txt), (values %warning_txt))."\n" .$status;
-        $exit_status = 2;
+        $exit_status = 1;
 	$msg = "$domain: $performance_txt\n$msg";
 	$critical += 1;
 } elsif ($warning) {
