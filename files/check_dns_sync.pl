@@ -272,6 +272,14 @@ if ( $ns_ip{$name_server} ne "IP_not_found" ) {
 	}
 
 	$soa_reply = $res->send($domain, "SOA");
+
+        for (my $i = 0; $i <= 2; $i++) {
+                 if( defined ($soa_reply) ) {
+                        last;
+                 }
+                $soa_reply = $res->send($domain, "SOA");
+        }
+
 	if( ! defined ($soa_reply) ) {
 		$error = 1;
 		$error_txt{$name_server} = "No reply from $name_server (server down?)";
