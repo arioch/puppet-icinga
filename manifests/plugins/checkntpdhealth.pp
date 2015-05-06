@@ -3,10 +3,10 @@
 # This class provides a check_ntpd_health plugin.
 #
 class icinga::plugins::checkntpdhealth (
-  $warn_value            = '75',
-  $crit_value            = '50',
-  $peer_warning          = '2',
-  $peer_critical         = '1',
+  $warn_value            = '25',
+  $crit_value            = '10',
+  $peer_warning          = '1',
+  $peer_critical         = '0',
   $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
