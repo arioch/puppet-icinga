@@ -31,8 +31,8 @@ class icinga::plugins::checkntpdhealth (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_ntpd_health]=${script_path} -w ${warn_value} \
--c ${crit_value} --peer_critical ${peer_critical} \
+    content => "command[check_ntpd_health]=${script_path} --warning
+${warn_value} --critical ${crit_value} --peer_critical ${peer_critical} \
 --peer_warning ${peer_warning}\n",
     notify  => Service[$::icinga::service_client],
     require => File[$script_path],
