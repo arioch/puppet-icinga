@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -z "$(pgrep $1)" ]; then
+  echo "Critical - $1 not running"
+  exit 2
+else
+  echo "OK - $1 is runnng"
+  exit 0
+fi
+
