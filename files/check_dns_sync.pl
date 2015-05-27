@@ -152,9 +152,9 @@ if( $opt_dns_timeout) {
 $ns_reply = $res->send( $domain, 'NS',);
 if ( ! defined($ns_reply) ) {
 	if($dns_server) {
-		print "ERROR - Could not contact DNS server: $dns_server\n";
+		print "ERROR - DNS server not responding: $dns_server\n";
 	} else {
-		print "ERROR - Could not contact a DNS server (check /etc/resolv.conf)\n";
+		print "ERROR - DNS servers not responding (check nameservers in /etc/resolv.conf)\n";
 	}
 	exit 2;
 } elsif ( $ns_reply->header->ancount == 0 && $ns_reply->header->nscount == 0 ) {
