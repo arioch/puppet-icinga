@@ -325,7 +325,7 @@ if ($error) {
 	$msg = "$domain: $performance_txt\n$msg";
 	$critical += 1;
 } elsif ($warning) {
-	$status = "$domain: WARNING - serial=$serial{$name_servers[0]}: ". (join "; ", (values %warning_txt))."\n".$status;
+	$status = "$domain: WARNING - serial=$serial{$name_servers[0]}: ". (join "; ", (values %warning_txt))." " .$status;
 	  if ($exit_status == 0) {
                 $exit_status = 1;
           }
@@ -337,8 +337,8 @@ if ($error) {
  if ($exit_status == 0) {
  	print "All OK\n";
   } else {
-	print "Domains in warning state: $warnings, Domains in critical state: $critical out of " . scalar @ARGV;
-	print "\n";
-  	print $status;
+	print "Domains in warning state: $warnings, Domains in critical state: $critical out of " . scalar @ARGV." " .$status;
+#	print "\n";
+#  	print $status;
   }
 exit   $exit_status
