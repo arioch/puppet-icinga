@@ -307,11 +307,11 @@ foreach $name_server ( @name_servers ) {
 	if ( $serial{$name_server} eq $serial{$name_servers[0]} ) {
 		$performance_txt .= "; $name_server $performance_txt{$name_server}";
 	} elsif ( $serial{$name_server} eq "" ) {
-		$warning=1;
-		if ( $error_txt{$name_server} eq "" ) {
-			$warning_txt{$name_server} = "$name_server no SOA reply";
-		}
-		$performance_txt .= "; $name_server $performance_txt{$name_server}";
+	#	$warning=1;
+	#	if ( $error_txt{$name_server} eq "" ) {
+	#		$warning_txt{$name_server} = "$name_server no SOA reply";
+	#	}
+	#	$performance_txt .= "; $name_server $performance_txt{$name_server}";
 	} else {
 		$warning =1;
 		$warning_txt{$name_server} = "$name_server is out-of-date ($serial{$name_server})";
