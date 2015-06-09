@@ -66,7 +66,7 @@ nrpe_group=<%= scope.lookupvar('icinga::client_group') %>
 #
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-allowed_hosts=<% scope.lookupvar('icinga::nrpe_allowed_hosts').each_line do |i| -%><%= i %>,<% end -%>
+allowed_hosts=<% scope.lookupvar('icinga::nrpe_allowed_hosts').each do |i| -%><%= i %>,<% end -%>
 
 
 # COMMAND ARGUMENT PROCESSING
