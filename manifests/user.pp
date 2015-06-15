@@ -30,6 +30,7 @@ define icinga::user (
     Exec {
       require => File[$htpasswd],
       notify  => Service[$service],
+      path    => ['/usr/bin','/bin'],
     }
 
     case $ensure {
