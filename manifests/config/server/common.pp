@@ -88,6 +88,11 @@ class icinga::config::server::common {
     content => template('icinga/common/generic-service.cfg'),
   }
 
+  file{"${::icinga::targetdir}/generic-contact.cfg":
+    ensure  => file,
+    content => template('icinga/common/generic-contact.cfg.erb'),
+  }
+
   file{"${::icinga::sharedir_server}/images/logos":}
 
   file{"${::icinga::sharedir_server}/images/logos/os":
