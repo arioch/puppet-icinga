@@ -132,7 +132,7 @@ class icinga (
 ) inherits icinga::params {
 
   # Some safety nets
-  if $server and $::operatingsystem == 'SLES' {
+  if $server == true and $::operatingsystem == 'SLES' {
     fail("${::operatingsystem} is not supported as a server platform for the moment")
   }
 
