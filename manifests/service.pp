@@ -63,7 +63,6 @@ class icinga::service {
         }
       }
     }
-
     default: {}
   }
 }
