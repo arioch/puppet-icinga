@@ -62,6 +62,7 @@ class icinga::service {
             hasstatus  => $icinga::service_client_hasstatus,
         }
       }
+    }
 
     default: {}
   }
