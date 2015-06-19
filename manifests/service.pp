@@ -52,6 +52,17 @@ class icinga::service {
         }
       }
     }
+    'SLES': {
+      if $icinga::client {
+        service {
+          $icinga::service_client:
+            ensure     => $icinga::service_client_ensure,
+            enable     => $icinga::service_client_enable,
+            hasrestart => $icinga::service_client_hasrestart,
+            hasstatus  => $icinga::service_client_hasstatus,
+        }
+      }
+    }
 
     default: {}
   }
