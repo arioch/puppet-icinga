@@ -101,9 +101,11 @@ dont_blame_nrpe=<%= scope.lookupvar('icinga::nrpe_allow_arguments') %>
 # This lets the nagios user run all commands in that directory (and only them)
 # without asking for a password.  If you do this, make sure you don't give
 # random users write access to that directory or its contents!
-
+<% if scope.lookupvar('icinga::nrpe_command_prefix') -%>
+command_prefix=<%= scope.lookupvar('icinga::nrpe_command_prefix') -%>
+<% else -%>
 # command_prefix=/usr/bin/sudo
-
+<% end -%>
 
 
 # DEBUGGING OPTION
