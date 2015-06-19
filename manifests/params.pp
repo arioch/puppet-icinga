@@ -166,7 +166,53 @@ class icinga::params {
       $jasper_vhost              = '/etc/httpd/conf.d/jasperserver.conf'
     }
 
-    default: {}
+    'SLES': {
+      case $::architecture {
+        default:  { $usrlib = '/usr/lib'   }
+      }
+
+      # Icinga
+      $package_client_ensure     = 'present'
+      $package_server_ensure     = 'present'
+      $package_client            = [ 'nrpe', 'monitoring-plugins-all' ]
+      $package_server            = undef
+      $service_client            = 'nrpe'
+      $service_client_ensure     = 'running'
+      $service_client_enable     = true
+      $service_client_hasstatus  = true
+      $service_client_hasrestart = true
+      $service_client_pattern    = ''
+      $service_server            = undef
+      $service_server_ensure     = 'running'
+      $service_server_enable     = true
+      $service_server_hasstatus  = true
+      $service_server_hasrestart = true
+      $pidfile_client            = '/var/run/nagios/nrpe.pid'
+      $pidfile_server            = undef
+      $confdir_client            = '/etc/nagios'
+      $confdir_server            = undef
+      $vardir_client             = undef
+      $vardir_server             = '/var/icinga'
+      $sharedir_server           = undef
+      $includedir_client         = '/etc/nrpe.d'
+      $service_webserver         = undef
+      $webserver_user            = undef
+      $webserver_group           = undef
+      $server_user               = undef
+      $server_group              = undef
+      $client_user               = 'nagios'
+      $client_group              = 'nagios'
+      $server_cmd_group          = undef
+      $htpasswd_file             = undef
+      $targetdir                 = undef
+      $targetdir_contacts        = undef
+      $icinga_vhost              = undef
+      $mail_command              = '/bin/mail'
+    }
+
+    default: {
+      fail("${module_name}: Unsupported operatingsystem ${::operatingsystem}") 
+    }
   }
 
   # Plugin defaults

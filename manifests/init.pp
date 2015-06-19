@@ -131,6 +131,11 @@ class icinga (
   $service_perfdata_file_processing_interval = $::icinga::params::service_perfdata_file_processing_interval,
 ) inherits icinga::params {
 
+  # Some safety nets
+  if $server and $::operatingsystem == 'SLES' {
+    fail("${::operatingsystem} is not supported as a server platform for the moment")
+  }
+
   # motd::register { 'icinga-refactor': }
 
   include icinga::preinstall
