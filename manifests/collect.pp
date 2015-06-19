@@ -8,7 +8,6 @@ class icinga::collect {
     # Set defaults for collected resources.
     Nagios_host <<| |>>              {
                                        notify  => Service[$::icinga::service_server],
-                                       require => File["${::icinga::target_dir}/hosts"],
                                      }
     Nagios_service <<| |>>           { notify => Service[$::icinga::service_server] }
     Nagios_hostextinfo <<| |>>       { notify => Service[$::icinga::service_server] }
