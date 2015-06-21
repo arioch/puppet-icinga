@@ -7,7 +7,7 @@ class icinga::plugins::checkntp (
   $warn_value            = '1',
   $crit_value            = '10',
   $timeout               = '30',
-  $contact_groups        = $::environment,
+  $contact_groups        = $::icinga::contact_groups,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,

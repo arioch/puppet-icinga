@@ -4,7 +4,7 @@
 #
 class icinga::plugins::checkprocstat (
   $ensure                = present,
-  $contact_groups        = $::environment,
+  $contact_groups        = $::icinga::contact_groups,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,

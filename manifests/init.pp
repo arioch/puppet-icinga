@@ -129,6 +129,7 @@ class icinga (
   $process_service_perfdata_file             = $::icinga::params::process_service_perfdata_file,
   $service_perfdata_file_template            = $::icinga::params::service_perfdata_file_template,
   $service_perfdata_file_processing_interval = $::icinga::params::service_perfdata_file_processing_interval,
+  $contact_groups                            = $::icinga::params::contact_groups,
 ) inherits icinga::params {
 
   # Some safety nets

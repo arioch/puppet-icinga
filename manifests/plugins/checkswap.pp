@@ -3,7 +3,7 @@
 # This class provides a checkssh plugin.
 #
 class icinga::plugins::checkswap (
-  $contact_groups        = $::environment,
+  $contact_groups        = $::icinga::contact_groups,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
 ) inherits icinga {
