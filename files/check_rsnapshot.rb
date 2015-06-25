@@ -146,6 +146,12 @@ class BackupChecker
     end
 end
 
+##check whether the backups are just being created
+if File.file?('/var/run/rsnapshot.pid')
+  puts "Backups are just being created."
+  exit 0
+end
+
 backup = BackupChecker.new
 stat=backup.run
 #puts stat[0]
