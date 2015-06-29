@@ -172,14 +172,8 @@ class icinga::params {
       }
       # operatingsystemmajrelease is not supported on SLES11. meh.
       case $::operatingsystemrelease {
-        '12.0': { 
-                  $package_client = [ 'nrpe', 'monitoring-plugins-all' ] 
-                  $confdir_client = '/etc/'
-                }
-        '11.3': { 
-                  $package_client = [ 'nagios-nrpe', 'nagios-plugins' ]
-                  $confdir_client = '/etc/nagios'
-                }
+        '12.0': { $package_client = [ 'nrpe', 'monitoring-plugins-all' ] }
+        '11.3': { $package_client = [ 'nagios-nrpe', 'nagios-plugins' ] }
         default: {
           fail("At the moment, only ${::operatingsystem} 11.3 and 12.0 are supported")
         }
@@ -202,6 +196,7 @@ class icinga::params {
       $service_server_hasrestart = true
       $pidfile_client            = '/var/run/nagios/nrpe.pid'
       $pidfile_server            = undef
+      $confdir_client            = '/etc/nagios'
       $confdir_server            = undef
       $vardir_client             = undef
       $vardir_server             = '/var/icinga'
