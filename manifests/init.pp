@@ -156,9 +156,15 @@ class icinga (
   case $::operatingsystem {
     'Debian', 'Ubuntu': {}
     'RedHat', 'CentOS', 'Scientific', 'OEL', 'Amazon': {}
+    'SLES': {}
     default: {
       fail "Operatingsystem ${::operatingsystem} is not supported."
     }
   }
+  # Some safety nets
+  if $server and $::operatingsystem == 'SLES' {
+    fail("${::operatingsystem} is not supported as a server platform for the moment")
+  }
+
 }
 

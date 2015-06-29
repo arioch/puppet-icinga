@@ -134,8 +134,8 @@ class icinga::params {
       $webserver_group           = 'apache'
       $server_user               = 'icinga'
       $server_group              = 'icinga'
-      $client_user               = 'nagios'
-      $client_group              = 'nagios'
+      $client_user               = 'nrpe'
+      $client_group              = 'nrpe'
       $server_cmd_group          = 'icingacmd'
       $htpasswd_file             = "${confdir_server}/htpasswd.users"
       $targetdir                 = "${confdir_server}/objects"
@@ -170,11 +170,18 @@ class icinga::params {
       case $::architecture {
         default:  { $usrlib = '/usr/lib'   }
       }
-
+      # operatingsystemmajrelease is not supported on SLES11. meh.
+      case $::operatingsystemrelease {
+        '12.0': { $package_client = [ 'nrpe', 'monitoring-plugins-all' ] }
+        '11.3': { $package_client = [ 'nagios-nrpe', 'nagios-plugins' ] }
+        default: {
+          fail("At the moment, only ${::operatingsystem} 11.3 and 12.0 are supported")
+        }
+      }
+      
       # Icinga
       $package_client_ensure     = 'present'
       $package_server_ensure     = 'present'
-      $package_client            = [ 'nrpe', 'monitoring-plugins-all' ]
       $package_server            = undef
       $service_client            = 'nrpe'
       $service_client_ensure     = 'running'
