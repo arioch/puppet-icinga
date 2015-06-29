@@ -182,7 +182,6 @@ class icinga::params {
       # Icinga
       $package_client_ensure     = 'present'
       $package_server_ensure     = 'present'
-      $package_client            = [ 'nrpe', 'monitoring-plugins-all' ]
       $package_server            = undef
       $service_client            = 'nrpe'
       $service_client_ensure     = 'running'
