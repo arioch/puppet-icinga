@@ -22,7 +22,7 @@ class icinga::config::client {
 
   # Make sure that /etc/nrpe.cfg is a symlink to ${::icinga::confdir_client}/nrpe.cfg on SLE12
   # This is done because we do not want to push a custom unit-file
-  if $::operatingsystem == 'SLES' and $::operatingsystemmajrelease == '12' {
+  if $::operatingsystem == 'SLES' and $::operatingsystemrelease == '12.0' {
     file{'/etc/nrpe.cfg':
       ensure => link,
       target => "${::icinga::confdir_client}/nrpe.cfg",
