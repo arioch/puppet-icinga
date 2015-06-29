@@ -134,8 +134,8 @@ class icinga::params {
       $webserver_group           = 'apache'
       $server_user               = 'icinga'
       $server_group              = 'icinga'
-      $client_user               = 'nagios'
-      $client_group              = 'nagios'
+      $client_user               = 'nrpe'
+      $client_group              = 'nrpe'
       $server_cmd_group          = 'icingacmd'
       $htpasswd_file             = "${confdir_server}/htpasswd.users"
       $targetdir                 = "${confdir_server}/objects"
