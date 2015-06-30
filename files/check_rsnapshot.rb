@@ -147,7 +147,7 @@ class BackupChecker
 end
 
 ##check whether the backups are just being created
-if File.file?('/var/run/rsnapshot.pid')
+if File.file?('/var/run/rsnapshot.pid') or Time.now.hour <= ARGV[2].to_i
   puts "Backups are just being created."
   exit 0
 end
