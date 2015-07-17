@@ -24,19 +24,8 @@ class icinga::plugins::checkipsec (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_ipsec]=sudo ${::icinga::usrlib}/nagios/plugins/check_ipsec --tunnels ${tunnels}\n",
+    content => "command[check_ipsec]=sudo ${::icinga::usrlib}/nagios/plugins/check_ipsec \$ARG1\$ \$ARG2\$\n",
     notify  => Service[$::icinga::service_client],
-  }
-
-  @@nagios_service{"check_ipsec_tunnels_${::fqdn}":
-    check_command         => 'check_nrpe_command!check_ipsec',
-    service_description   => 'IPsec tunnels',
-    host_name             => $::fqdn,
-    contact_groups        => $contact_groups,
-    max_check_attempts    => $max_check_attempts,
-    notification_period   => $notification_period,
-    notifications_enabled => $notifications_enabled,
-    target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 
 }
