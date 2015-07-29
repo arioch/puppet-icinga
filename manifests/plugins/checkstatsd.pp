@@ -16,12 +16,24 @@ class icinga::plugins::checkstatsd (
 		require => Class['icinga::config'];
 	}
 
-	file { "${::icinga::includedir_client}/check_service.cfg":
+	file { "${::icinga::includedir_client}/check_statsd.cfg":
 		ensure  => file,
 		mode 		=> '0644',
 		owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => template('icinga/plugins/check_service.cfg.erb'),
+    content => template('icinga/plugins/check_statsd.cfg.erb'),
     notify  => Service[$icinga::service_client],
 	}
+
+	@@nagios_service { "check_statsd_${::fqdn}":
+		check_command       	=> 'check_nrpe_command!check_statsd',
+		service_description   => 'Statsd status',
+		host_name             => $::fqdn,
+    contact_groups        => $contact_groups,
+    notification_period   => $notification_period,
+    notifications_enabled => $notifications_enabled,
+    max_check_attempts    => $max_check_attempts,
+    target								=> "${::icinga::targetdir}/services/${::fqdn}.cfg",
+	}
+	
 }
