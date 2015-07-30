@@ -173,20 +173,20 @@ sudo gluster volume status $VOLUME detail | while IFS='\n' read line; do
 	   msg=$(printf "${sep}%s" "${errors[@]}")
      	   msg=${msg:${#sep}}
            if [ ${ex_stat} == "CRITICAL_stat" ]; then
-		 echo CRITICAL\ "${msg}"; return 2
+		 echo -n CRITICAL\ "${msg}"; return 2
 	   else
-		 echo WARNING\ "${msg}"; return 1
+		 echo -n WARNING\ "${msg}"; return 1
 	   fi
      fi
      # exit with no errors
-     echo OK\ "${bricksfound} bricks; free space ${freegb}GB"
+     echo -n OK\ "${bricksfound} bricks; free space ${freegb}GB"
 
   fi
 done
 }
 RETVAL=0
 for i in $(sudo gluster volume list); do
-  echo -n $i": "
+  echo -n " "$i": "
   dostuff $i
   RV=$?
   if [ $RV -gt $RETVAL ]; then
