@@ -27,26 +27,34 @@ define icinga::plugins::checksslscan (
   validate_bool($accept_cached_results)
   validate_bool($debug_mode)
 
-  $_publish_results = ''
-  $_accept_cached_results = ''
-  $_debug_mode = ''
-  $_max_cache_age = ''
-  $_ip_address = ''
-
   if $publish_results {
     $_publish_results = '-p '
+  } else {
+    $_publish_results = ''
   }
+
   if $accept_cached_results {
     $_accept_cached_results = '-x '
+  } else {
+    $_accept_cached_results = ''
   }
+
   if $debug_mode {
     $_debug_mode = '-d'
+  } else {
+    $_debug_mode = ''
   }
+
   if $max_cache_age {
     $_max_cache_age = "-a ${max_cache_age} "
+  } else {
+    $_max_cache_age = ''
   }
+
   if $host_ip {
     $_ip_address = "-ip ${host_ip} "
+  } else {
+    $_ip_address = ''
   }
 
   if $icinga::client {
