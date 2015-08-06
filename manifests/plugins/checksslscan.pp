@@ -78,6 +78,18 @@ define icinga::plugins::checksslscan (
       }
     }
 
+    if (!defined(Package['perl-Crypt-SSLeay'])) {
+      package { 'perl-Crypt-SSLeay':
+        ensure => installed,
+      }
+    }
+
+    if (!defined(Package['perl-Net-SSLeay'])) {
+      package { 'perl-Net-SSLeay':
+        ensure => installed,
+      }
+    }
+
     file{"${::icinga::includedir_client}/check_sslscan_${host_url}.cfg":
       ensure  => 'file',
       mode    => '0644',
@@ -89,6 +101,7 @@ define icinga::plugins::checksslscan (
 
     @@nagios_service { "check_sslscan_${::fqdn}_${host_url}":
       check_command         => "check_nrpe_command_timeout!180!check_sslscan_${host_url}",
+      check_interval        => '3600', # Every hour is fine
       service_description   => "SSL Quality ${host_url}",
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
