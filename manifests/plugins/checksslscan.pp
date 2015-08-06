@@ -72,7 +72,13 @@ define icinga::plugins::checksslscan (
       }
     }
 
-    file{"${::icinga::includedir_client}/check_sslscan.cfg":
+    if (!defined(Package['perl-JSON'])) {
+      package { 'perl-JSON':
+        ensure => installed,
+      }
+    }
+
+    file{"${::icinga::includedir_client}/check_sslscan_${host_url}.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
