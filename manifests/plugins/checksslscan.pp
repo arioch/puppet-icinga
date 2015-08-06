@@ -16,7 +16,9 @@ define icinga::plugins::checksslscan (
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
   $additional_options    = '',
-) inherits icinga {
+) {
+
+  require icinga
 
   validate_string($host_url)
   validate_string($warning_grade)
