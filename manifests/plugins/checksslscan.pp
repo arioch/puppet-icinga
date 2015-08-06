@@ -52,7 +52,7 @@ define icinga::plugins::checksslscan (
   if $icinga::client {
 
     # Only include this file once
-    if (!defined(File["${::icinga::plugindir}/check_sslscan.pl]")) {
+    if (!defined(File["${::icinga::plugindir}/check_sslscan.pl"])) {
       file { "${::icinga::plugindir}/check_sslscan.pl":
         ensure  => present,
         mode    => '0755',
