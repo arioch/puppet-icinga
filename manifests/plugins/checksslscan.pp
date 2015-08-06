@@ -88,7 +88,7 @@ define icinga::plugins::checksslscan (
     }
 
     @@nagios_service { "check_sslscan_${::fqdn}_${host_url}":
-      check_command         => "\$USER1\$/check_nrpe -u -t 180 -H \$HOSTADDRESS\$ -c check_sslscan_${host_url}",
+      check_command         => "check_nrpe_command_timeout!180!check_sslscan_${host_url}",
       service_description   => 'SSL Quality',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
