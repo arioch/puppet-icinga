@@ -72,6 +72,18 @@ define icinga::plugins::checksslscan (
       }
     }
 
+    if (!defined(File["${::icinga::plugindir}/check_ssl"])) {
+      file { "${::icinga::plugindir}/check_ssl":
+        ensure  => present,
+        mode    => '0755',
+        owner   => 'root',
+        group   => 'root',
+        source  => 'puppet:///modules/icinga/check_ssl',
+        notify  => Service[$icinga::service_client],
+        require => Class['icinga::config'];
+      }
+    }
+
     if (!defined(Package['perl-JSON'])) {
       package { 'perl-JSON':
         ensure => installed,
@@ -95,12 +107,22 @@ define icinga::plugins::checksslscan (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_sslscan_${host_url}]=${::icinga::plugindir}/check_sslscan.pl -H ${host_url} -w ${warning_grade} -c ${critical_grade} ${_publish_results}${_accept_cached_results}${_max_cache_age}${_ip_address}${_debug_mode}\n",
+      content => "command[check_sslscan_${host_url}]=${::icinga::plugindir}/check_ssl\n",
       notify  => Service[$::icinga::service_client],
     }
 
+    cron { "check-ssl-${host_url}":
+      command  => "${::icinga::plugindir}/check_sslscan.pl -H ${host_url} -w ${warning_grade} -c ${critical_grade} ${_publish_results}${_accept_cached_results}${_max_cache_a    ge}${_ip_address}${_debug_mode}\n",
+      user     => $::icinga::client_user,
+      month    => '*',
+      monthday => '*',
+      hour     => '09',
+      minute   => '30',
+    }
+
+
     @@nagios_service { "check_sslscan_${::fqdn}_${host_url}":
-      check_command         => "check_nrpe_command_timeout!240!check_sslscan_${host_url}",
+      check_command         => "check_nrpe_command_timeout!60!check_sslscan_${host_url}",
       check_interval        => '86400', # Every 12 hours is fine
       service_description   => "SSL Quality ${host_url}",
       host_name             => $::fqdn,
