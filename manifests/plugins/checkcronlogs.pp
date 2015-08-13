@@ -32,7 +32,7 @@ class icinga::plugins::checkcronlogs (
 
 
 
-    @@nagios_service { 'check_cron_logs':
+    @@nagios_service { "check_cron_logs_${::fqdn}":
       check_command         => 'check_nrpe_command!check_cron_logs',
       check_interval        => '3600',
       service_description   => 'Check cron logs',
