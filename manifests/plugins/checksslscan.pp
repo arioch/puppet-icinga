@@ -78,7 +78,7 @@ define icinga::plugins::checksslscan (
         mode    => '0755',
         owner   => 'root',
         group   => 'root',
-        source  => 'puppet:///modules/icinga/check_ssl.erb',
+        source  => 'puppet:///modules/icinga/check_ssl',
         notify  => Service[$icinga::service_client],
         require => Class['icinga::config'];
       }
