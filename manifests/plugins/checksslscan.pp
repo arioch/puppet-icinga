@@ -102,17 +102,25 @@ define icinga::plugins::checksslscan (
       }
     }
 
+    if (!defined(File['/tmp/checksslscan'])) {
+      file { '/tmp/checksslscan':
+        ensure => directory,
+        owner  => $::icinga::client_user,
+        group  => $::icinga::clinet_group,
+      }
+    }
+
     file{"${::icinga::includedir_client}/check_sslscan_${host_url}.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_sslscan_${host_url}]=${::icinga::plugindir}/check_ssl\n",
+      content => "command[check_sslscan_${host_url}]=${::icinga::plugindir}/check_ssl ${host_url}\n",
       notify  => Service[$::icinga::service_client],
     }
 
     cron { "check-ssl-${host_url}":
-      command  => "${::icinga::plugindir}/check_sslscan.pl -H ${host_url} -w ${warning_grade} -c ${critical_grade} ${_publish_results}${_accept_cached_results}${_max_cache_age}${_ip_address}${_debug_mode}\n",
+      command  => "${::icinga::plugindir}/check_sslscan.pl -H ${host_url} -w ${warning_grade} -c ${critical_grade} ${_publish_results}${_accept_cached_results}${_max_cache_age}${_ip_address}${_debug_mode} > /tmp/checksslscan/${host_url}_sslresult\n",
       user     => $::icinga::client_user,
       month    => '*',
       monthday => '*',
