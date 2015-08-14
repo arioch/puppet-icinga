@@ -45,7 +45,7 @@ class icinga::plugins::checkcronlogs (
     }
     sudo::conf{'cron_logs_check_conf':
     content => "Defaults:nagios !requiretty
-    nagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/check_cron_logs.sh\n",
+    nagios ALL=(ALL) NOPASSWD:${::icinga::plugindir}/check_cron_logs.sh\n",
     }
 
   }
