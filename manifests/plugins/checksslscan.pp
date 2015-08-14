@@ -107,7 +107,7 @@ define icinga::plugins::checksslscan (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_sslscan_${host_url}]=${::icinga::plugindir}/check_ssl\n",
+      content => "command[check_sslscan_${host_url}]=${::icinga::plugindir}/check_ssl ${host_url}\n",
       notify  => Service[$::icinga::service_client],
     }
 
