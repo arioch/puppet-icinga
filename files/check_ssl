@@ -4,7 +4,7 @@
 #
 VHOST=$1
 
-if [ ! -f "/tmp/checksslscan/${VHOST}_sslresult" ]
+if [ -f "/tmp/checksslscan/${VHOST}_sslresult" ]
 then
   STATUS=$(cat /tmp/checksslscan/${VHOST}_sslresult)
   if [ "$STATUS" == 'OK - score is A' ]
@@ -17,5 +17,5 @@ then
     echo "WARNING - score is lower then B" && exit 1
   fi
 else
-  echo "Status file not found in /home/icinga" && exit 3
+  echo "Status file not found in /tmp/checksslscan" && exit 3
 fi
