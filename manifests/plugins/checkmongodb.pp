@@ -12,6 +12,7 @@ class icinga::plugins::checkmongodb (
   $mongod_graphite_io_read_url  = 'http://graphite/render?target=mongo_host.processes.mongod.ps_disk_octets.read&from=-5minutes&rawData=true',
   $mongod_graphite_io_write_url = 'http://graphite/render?target=mongo_host.processes.mongod.ps_disk_octets.write&from=-5minutes&rawData=true',
   $graphite_host                = undef,
+  $monitor_replication          = true,
 ) inherits icinga {
 
   if $icinga::client {
@@ -48,37 +49,51 @@ class icinga::plugins::checkmongodb (
       notify  => Service[$::icinga::service_client],
     }
 
-    @@nagios_service { "check_mongodb_replication_lag_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_mongodb_replication_lag',
-      service_description   => 'MongoDB Replication Lag',
-      host_name             => $::fqdn,
-      contact_groups        => $contact_groups,
-      notification_period   => 'workhours',
-      notifications_enabled => $notifications_enabled,
-      max_check_attempts    => $max_check_attempts,
-      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
-    }
+    if $monitor_replication {
+      @@nagios_service { "check_mongodb_replication_lag_${::fqdn}":
+        check_command         => 'check_nrpe_command!check_mongodb_replication_lag',
+        service_description   => 'MongoDB Replication Lag',
+        host_name             => $::fqdn,
+        contact_groups        => $contact_groups,
+        notification_period   => 'workhours',
+        notifications_enabled => $notifications_enabled,
+        max_check_attempts    => $max_check_attempts,
+        target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+      }
 
-    @@nagios_service { "check_mongodb_replication_lag_percentage_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_mongodb_replication_lag_percentage',
-      service_description   => 'MongoDB Replication Lag Percentage',
-      host_name             => $::fqdn,
-      contact_groups        => $contact_groups,
-      notification_period   => $notification_period,
-      notifications_enabled => $notifications_enabled,
-      max_check_attempts    => $max_check_attempts,
-      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
-    }
+      @@nagios_service { "check_mongodb_replication_lag_percentage_${::fqdn}":
+        check_command         => 'check_nrpe_command!check_mongodb_replication_lag_percentage',
+        service_description   => 'MongoDB Replication Lag Percentage',
+        host_name             => $::fqdn,
+        contact_groups        => $contact_groups,
+        notification_period   => $notification_period,
+        notifications_enabled => $notifications_enabled,
+        max_check_attempts    => $max_check_attempts,
+        target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+      }
 
-    @@nagios_service { "check_mongodb_replicaset_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_mongodb_replicaset',
-      service_description   => 'MongoDB Replicaset',
-      host_name             => $::fqdn,
-      contact_groups        => $contact_groups,
-      notification_period   => $notification_period,
-      notifications_enabled => $notifications_enabled,
-      max_check_attempts    => $max_check_attempts,
-      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+      @@nagios_service { "check_mongodb_replicaset_${::fqdn}":
+        check_command         => 'check_nrpe_command!check_mongodb_replicaset',
+        service_description   => 'MongoDB Replicaset',
+        host_name             => $::fqdn,
+        contact_groups        => $contact_groups,
+        notification_period   => $notification_period,
+        notifications_enabled => $notifications_enabled,
+        max_check_attempts    => $max_check_attempts,
+        target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+      }
+
+      @@nagios_service { "check_mongodb_replset_state_${::fqdn}":
+        check_command         => 'check_nrpe_command!check_mongodb_replset_state',
+        service_description   => 'MongoDB Replication State',
+        host_name             => $::fqdn,
+        contact_groups        => $contact_groups,
+        notification_period   => $notification_period,
+        notifications_enabled => $notifications_enabled,
+        max_check_attempts    => $max_check_attempts,
+        target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+      }
+
     }
 
     @@nagios_service { "check_mongodb_connect_${::fqdn}":
@@ -95,17 +110,6 @@ class icinga::plugins::checkmongodb (
     @@nagios_service { "check_mongodb_connections_${::fqdn}":
       check_command         => 'check_nrpe_command!check_mongodb_connections',
       service_description   => 'MongoDB Connections Percentage',
-      host_name             => $::fqdn,
-      contact_groups        => $contact_groups,
-      notification_period   => $notification_period,
-      notifications_enabled => $notifications_enabled,
-      max_check_attempts    => $max_check_attempts,
-      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
-    }
-
-    @@nagios_service { "check_mongodb_replset_state_${::fqdn}":
-      check_command         => 'check_nrpe_command!check_mongodb_replset_state',
-      service_description   => 'MongoDB Replication State',
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
