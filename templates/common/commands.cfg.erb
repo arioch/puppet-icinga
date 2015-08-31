@@ -254,6 +254,11 @@ define  command {
         command_line    $USER1$/check_nrpe -t <%= scope.lookupvar('icinga::nrpe_command_timeout') %> -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
 }
 
+define  command {
+        command_name    check_nrpe_4_args
+        command_line    $USER1$/check_nrpe -t <%= scope.lookupvar('icinga::nrpe_command_timeout') %> -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$ $ARG3$ $ARG4$ $ARG5$
+}
+
 define command {
         command_name    tcp_nrpe
         command_line    $USER1$/check_nrpe -t 60 -H $HOSTADDRESS$
