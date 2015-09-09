@@ -5,8 +5,8 @@
 # Warning and Critical expressed in seconds.  3600sec = 1h, 7200sec = 2h
 define icinga::plugins::checkdrupalcron (
   $pkgname                = $::operatingsystem ? {
-    'centos' => 'nagios-plugins-drupalcron',
-    'debian' => 'nagios-plugin-drupalcron',
+    'centos' => 'nagios-plugins-drupal-cron',
+    'debian' => 'nagios-plugins-drupal-cron',
   },
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
@@ -33,7 +33,7 @@ define icinga::plugins::checkdrupalcron (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_drupal_cron_${title}]=sudo ${::icinga::plugindir}/check_drupal_cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n",
+      content => "command[check_drupal_cron_${title}]=sudo ${::icinga::plugindir}/check_drupal-cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n",
       notify  => Service[$::icinga::service_client],
     }
 
