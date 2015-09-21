@@ -45,6 +45,10 @@ class icinga::plugins::checkcrm (
       notify  => Service[$::icinga::service_client],
     }
 
+    sudo::conf{'nrpe_crm_mon':
+      content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:/usr/sbin/crm_mon -1 -r -f\n",
+    }
+
     @@nagios_service{"check_crm_${host_name}":
       check_command         => "check_nrpe_command!check_crm_${host_name}",
       service_description   => 'Pacemaker',

@@ -51,6 +51,10 @@ class icinga::plugins::checkpercona-replication-delay (
     notify  => Service[$::icinga::service_client],
   }
 
+  sudo::conf{'nrpe_pmp-check-mysql-replication-delay':
+    content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/pmp-check-mysql-replication-delay\n",
+  }
+
   @@nagios_service { "check_percona_replication_delay${::fqdn}":
     check_command       => 'check_nrpe_command!check_percona_replication_delay',
     service_description => 'Percona: Replication Delay',

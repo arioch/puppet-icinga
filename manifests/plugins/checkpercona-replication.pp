@@ -48,6 +48,10 @@ class icinga::plugins::checkpercona-replication (
     notify  => Service[$::icinga::service_client],
   }
 
+  sudo::conf{'nrpe_pmp-check-mysql-replication-running':
+    content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/pmp-check-mysql-replication-running\n",
+  }
+
   @@nagios_service { "check_percona_replication_running${::fqdn}":
     check_command       => 'check_nrpe_command!check_percona_replication_running',
     service_description => 'Percona: Replication Running',
