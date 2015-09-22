@@ -1,8 +1,6 @@
-# == Class: icinga::plugins::checkmysqld
+# == Class: icinga::plugins::checkmysqlclient
 #
-# This class provides a checkmysqld plugin.
-#
-class icinga::plugins::checkmysqlclient (
+define icinga::plugins::checkmysqlclient (
   $database,
   $host,
   $user,
@@ -11,7 +9,9 @@ class icinga::plugins::checkmysqlclient (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-) inherits icinga {
+) {
+
+  require icinga
 
   file { "${::icinga::includedir_client}/mysql_client_${database}.cfg":
     ensure  => 'file',
