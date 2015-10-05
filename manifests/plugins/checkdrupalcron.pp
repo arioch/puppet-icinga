@@ -12,6 +12,7 @@ define icinga::plugins::checkdrupalcron (
   $notifications_enabled  = $::icinga::notifications_enabled,
   $host_name              = $::fqdn,
   $contact_groups         = $::environment,
+  $use_sudo               = true,
   $warning                = '3600',
   $critical               = '7200',
   $uri                    = '',
@@ -28,12 +29,19 @@ define icinga::plugins::checkdrupalcron (
       }
     }
 
+    if $use_sudo {
+      $content="command[check_drupal_cron_${title}]=sudo ${::icinga::plugindir}/check_drupal-cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n"
+    }
+    else {
+      $content="command[check_drupal_cron_${title}]=${::icinga::plugindir}/check_drupal-cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n"
+    }
+
     file{"${::icinga::includedir_client}/check_drupal_cron_${title}.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_drupal_cron_${title}]=sudo ${::icinga::plugindir}/check_drupal-cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n",
+      content => $content,
       notify  => Service[$::icinga::service_client],
     }
 
