@@ -1,20 +1,34 @@
 #!/bin/sh
 
-REGEX="("$(echo "$@" | sed 's/ /)|(/g')")"
-#echo $REGEX
 LOG_FILE='/var/log/messages'
 DATE=$(date --date="24 hours ago" '+%b %-d %H' | sed -r 's/^([a-zA-Z]+) /\1 {1,2}/g')
 NAME=$(hostname --short)
 CRONS_FAILING=''
+IGNORE_TAG='drush'
+
+while getopts ":i:" o; do
+    case "${o}" in
+        i)
+            IGNORE_TAG="("$(echo "${OPTARG}" | sed 's/ /)|(/g')")"
+            ;;
+        *)
+            echo "Bad param"
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+
+REGEX="("$(echo "$@" | sed 's/ /)|(/g')")"
 
 ##By defualt, only logs newer than 24h are checked, let's check if there even are that old logs
 
 if egrep -q "$DATE" /var/log/messages; then
   if [ $REGEX != '()' ]; then
-    CRONS_FAILING=$(cat $LOG_FILE | sed -r "1,/$DATE/d" |egrep "cron .*\[[0-9]+\].*\[error\]" |
+    CRONS_FAILING=$(cat $LOG_FILE | sed -r "1,/$DATE/d" |egrep "cron .*\[[0-9]+\].*\[error\]" | egrep -v "$IGNORE_TAG" |
     sed -r "s/^.*$NAME [^ ]+ cron ([^\[]+).*/\1/g" | sort | uniq | egrep -v $REGEX)
   else
-    CRONS_FAILING=$(cat $LOG_FILE | sed -r "1,/$DATE/d" |egrep "cron .*\[[0-9]+\].*\[error\]" |
+    CRONS_FAILING=$(cat $LOG_FILE | sed -r "1,/$DATE/d" |egrep "cron .*\[[0-9]+\].*\[error\]" | egrep -v "$IGNORE_TAG" |
     sed -r "s/^.*$NAME [^ ]+ cron ([^\[]+).*/\1/g" | sort | uniq)
   fi
 
@@ -22,10 +36,10 @@ if egrep -q "$DATE" /var/log/messages; then
 
 else
   if [ $REGEX != '()' ]; then
-    CRONS_FAILING=$(cat $LOG_FILE |egrep "cron .*\[[0-9]+\].*\[error\]" |
+    CRONS_FAILING=$(cat $LOG_FILE |egrep "cron .*\[[0-9]+\].*\[error\]" | egrep -v "$IGNORE_TAG" |
     sed -r "s/^.*$NAME [^ ]+ cron ([^\[]+).*/\1/g" | sort | uniq | egrep -v $REGEX)
   else
-    CRONS_FAILING=$(cat $LOG_FILE |egrep "cron .*\[[0-9]+\].*\[error\]" |
+    CRONS_FAILING=$(cat $LOG_FILE |egrep "cron .*\[[0-9]+\].*\[error\]" | egrep -v "$IGNORE_TAG" |
     sed -r "s/^.*$NAME [^ ]+ cron ([^\[]+).*/\1/g" | sort | uniq)
   fi
 fi
