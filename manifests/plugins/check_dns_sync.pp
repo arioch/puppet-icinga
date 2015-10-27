@@ -9,6 +9,8 @@ class icinga::plugins::check_dns_sync (
   $notification_period   = 'workhours',
   $notifications_enabled = $::icinga::notifications_enabled,
   $full_zonelist         = hiera('inuits::nameserver::full_zonelist', undef),
+  $icinga_host           = hiera('icinga_host'),
+  $ignored_domains       = hiera('ignored_domains', undef),
 ) inherits icinga {
 
   package { 'perl-Net-DNS.x86_64':
@@ -16,6 +18,10 @@ class icinga::plugins::check_dns_sync (
   }
 
   package { 'perl-Net-IP.noarch':
+    ensure => present,
+  }
+
+  package { 'nsca-client':
     ensure => present,
   }
 
@@ -28,17 +34,25 @@ class icinga::plugins::check_dns_sync (
     notify  => Service[$icinga::service_client],
     require => Class['icinga::config'];
   }
-  file { "${::icinga::includedir_client}/dns_sync.cfg":
+  file { "${::icinga::plugindir}/dns_sync.sh":
     ensure  => 'file',
-    mode    => '0644',
+    mode    => '0755',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
     content => template('icinga/plugins/dns_sync.cfg.erb'),
-    notify  => Service[$::icinga::service_client],
+  }
+
+  cron { 'dns sync check':
+    ensure  => present,
+    command => "${::icinga::plugindir}/dns_sync.sh",
+    user    => 'root',
+    minute  => '*/10',
   }
 
   @@nagios_service { "check_dns_sync_${::fqdn}":
-    check_command         => 'check_nrpe_command!check_dns_sync',
+    check_command         => 'check_dummy!0 "All ok"',
+    active_checks_enabled => '0',
+    freshness_threshold   => '600',
     service_description   => 'dns sync',
     host_name             => $::fqdn,
     contact_groups        => $contact_groups,
