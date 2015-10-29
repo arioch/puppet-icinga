@@ -39,7 +39,7 @@ class icinga::plugins::check_dns_sync (
     mode    => '0755',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => template('icinga/plugins/dns_sync.cfg.erb'),
+    content => template('icinga/plugins/dns_sync.sh.erb'),
   }
 
   cron { 'dns sync check':
