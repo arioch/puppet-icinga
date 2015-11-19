@@ -31,9 +31,7 @@ class icinga::plugins::checkcrm (
       ensure => installed,
     }
 
-    package { $pkg_perl_nagios_plugin:
-      ensure => installed,
-    }
+    ensure_resource ('package', $pkg_perl_nagios_plugin, { 'ensure' => 'installed' })
 
 
     file{"${::icinga::includedir_client}/check_crm_${host_name}.cfg":
