@@ -30,6 +30,7 @@ define icinga::plugins::checkmysqlclient (
     max_check_attempts    => $max_check_attempts,
     notification_period   => $notification_period,
     notifications_enabled => $notifications_enabled,
+    target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 
 }
