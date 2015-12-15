@@ -77,9 +77,12 @@ define icinga::plugins::checksslscan (
       }
     }
 
-    package { 'nsca-client':
-      ensure => present,
+    if (!defined(Package['nsca-client'])) {
+      package { 'nsca-client':
+        ensure => installed,
+      }
     }
+
 
     # Only include this file once
     if (!defined(File["${::icinga::plugindir}/check_sslscan.pl"])) {
