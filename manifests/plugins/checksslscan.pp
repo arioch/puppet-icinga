@@ -16,6 +16,7 @@ define icinga::plugins::checksslscan (
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
   $additional_options    = '',
+  $icinga_host           = hiera('icinga_host'),
 ) {
 
   require icinga
