@@ -1,5 +1,5 @@
 #!/bin/bash
 MSG=$(/usr/lib64/nagios/plugins/check_sslscan.pl -H <%= @host_url %> -w B -c C)
 RET_VAL=$?
-echo "<%= @fqdn %>;SSL Quality  <%= @host_url %>;$RET_VAL;$MSG" | /usr/sbin/send_nsca    -H <%= @icinga_host %> -p 5667 -d ";"
+echo "<%= @fqdn %>;SSL Quality <%= @host_url %>;$RET_VAL;$MSG" | /usr/sbin/send_nsca    -H <%= @icinga_host %> -p 5667 -d ";"
 
