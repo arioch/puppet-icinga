@@ -59,31 +59,6 @@ define icinga::plugins::checksslscan (
 
   if $icinga::client {
 
-    # Only include this file once
-    if (!defined(File["${::icinga::plugindir}/check_sslscan.pl"])) {
-      file { "${::icinga::plugindir}/check_sslscan.pl":
-        ensure  => present,
-        mode    => '0755',
-        owner   => 'root',
-        group   => 'root',
-        source  => 'puppet:///modules/icinga/check_sslscan.pl',
-        notify  => Service[$icinga::service_client],
-        require => Class['icinga::config'];
-      }
-    }
-
-    if (!defined(File["${::icinga::plugindir}/check_ssl"])) {
-      file { "${::icinga::plugindir}/check_ssl":
-        ensure  => present,
-        mode    => '0755',
-        owner   => 'root',
-        group   => 'root',
-        source  => 'puppet:///modules/icinga/check_ssl',
-        notify  => Service[$icinga::service_client],
-        require => Class['icinga::config'];
-      }
-    }
-
     if (!defined(Package['perl-JSON'])) {
       package { 'perl-JSON':
         ensure => installed,
@@ -102,42 +77,49 @@ define icinga::plugins::checksslscan (
       }
     }
 
-    if (!defined(File['/tmp/checksslscan'])) {
-      file { '/tmp/checksslscan':
-        ensure => directory,
-        owner  => $::icinga::client_user,
-        group  => $::icinga::clinet_group,
+    package { 'nsca-client':
+      ensure => present,
+    }
+
+    # Only include this file once
+    if (!defined(File["${::icinga::plugindir}/check_sslscan.pl"])) {
+      file { "${::icinga::plugindir}/check_sslscan.pl":
+        ensure  => present,
+        mode    => '0755',
+        owner   => 'root',
+        group   => 'root',
+        source  => 'puppet:///modules/icinga/check_sslscan.pl',
+        notify  => Service[$icinga::service_client],
+        require => Class['icinga::config'];
       }
     }
 
-    file{"${::icinga::includedir_client}/check_sslscan_${host_url}.cfg":
+    file { "${::icinga::plugindir}/check_sslscan-${host_url}.sh":
       ensure  => 'file',
-      mode    => '0644',
+      mode    => '0755',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_sslscan_${host_url}]=${::icinga::plugindir}/check_ssl ${host_url}\n",
-      notify  => Service[$::icinga::service_client],
+      content => template('icinga/plugins/check_sslscan.sh.erb'),
     }
-
-    cron { "check-ssl-${host_url}":
-      command  => "${::icinga::plugindir}/check_sslscan.pl -H ${host_url} -w ${warning_grade} -c ${critical_grade} ${_publish_results}${_accept_cached_results}${_max_cache_age}${_ip_address}${_debug_mode} > /tmp/checksslscan/${host_url}_sslresult\n",
-      user     => $::icinga::client_user,
-      month    => '*',
-      monthday => '*',
-      hour     => '09',
-      minute   => '30',
+    
+    cron { "sslscan check-${host_url}":
+      ensure  => present,
+      command => "${::icinga::plugindir}/check_sslscan-${host_url}.sh",
+      user    => 'root',
+      hour    => '11',
+      minute  => fqdn_rand(60, $host_url),
     }
-
 
     @@nagios_service { "check_sslscan_${::fqdn}_${host_url}":
-      check_command         => "check_nrpe_command_timeout!60!check_sslscan_${host_url}",
-      check_interval        => '86400', # Every 12 hours is fine
-      service_description   => "SSL Quality ${host_url}",
+      check_command         => 'check_dummy!0 "All ok"',
+      active_checks_enabled => '0',
+      freshness_threshold   => '600',
+      service_description   => "sslscan ${host_url}",
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
-      max_check_attempts    => $max_check_attempts,
       notification_period   => $notification_period,
       notifications_enabled => $notifications_enabled,
+      max_check_attempts    => $max_check_attempts,
       target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
   }
