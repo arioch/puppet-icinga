@@ -118,7 +118,7 @@ define icinga::plugins::checksslscan (
       check_command         => 'check_dummy!0 "All ok"',
       active_checks_enabled => '0',
       freshness_threshold   => '600',
-      service_description   => "sslscan ${host_url}",
+      service_description   => "SSL Quality ${host_url}",
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
       notification_period   => $notification_period,
