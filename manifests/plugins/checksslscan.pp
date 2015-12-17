@@ -17,6 +17,9 @@ define icinga::plugins::checksslscan (
   $notifications_enabled = $::icinga::notifications_enabled,
   $additional_options    = '',
   $icinga_host           = hiera('icinga_host'),
+  $hour_range            = hiera('hour_range', 7),
+  $hour_shift            = hiera('hour_shift', 9),
+
 ) {
 
   require icinga
@@ -105,12 +108,12 @@ define icinga::plugins::checksslscan (
       group   => $::icinga::client_group,
       content => template('icinga/plugins/check_sslscan.sh.erb'),
     }
-    
+    $hour = fqdn_rand($hour_range, $host_url) + $hour_shift
     cron { "sslscan check-${host_url}":
       ensure  => present,
       command => "${::icinga::plugindir}/check_sslscan-${host_url}.sh",
       user    => 'root',
-      hour    => '11',
+      hour    => $hour,
       minute  => fqdn_rand(60, $host_url),
     }
 
