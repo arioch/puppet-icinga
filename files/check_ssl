@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# This script checks the content of a file to match with the ssl status.
+#
+VHOST=$1
+
+if [ -f "/tmp/checksslscan/${VHOST}_sslresult" ]
+then
+  STATUS=$(cat /tmp/checksslscan/${VHOST}_sslresult)
+  if [ "$STATUS" == 'OK - score is A' ]
+  then
+    echo "OK - score is A" && exit 0
+  elif [ "$STATUS" == 'WARNING - score is B' ]
+  then
+    echo "WARNING - score is B" && exit 1
+  else
+    echo "WARNING - score is lower then B" && exit 1
+  fi
+else
+  echo "Status file not found in /tmp/checksslscan" && exit 3
+fi

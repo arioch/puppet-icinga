@@ -115,6 +115,11 @@ class icinga::config::server::common {
     target       => "${::icinga::targetdir}/commands/check_nrpe_command.cfg",
   }
 
+  nagios_command{'check_nrpe_command_timeout':
+    command_line => "\$USER1\$/check_nrpe -u -t \$ARG1\$ -H \$HOSTADDRESS\$ -c \$ARG2\$",
+    target       => "${::icinga::targetdir}/commands/check_nrpe_command_timeout.cfg",
+  }
+
   nagios_service {'schedule_downtimes':
     check_command       => 'schedule_script!-d0',
     service_description => 'Schedule Downtimes',
