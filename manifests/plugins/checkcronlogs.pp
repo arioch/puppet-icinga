@@ -6,7 +6,7 @@ class icinga::plugins::checkcronlogs (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
-  $notifications_enabled = false,
+  $notifications_enabled = $::icinga::notifications_enabled,
   $ignored_jobs          = hiera(ignored_jobs, undef),
 
 ) inherits icinga {
