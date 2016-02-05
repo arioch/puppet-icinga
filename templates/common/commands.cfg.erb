@@ -60,6 +60,14 @@ define command{
         command_line    $USER1$/check_ping -H $HOSTADDRESS$ -w 3000.0,80% -c 5000.0,100% -p 5
         }
 
+# 'check-host-alive-ipv4' command definition
+# force use of ipv4 only because of issue with newer version of check_ping binary which in 
+# some cases prefers ipv6 even though it fails
+define command{
+        command_name    check-host-alive-ipv4
+        command_line    $USER1$/check_ping -H $HOSTADDRESS$ -w 3000.0,80% -c 5000.0,100% -p 5 -4
+        }
+
 
 
 
