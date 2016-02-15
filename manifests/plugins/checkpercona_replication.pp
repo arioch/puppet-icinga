@@ -4,21 +4,18 @@
 #
 # http://www.percona.com/doc/percona-monitoring-plugins/nagios/
 #
-class icinga::plugins::checkpercona-replication-delay (
-  $serverid              = undef,
+class icinga::plugins::checkpercona_replication (
   $ensure                = present,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
   $contact_groups        = $::environment,
-  $warning               = '300',
-  $critical              = '600',
+  $warning               = '1',
+  $critical              = '1',
+  $socket                = '/var/lib/mysql/mysql.sock',
+  $defaults_file         = '/etc/my.cnf',
 
 ) inherits icinga {
-
-  if ! $serverid {
-    fail('You should provide an serverid but did not set the var')
-  }
 
   $pkg_percona_nagios = $::operatingsystem ? {
     /CentOS|RedHat|Scientific|OEL|Amazon/ => 'percona-nagios-plugins',
@@ -42,22 +39,22 @@ class icinga::plugins::checkpercona-replication-delay (
     target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 
-  file{"${::icinga::includedir_client}/check_percona_replication_delay.cfg":
+  file{"${::icinga::includedir_client}/check_percona_replication_running.cfg":
     ensure  => 'file',
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_percona_replication_delay]=sudo ${::icinga::plugindir}/pmp-check-mysql-replication-delay -s ${serverid} -w ${warning} -c ${critical}\n",
+    content => "command[check_percona_replication_running]=sudo ${::icinga::plugindir}/pmp-check-mysql-replication-running -w ${warning} -c ${critical}\n",
     notify  => Service[$::icinga::service_client],
   }
 
-  sudo::conf{'nrpe_pmp-check-mysql-replication-delay':
-    content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/pmp-check-mysql-replication-delay\n",
+  sudo::conf{'nrpe_pmp-check-mysql-replication-running':
+    content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/pmp-check-mysql-replication-running\n",
   }
 
-  @@nagios_service { "check_percona_replication_delay${::fqdn}":
-    check_command       => 'check_nrpe_command!check_percona_replication_delay',
-    service_description => 'Percona: Replication Delay',
+  @@nagios_service { "check_percona_replication_running${::fqdn}":
+    check_command       => 'check_nrpe_command!check_percona_replication_running',
+    service_description => 'Percona: Replication Running',
   }
 
 }
