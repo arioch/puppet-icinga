@@ -20,9 +20,9 @@ class icinga::reports (
   $icingaReportsVersion = '1.10.0',
   $icingaReportsHome = $::icinga::params::confdir_server,
   $icingaAvailabilityFunctionName = 'icinga_availability',
-  $IdoDbName = $::icinga::params::idoutils_dbname,
-  $IdoDbUsername = $::icinga::params::idoutils_dbuser,
-  $IdoDbPassword = $::icinga::params::idoutils_dbpass,
+  $idoDbName = $::icinga::params::idoutils_dbname,
+  $idoDbUsername = $::icinga::params::idoutils_dbuser,
+  $idoDbPassword = $::icinga::params::idoutils_dbpass,
 ) inherits icinga {
 
   include tomcat6
@@ -130,8 +130,8 @@ if (!defined(Package['wget'])) {
   exec { 'install-ido-icinga-availability-sql-function':
     refreshonly => true,
     path        => '/bin:/usr/bin:/sbin:/usr/sbin',
-    unless      => "mysql -u${IdoDbUsername} -p${IdoDbPassword} ${IdoDbName} -e 'select name from mysql.proc where name='${icingaAvailabilityFunctionName}';'",
-    command     => "mysql -u${IdoDbUsername} -p${IdoDbPassword} ${IdoDbName} < ${icingaReportsHome}/icinga-reports-${icingaReportsVersion}/db/icinga/mysql/availability.sql",
+    unless      => "mysql -u${idoDbUsername} -p${idoDbPassword} ${idoDbName} -e 'select name from mysql.proc where name='${icingaAvailabilityFunctionName}';'",
+    command     => "mysql -u${idoDbUsername} -p${idoDbPassword} ${idoDbName} < ${icingaReportsHome}/icinga-reports-${icingaReportsVersion}/db/icinga/mysql/availability.sql",
     require     => [ Service[$db_service_name], Exec['install-jar-files'] ]
   }
 }
