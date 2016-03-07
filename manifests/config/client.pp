@@ -36,7 +36,7 @@ class icinga::config::client {
     ensure => directory,
   }
 
-  if $::operatingsystemmajrelease  == 7 {
+  if $::operatingsystemmajrelease  == '7' {
     file{'/etc/systemd/system/nrpe.service':
       ensure  => present,
       content => template('icinga/redhat/nrpe.service.erb'),
