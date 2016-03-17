@@ -17,7 +17,13 @@ class icinga::plugins::checkelasticsearch (
       package{$pkgname:
         ensure   => present,
         provider => 'pip',
-        require  => Package['python-pip'],
+        require  => File['/usr/bin/pip-python'],
+      }
+      file { '/usr/bin/pip-python':
+        ensure  => 'link',
+        target  => '/usr/bin/pip',
+        require => Package['python-pip'],
+
       }
     }
 
