@@ -306,10 +306,14 @@ def exit_with_general_critical(e):
 
 
 def set_read_preference(db):
-    if pymongo.version >= "2.2":
-        pymongo.read_preferences.Secondary
-    else:
-        db.read_preference = pymongo.ReadPreference.SECONDARY
+    #if pymongo.version >= "2.2":
+    #    pymongo.read_preferences.Secondary
+    #else:
+    #    db.read_preference = pymongo.ReadPreference.SECONDARY
+    # I haven't found the reason why it does not work. Anyway this dirty fix works
+    # The clue is probalby in older version of pymongo (installed from Centos repo instead
+    # of by pip)
+    db.read_preference = pymongo.ReadPreference.SECONDARY
 
 def check_connect(host, port, warning, critical, perf_data, user, passwd, conn_time):
     warning = warning or 3
@@ -373,7 +377,7 @@ def check_rep_lag(con, host, port, warning, critical, percent, perf_data, max_la
             #
             # check for version greater then 2.0
             #
-            rs_conf = con.local.system.replset.findOne()
+            rs_conf = con.local.system.replset.find_one()
             for member in rs_conf['members']:
                 if member.get('slaveDelay') is not None:
                     slaveDelays[member['host']] = member.get('slaveDelay')
@@ -999,7 +1003,7 @@ def check_queries_per_second(con, query_type, warning, critical, perf_data, mong
         num = int(data['opcounters'][query_type])
 
         # do the math
-        last_count = db.nagios_check.findOne({'check': 'query_counts'})
+        last_count = db.nagios_check.find_one({'check': 'query_counts'})
         try:
             ts = int(time.time())
             diff_query = num - last_count['data'][query_type]['count']
@@ -1051,12 +1055,12 @@ def check_oplog(con, warning, critical, perf_data):
     critical = critical or 4
     try:
         db = con.local
-        ol = db.system.namespaces.findOne({"name": "local.oplog.rs"})
-        if (db.system.namespaces.findOne({"name": "local.oplog.rs"}) != None):
+        ol = db.system.namespaces.find_one({"name": "local.oplog.rs"})
+        if (db.system.namespaces.find_one({"name": "local.oplog.rs"}) != None):
             oplog = "oplog.rs"
         else:
-            ol = db.system.namespaces.findOne({"name": "local.oplog.$main"})
-            if (db.system.namespaces.findOne({"name": "local.oplog.$main"}) != None):
+            ol = db.system.namespaces.find_one({"name": "local.oplog.$main"})
+            if (db.system.namespaces.find_one({"name": "local.oplog.$main"}) != None):
                 oplog = "oplog.$main"
             else:
                 message = "neither master/slave nor replica set replication detected"
@@ -1410,7 +1414,7 @@ def check_connect_primary(con, warning, critical, perf_data):
 
 def check_collection_state(con, database, collection):
     try:
-        con[database][collection].findOne()
+        con[database][collection].find_one()
         print "OK - Collection %s.%s is reachable " % (database, collection)
         return 0
 
@@ -1502,7 +1506,7 @@ def maintain_delta(new_vals, host, action):
 def replication_get_time_diff(con):
     col = 'oplog.rs'
     local = con.local
-    ol = local.system.namespaces.findOne({"name": "local.oplog.$main"})
+    ol = local.system.namespaces.find_one({"name": "local.oplog.$main"})
     if ol:
         col = 'oplog.$main'
     firstc = local[col].find().sort("$natural", 1).limit(1)
