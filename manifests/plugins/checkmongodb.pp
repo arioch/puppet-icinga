@@ -13,6 +13,7 @@ class icinga::plugins::checkmongodb (
   $mongod_graphite_io_write_url = 'http://graphite/render?target=mongo_host.processes.mongod.ps_disk_octets.write&from=-5minutes&rawData=true',
   $graphite_host                = undef,
   $monitor_replication          = true,
+  $replica_set                  = 'replica_name',
 ) inherits icinga  {
 
   if $icinga::client {
