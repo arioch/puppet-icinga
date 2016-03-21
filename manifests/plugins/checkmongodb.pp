@@ -16,17 +16,9 @@ class icinga::plugins::checkmongodb (
 ) inherits icinga  {
 
   if $icinga::client {
-    if !defined(Package['python-pip']) {
-      package { 'python-pip':
-        ensure => present,
-      }
-    }
-
-    if !defined(Package['pymongo']) {
-      package { 'pymongo':
+    if !defined(Package['python-pymongo']) {
+      package { 'python-pymongo':
         ensure   => present,
-        provider => 'pip',
-        require  => Package['python-pip'],
       }
     }
 
