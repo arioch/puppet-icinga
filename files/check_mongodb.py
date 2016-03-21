@@ -1262,9 +1262,16 @@ def check_asserts(con, host, warning, critical, perf_data):
 
 def get_stored_primary_server_name(db):
     """ get the stored primary server name from db. """
+
+    collections = ''
+    try:
+        collections = db.command('listCollections').get('cursor').get('firstBatch')[0].get('name')
+    except:
+        pass
+
     if "last_primary_server" in db.collection_names():
         stored_primary_server = db.last_primary_server.find_one()["server"]
-    elif "last_primary_server" in db.command('listCollections').get('cursor').get('firstBatch')[0].get('name'):
+    elif "last_primary_server" in collections:
         stored_primary_server = db.last_primary_server.find_one()["server"]
     else:
         stored_primary_server = None
