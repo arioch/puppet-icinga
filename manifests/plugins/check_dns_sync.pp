@@ -3,14 +3,14 @@
 # This class provides a check_dns_sync plugin.
 #
 class icinga::plugins::check_dns_sync (
+  $icinga_host,
   $ensure                = present,
   $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = 'workhours',
   $notifications_enabled = $::icinga::notifications_enabled,
-  $full_zonelist         = hiera('inuits::nameserver::full_zonelist', undef),
-  $icinga_host           = hiera('icinga_host'),
-  $ignored_domains       = hiera('ignored_domains', undef),
+  $full_zonelist         = {},
+  $ignored_domains       = undef,
 ) inherits icinga {
 
   package { 'perl-Net-DNS.x86_64':
