@@ -3,36 +3,44 @@
 # This class provides a checkelasticsearch plugin.
 #
 class icinga::plugins::checkelasticsearch (
-  $pkgname               = 'nagios-plugin-elasticsearch',
+  $pkgname               = 'nagios-plugins-elasticsearch',
 ) {
 
+  # if $icinga::client {
+  #   if !defined(Package['python-pip']){
+  #     package{'python-pip':
+  #       ensure => present,
+  #     }
+  #   }
+  #
+  #   if !defined(Package[$pkgname]) {
+  #     package{$pkgname:
+  #       ensure   => present,
+  #       provider => 'pip',
+  #       require  => File['/usr/bin/pip-python'],
+  #     }
+  #     file { '/usr/bin/pip-python':
+  #       ensure  => 'link',
+  #       target  => '/usr/bin/pip',
+  #       require => Package['python-pip'],
+  #
+  #     }
+  #   }
+
   if $icinga::client {
-    if !defined(Package['python-pip']){
-      package{'python-pip':
+    if !defined(Package[$pkgname]) {
+      package {$pkgname:
         ensure => present,
       }
     }
 
-    if !defined(Package[$pkgname]) {
-      package{$pkgname:
-        ensure   => present,
-        provider => 'pip',
-        require  => File['/usr/bin/pip-python'],
-      }
-      file { '/usr/bin/pip-python':
-        ensure  => 'link',
-        target  => '/usr/bin/pip',
-        require => Package['python-pip'],
-
-      }
-    }
 
     file { "${::icinga::includedir_client}/elasticsearch.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => 'command[check_elasticsearch]=/usr/bin/check_elasticsearch',
+      content => "command[check_elasticsearch]=${::icinga::plugindir}/check_elasticsearch.py",
       notify  => Service[$::icinga::service_client],
     }
 
