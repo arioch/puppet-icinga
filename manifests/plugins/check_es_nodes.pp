@@ -1,7 +1,7 @@
 # == Class: icinga::plugins::check_es_nodes
 class icinga::plugins::check_es_nodes (
   $ensure                       = present,
-  $expected_nodes_in_cluster    = 2,
+  $expected_nodes_in_cluster    = 1,
   $contact_groups               = $::environment,
   $host                         = 'localhost',
   $max_check_attempts           = $::icinga::max_check_attempts,
