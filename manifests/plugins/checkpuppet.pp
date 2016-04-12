@@ -26,7 +26,7 @@ class icinga::plugins::checkpuppet (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_puppet]=${::icinga::plugindir}/check_puppet -w 604800 -c 907200\n",
+      content => "command[check_puppet]=sudo ${::icinga::plugindir}/check_puppet -w 604800 -c 907200\n",
       notify  => Service[$::icinga::service_client],
     }
 
