@@ -111,7 +111,7 @@ define icinga::plugins::checksslscan (
     $hour = fqdn_rand($hour_range, $host_url) + $hour_shift
     cron { "sslscan check-${host_url}":
       ensure  => present,
-      command => "${::icinga::plugindir}/check_sslscan-${host_url}.sh",
+      command => "${::icinga::plugindir}/check_sslscan-${host_url}.sh 2&>1 >/dev/null",
       user    => 'root',
       hour    => $hour,
       minute  => fqdn_rand(60, $host_url),
