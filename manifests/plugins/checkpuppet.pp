@@ -30,6 +30,10 @@ class icinga::plugins::checkpuppet (
       notify  => Service[$::icinga::service_client],
     }
 
+    sudo::conf{'nrpe_check_puppet':
+      content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:${::icinga::plugindir}/check_puppet\n",
+    }
+
     @@nagios_service { "check_puppet_${::fqdn}":
       check_command         => 'check_nrpe_command!check_puppet',
       service_description   => 'Puppet',
