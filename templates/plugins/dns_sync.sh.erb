@@ -9,7 +9,7 @@
 <%   domains+= @full_zonelist[customer].keys -%>
 <% end -%>
 <% domains.map! {|domain| domain[/[^:]+/]} -%>
-MSG=$(/usr/lib64/nagios/plugins/check_dns_sync.pl  <%= (Array(domains)-Array(@ignored_domains)).uniq.sort.join(" ") %>)
+MSG=$(/usr/lib64/nagios/plugins/check_dns_sync.pl -T 3 <%= (Array(domains)-Array(@ignored_domains)).uniq.sort.join(" ") %>)
 RET_VAL=$?
 echo "<%= @fqdn %>;dns sync;$RET_VAL;$MSG" | /usr/sbin/send_nsca    -H <%= @icinga_host %> -p 5667 -d ";"
 
