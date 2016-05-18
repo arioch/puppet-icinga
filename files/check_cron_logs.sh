@@ -4,7 +4,7 @@ LOG_FILE='/var/log/messages'
 DATE=$(date --date="24 hours ago" '+%b %-d %H' | sed -r 's/^([a-zA-Z]+) /\1 {1,2}/g')
 NAME=$(hostname --short)
 CRONS_FAILING=''
-IGNORE_TAG='drush'
+IGNORE_TAG='drush|SERVICE NOTIFICATION|SERVICE ALERT'
 
 while getopts ":i:" o; do
     case "${o}" in
