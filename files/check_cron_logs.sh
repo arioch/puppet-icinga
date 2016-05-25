@@ -26,10 +26,10 @@ REGEX="("$(echo "$@" | sed 's/ /)|(/g')")"
 if egrep -q "$DATE" /var/log/messages; then
   if [ $REGEX != '()' ]; then
     CRONS_FAILING=$(cat $LOG_FILE | sed -r "1,/$DATE/d" |egrep "cron .*\[[0-9]+\].*\[error\]" | egrep -v "$IGNORE_TAG" |
-    sed -r "s/^.*$NAME [^ ]+ [^ ]* cron ([^\[]+).*/\1/g" | sort | uniq | egrep -v $REGEX)
+    sed -r "s/^.*ldap-dooku [^ ]+ ([^ ]* )?cron ([^\[]+).*/\2/g" | sort | uniq | egrep -v $REGEX)
   else
     CRONS_FAILING=$(cat $LOG_FILE | sed -r "1,/$DATE/d" |egrep "cron .*\[[0-9]+\].*\[error\]" | egrep -v "$IGNORE_TAG" |
-    sed -r "s/^.*$NAME [^ ]+ [^ ]* cron ([^\[]+).*/\1/g" | sort | uniq)
+    sed -r "s/^.*ldap-dooku [^ ]+ ([^ ]* )?cron ([^\[]+).*/\2/g" | sort | uniq)
   fi
 
 ##if not, we're simply reading the whole file
@@ -37,10 +37,10 @@ if egrep -q "$DATE" /var/log/messages; then
 else
   if [ $REGEX != '()' ]; then
     CRONS_FAILING=$(cat $LOG_FILE |egrep "cron .*\[[0-9]+\].*\[error\]" | egrep -v "$IGNORE_TAG" |
-    sed -r "s/^.*$NAME [^ ]+ [^ ]* cron ([^\[]+).*/\1/g" | sort | uniq | egrep -v $REGEX)
+    sed -r "s/^.*ldap-dooku [^ ]+ ([^ ]* )?cron ([^\[]+).*/\2/g" | sort | uniq | egrep -v $REGEX)
   else
     CRONS_FAILING=$(cat $LOG_FILE |egrep "cron .*\[[0-9]+\].*\[error\]" | egrep -v "$IGNORE_TAG" |
-    sed -r "s/^.*$NAME [^ ]+ [^ ]* cron ([^\[]+).*/\1/g" | sort | uniq)
+    sed -r "s/^.*ldap-dooku [^ ]+ ([^ ]* )?cron ([^\[]+).*/\2/g" | sort | uniq)
   fi
 fi
 
