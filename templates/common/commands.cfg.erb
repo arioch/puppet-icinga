@@ -224,6 +224,11 @@ define command{
         command_line    $USER1$/check_dummy $ARG1$
         }
 
+define command{
+  command_name  check_generic
+  command_line  $USER1$/$ARG1$ $ARG2$
+}
+
 ################################################################################
 #
 # SAMPLE PERFORMANCE DATA COMMANDS
