@@ -21,12 +21,12 @@ define icinga::plugins::checkmysqlclient (
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
       notify  => Service[$::icinga::service_client],
-      content => "command[check_mysql_${database}]=/usr/lib64/nagios/plugins/check_mysql -H ${host} -u ${user} -p ${password} -d ${database}"
+      content => "command[check_mysql_${database}_${user}]=/usr/lib64/nagios/plugins/check_mysql -H ${host} -u ${user} -p ${password} -d ${database}"
     }
 
-    @@nagios_service { "check_mysql_client_${::fqdn}_${database}":
-      check_command         => "check_nrpe_command!check_mysql_${database}",
-      service_description   => "mysql client db: ${database}",
+    @@nagios_service { "check_mysql_client_${::fqdn}_${database}_${user}":
+      check_command         => "check_nrpe_command!check_mysql_${database}_${user}",
+      service_description   => "mysql client db: ${database} user: ${user}",
       contact_groups        => $contact_groups,
       host_name             => $::fqdn,
       max_check_attempts    => $max_check_attempts,
