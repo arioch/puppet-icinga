@@ -15,7 +15,7 @@ define icinga::plugins::checkmysqlclient (
   require icinga
 
   if $password {
-    file { "${::icinga::includedir_client}/mysql_client_${database}.cfg":
+    file { "${::icinga::includedir_client}/mysql_client_${database}-${user}.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
