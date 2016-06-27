@@ -17,12 +17,12 @@ class icinga::plugins::checkcollectiveaccess (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_collectiveaccess]=${::icinga::usrlib}/nagios/plugins/check_collective-access.rb -h ${host} -u ${user} -p ${password} -c ca_config.yaml\n",
+    content => "command[check_collectiveaccess]=${::icinga::usrlib}/nagios/plugins/check_collective-access.rb -h ${host} -u ${user} -p ${password} -c ${::icinga::includedir_client}/ca_config.yaml\n",
     notify  => Service[$::icinga::service_client],
   }
 
   file {"${::icinga::includedir_client}/ca_config.yaml":
-    content => inline_template("<%= @configuration.to_yaml %>"),
+    content => inline_template('<%= @configuration.to_yaml %>'),
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
