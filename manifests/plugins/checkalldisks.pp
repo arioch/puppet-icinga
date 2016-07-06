@@ -34,4 +34,7 @@ class icinga::plugins::checkalldisks (
     }
   }
 
+  sudo::conf{"configure_sudo_checkalldisks":
+    content => "Defaults:${::icinga::client_user} !requiretty\n${::icinga::client_user} ALL=(ALL) NOPASSWD:${::icinga::plugindir}/check_disk\n",
+  }
 }
