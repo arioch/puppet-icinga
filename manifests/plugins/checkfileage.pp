@@ -1,5 +1,5 @@
 # == Class: icinga::plugins::checkfileage
-class icinga::plugins::checkfileage (
+define icinga::plugins::checkfileage (
   $critical,
   $warning,
   $file,
@@ -9,19 +9,21 @@ class icinga::plugins::checkfileage (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-) inherits ::icinga {
+) {
 
-  file{"${::icinga::includedir_client}/check_file_age_${file}.cfg":
+  require ::icinga
+  $_file = inline_template("<%= @file.gsub('/','_') %>")
+  file{"${::icinga::includedir_client}/check_file_age${_file}.cfg":
     ensure  => 'file',
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_file_age_${file}]=${::icinga::usrlib}/nagios/plugins/check_fileage.py -w ${warning} -c ${critical} -f ${file} -d ${datetype} -n ${not_found_exit_code}",
+    content => "command[check_file_age${_file}]=${::icinga::usrlib}/nagios/plugins/check_fileage.py -w ${warning} -c ${critical} -f ${file} -d ${datetype} -n ${not_found_exit_code}",
     notify  => Service[$::icinga::service_client],
   }
 
   @@nagios_service{"check_collectiveaccess_${::fqdn}":
-    check_command         => "check_nrpe_command!check_file_age_${file}",
+    check_command         => "check_nrpe_command!check_file_age${_file}",
     service_description   => "Check File Age ${file}",
     host_name             => $::fqdn,
     contact_groups        => $contact_groups,
