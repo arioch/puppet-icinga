@@ -22,7 +22,7 @@ define icinga::plugins::checkfileage (
     notify  => Service[$::icinga::service_client],
   }
 
-  @@nagios_service{"check_collectiveaccess_${::fqdn}":
+  @@nagios_service{"check_fileage${_file}_${::fqdn}":
     check_command         => "check_nrpe_command!check_file_age${_file}",
     service_description   => "Check File Age ${file}",
     host_name             => $::fqdn,
