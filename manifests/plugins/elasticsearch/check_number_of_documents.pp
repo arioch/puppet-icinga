@@ -10,8 +10,6 @@ define icinga::plugins::elasticsearch::check_number_of_documents (
   $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-  $icinga_host           = hiera('icinga_host'),
-
 ) {
 
   require icinga
