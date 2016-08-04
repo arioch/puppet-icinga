@@ -1,7 +1,7 @@
 # == Class: icinga::plugins::elasticsearch::check_number_of_documents
 #
 # This defined type provides a check of number of documents. When the number
-# of documents is too low than you are alerted.
+# of documents is too low then you are alerted.
 #
 define icinga::plugins::elasticsearch::check_number_of_documents (
   $program_name,
