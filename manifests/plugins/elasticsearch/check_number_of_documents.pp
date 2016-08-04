@@ -45,7 +45,7 @@ define icinga::plugins::elasticsearch::check_number_of_documents (
     }
 
     @@nagios_service { "check_number_of_documents_${::fqdn}_${program_name}":
-      check_command       => "check_nrpe_command!check_number_of_documents_${program_name}!${program_name} ${interval}",
+      check_command       => "check_nrpe_command_args!check_number_of_documents_${program_name}!${program_name} ${interval}",
       service_description => "ES data - occurrence counter of program: ${program_name}",
       host_name           => $::fqdn,
       max_check_attempts  => $max_check_attempts,
