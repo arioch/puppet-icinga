@@ -38,7 +38,7 @@ define icinga::user (
         if ! $hash {
           exec { "Add Icinga user ${name}":
             command => "htpasswd -b -s ${htpasswd} ${name} ${password}",
-            unless  => "grep -iE '^${name}:' ${htpasswd}",
+            unless  => "grep -q  \"^$(htpasswd -s -b -n ${name} ${password} | head -n1)$\" ${htpasswd}",
             cwd     => $::icinga::confdir_server,
           }
         } else {
