@@ -22,7 +22,7 @@ class icinga::plugins::checkload (
     if !$check_warning {
       $warn_1 = $::processorcount * 3
       $warn_5 = $::processorcount * 2
-      $warn_15 = $::processorcount
+      $warn_15 = $::processorcount + 1
       $_check_warning = "${warn_1},${warn_5},${warn_15}"
     } else {
       $_check_warning = $check_warning
