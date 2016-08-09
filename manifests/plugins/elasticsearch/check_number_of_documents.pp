@@ -5,7 +5,7 @@
 #
 define icinga::plugins::elasticsearch::check_number_of_documents (
   $program_name,
-  $interval              = '',
+  $interval              = '15 minutes ago',
   $max_check_attempts    = $::icinga::max_check_attempts,
   $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
