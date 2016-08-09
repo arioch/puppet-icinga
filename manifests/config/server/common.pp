@@ -19,6 +19,7 @@ class icinga::config::server::common {
   file{$::icinga::confdir_server:
     recurse => true,
     purge   => true,
+    force   => true,
   }
 
   file{"${::icinga::confdir_server}/resource.cfg":
@@ -29,6 +30,7 @@ class icinga::config::server::common {
   file{$::icinga::targetdir:
     recurse => true,
     purge   => true,
+    force   => true,
   }
 
   file{"${::icinga::targetdir}/hosts":
