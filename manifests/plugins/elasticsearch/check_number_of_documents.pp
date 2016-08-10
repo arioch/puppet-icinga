@@ -40,12 +40,12 @@ define icinga::plugins::elasticsearch::check_number_of_documents (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_number_of_documents_${program_name}]=${::icinga::plugindir}/check_number_of_documents.sh \$ARG1$ \$ARG2$",
+      content => "command[check_number_of_documents_${program_name}]=${::icinga::plugindir}/check_number_of_documents.sh \$ARG1$ '\$ARG2$'",
       notify  => Service[$::icinga::service_client],
     }
 
     @@nagios_service { "check_number_of_documents_${::fqdn}_${program_name}":
-      check_command       => "check_nrpe_command_args!check_number_of_documents_${program_name}!${program_name} ${interval}",
+      check_command       => "check_nrpe_command_args!check_number_of_documents_${program_name}!${program_name} '${interval}'",
       service_description => "ES data - occurrence counter of program: ${program_name}",
       host_name           => $::fqdn,
       max_check_attempts  => $max_check_attempts,
