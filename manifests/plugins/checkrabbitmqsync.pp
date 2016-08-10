@@ -18,7 +18,7 @@ define icinga::plugins::checkrabbitmqsync (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_rabbit_sync_${vhost}]=${::icinga::usrlib}/nagios/plugins/check_rabbitmq_sync.rb -h ${host} -u ${user} -p ${password} -P ${port} -v ${vhost}\n",
+    content => "command[check_rabbit_sync_${vhost}]=${::icinga::usrlib}/nagios/plugins/check_rabbitmq-sync.rb -h ${host} -u ${user} -p ${password} -P ${port} -v ${vhost}\n",
     notify  => Service[$::icinga::service_client],
   }
 
