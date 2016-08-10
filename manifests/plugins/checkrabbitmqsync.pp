@@ -9,9 +9,9 @@ define icinga::plugins::checkrabbitmqsync (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-) inherits ::icinga {
+) {
 
-
+  require icinga
 
   file{"${::icinga::includedir_client}/check_rabbit_sync_${vhost}.cfg":
     ensure  => 'file',
