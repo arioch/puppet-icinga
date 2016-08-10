@@ -1,5 +1,5 @@
 # == Class: icinga::plugins::checkrabbitmqsync
-class icinga::plugins::checkrabbitmqsync (
+define icinga::plugins::checkrabbitmqsync (
   $user,
   $password,
   $vhost                 = $name,
