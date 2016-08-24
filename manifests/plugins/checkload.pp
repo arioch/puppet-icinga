@@ -29,9 +29,9 @@ class icinga::plugins::checkload (
     }
 
     if !$check_critical {
-      $crit_1 = $::processorcount * 4
-      $crit_5 = $::processorcount * 3
-      $crit_15 = $::processorcount * 2
+      $crit_1 = $::processorcount * 5
+      $crit_5 = $::processorcount * 4
+      $crit_15 = $::processorcount * 3
       $_check_critical = "${crit_1},${crit_5},${crit_15}"
     } else {
       $_check_critical = $check_critical
