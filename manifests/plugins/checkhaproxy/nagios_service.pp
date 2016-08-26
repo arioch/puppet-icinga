@@ -4,11 +4,6 @@
 # to check.
 #
 define icinga::plugins::checkhaproxy::nagios_service (
-  $contact_groups,
-  $max_check_attempts,
-  $notification_period,
-  $notifications_enabled,
-  $target,
   $url_to_check = $title,
 ) {
 
