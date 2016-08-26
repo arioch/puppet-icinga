@@ -3,4 +3,4 @@
 ### Module:           '<%= scope.to_hash['module_name'] %>'
 ### Template source:  '<%= template_source %>'
 
-command[check_haproxy]=<%= @plugindir %>/check_haproxy.rb -u '$ARG2$' 2>/dev/null
+command[check_haproxy]=<%= @plugindir %>/check_haproxy.rb -u '$ARG1$' 2>/dev/null
