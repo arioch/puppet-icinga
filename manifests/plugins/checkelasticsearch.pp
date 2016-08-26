@@ -34,6 +34,11 @@ class icinga::plugins::checkelasticsearch (
       }
     }
 
+    if !defined(Package['python-nagioscheck']) {
+      package {'python-nagioscheck':
+        ensure => present,
+      }
+    }
 
     file { "${::icinga::includedir_client}/elasticsearch.cfg":
       ensure  => 'file',
