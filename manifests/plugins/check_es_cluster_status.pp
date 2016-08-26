@@ -17,6 +17,9 @@ class icinga::plugins::check_es_cluster_status (
     notify  => Service[$::icinga::service_client],
   }
 
+  package { 'nagios-plugins-es-cluster-status':
+    ensure => 'present',
+  }
 
   @@nagios_service{"check_es_cluster_status_${::fqdn}":
     check_command         => 'check_nrpe_command!check_es_cluster_status',
@@ -29,5 +32,3 @@ class icinga::plugins::check_es_cluster_status (
     target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 }
-
-

@@ -17,6 +17,9 @@ class icinga::plugins::check_es_unassigned_shards (
     notify  => Service[$::icinga::service_client],
   }
 
+  package { 'nagios-plugins-es-unassigned-shards':
+    ensure => 'present',
+  }
 
   @@nagios_service{"check_es_unassigned_shards_${::fqdn}":
     check_command         => 'check_nrpe_command!check_es_unassigned_shards',
@@ -29,5 +32,3 @@ class icinga::plugins::check_es_unassigned_shards (
     target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 }
-
-

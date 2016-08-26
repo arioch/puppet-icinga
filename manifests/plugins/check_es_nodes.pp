@@ -18,6 +18,10 @@ class icinga::plugins::check_es_nodes (
     notify  => Service[$::icinga::service_client],
   }
 
+  package { 'nagios-plugins-es-nodes':
+    ensure => 'present',
+  }
+
   ## Exported config to be included in the Icinga/Nagios host
 
   @@nagios_service{"check_es_nodes_${::fqdn}":
@@ -31,5 +35,3 @@ class icinga::plugins::check_es_nodes (
     target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 }
-
-

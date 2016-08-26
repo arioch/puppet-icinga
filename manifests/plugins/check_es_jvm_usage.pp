@@ -17,6 +17,9 @@ class icinga::plugins::check_es_jvm_usage (
     notify  => Service[$::icinga::service_client],
   }
 
+  package { 'nagios-plugins-es-jvm-usage':
+    ensure => 'present',
+  }
 
   @@nagios_service{"check_es_jvm_usage_${::fqdn}":
     check_command         => 'check_nrpe_command!check_es_jvm_usage',
@@ -29,5 +32,3 @@ class icinga::plugins::check_es_jvm_usage (
     target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 }
-
-
