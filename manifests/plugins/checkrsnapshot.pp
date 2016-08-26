@@ -19,7 +19,7 @@ class icinga::plugins::checkrsnapshot (
       mode    => '0755',
       owner   => 'root',
       group   => 'root',
-      source => 'puppet:///modules/icinga/check_rsnapshot.rb',
+      source  => 'puppet:///modules/icinga/check_rsnapshot.rb',
       notify  => Service[$icinga::service_client],
       require => Class['icinga::config'];
     }

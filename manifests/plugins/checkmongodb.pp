@@ -28,7 +28,7 @@ class icinga::plugins::checkmongodb (
       mode    => '0755',
       owner   => 'root',
       group   => 'root',
-      source => 'puppet:///modules/icinga/check_mongodb.py',
+      source  => 'puppet:///modules/icinga/check_mongodb.py',
       notify  => Service[$icinga::service_client],
       require => Class['icinga::config'];
     }

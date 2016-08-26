@@ -219,7 +219,7 @@ class icinga::params {
     }
 
     default: {
-      fail("${module_name}: Unsupported operatingsystem ${::operatingsystem}") 
+      fail("${module_name}: Unsupported operatingsystem ${::operatingsystem}")
     }
   }
 

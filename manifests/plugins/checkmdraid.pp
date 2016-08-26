@@ -10,12 +10,12 @@ class icinga::plugins::checkmdraid (
   $notifications_enabled        = $::icinga::notifications_enabled,
 ) inherits icinga {
 
- file { "${::icinga::plugindir}/check_md_raid":
+  file { "${::icinga::plugindir}/check_md_raid":
     ensure  => present,
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
-    source => 'puppet:///modules/icinga/check_md_raid',
+    source  => 'puppet:///modules/icinga/check_md_raid',
     notify  => Service[$icinga::service_client],
     require => Class['icinga::config'];
   }

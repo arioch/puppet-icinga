@@ -13,7 +13,7 @@ define icinga::plugins::checkhaproxy::nagios_service (
 
   @@nagios_service { "check_haproxy_${::fqdn}_${url_to_check}":
     check_command         => "check_nrpe_command_args!check_haproxy!'${url_to_check}'",
-    service_description   => "HAproxy check on ${ip_address_from_string}",
+    service_description   => "HAProxy check on ${ip_address_from_string}",
     host_name             => $::fqdn,
     contact_groups        => $::icinga::plugins::checkhaproxy::contact_groups,
     notification_period   => $::icinga::plugins::checkhaproxy::notification_period,
