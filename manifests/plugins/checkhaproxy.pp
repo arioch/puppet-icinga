@@ -1,15 +1,15 @@
 # == Class: icinga::plugins::checkhaproxy
 #
-# This class provides a checkhaproxy plugin.
+# This class only creates proper NRPE config with command 'check_haproxy' but
+# the exported resource is defined in icinga::plugins::checkhaproxy::nagios_service
+#
 #
 class icinga::plugins::checkhaproxy (
-  $ensure                = present,
-  $urls_to_check          = [ 'http://127.0.0.1/haproxy?stats' ],
   $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-
+  $target                = "${::icinga::targetdir}/services/${::fqdn}.cfg",
 ) inherits icinga {
 
   file { "${::icinga::plugindir}/check_haproxy.rb":
@@ -31,13 +31,4 @@ class icinga::plugins::checkhaproxy (
     notify  => Service[$::icinga::service_client],
   }
 
-  create_resources('::icinga::plugins::checkhaproxy::nagios_service', $urls_to_check, {
-    contact_groups        => $contact_groups,
-    max_check_attempts    => $max_check_attempts,
-    notification_period   => $notification_period,
-    notifications_enabled => $notifications_enabled,
-    target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
-  })
-
 }
-
