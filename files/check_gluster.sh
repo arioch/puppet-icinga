@@ -92,14 +92,9 @@ ex_stat=OK
 BRICKS=$(sudo gluster volume info $VOLUME | grep "Number of Bricks" | cut -f8 -d" ")
 
 # get volume heal status
-heal=0
-for entries in $(sudo gluster volume heal ${VOLUME} info | awk '/^Number of entries: /{print $4}'); do
-	if [ "$entries" -gt 0 ]; then
-		let $((heal+=entries))
-	fi
-done
-if [ "$heal" -gt 0 ]; then
-	errors=("${errors[@]}" "$heal unsynched entries")
+entries=$(sudo gluster volume heal data info split-brain | grep 'Number of entries in split-brain: ' | awk '{print $NF}')
+if [ "$entries" -gt 0 ]; then
+	errors=("${errors[@]}" "$entries in split-brain")
 fi
 
 # get volume status
