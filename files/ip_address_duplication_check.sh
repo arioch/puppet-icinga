@@ -4,7 +4,7 @@
 
 # ignore localhost, and addresses with subnet /32 (because of Hetzner failover IP)
 ips=$(ip addr show | grep "inet\b" |  awk '{print $2}' | grep -E -v '127\.0\.0\.1|\/32' | cut -d/ -f1)
-interfaces=$(ip link show | grep 'state UP' | cut -d ':' -f2 | tr -d ' ')
+interfaces=$(ip link show | grep 'state UP' | cut -d ':' -f2 | tr -d ' ' | grep -v '\-drac')
 duplications=''
 arping_output=''
 
