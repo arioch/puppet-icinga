@@ -24,7 +24,7 @@ define icinga::plugins::checkrabbitmqsync (
 
   @@nagios_service{"check_rabbit_sync_${vhost}_${::fqdn}":
     check_command         => "check_nrpe_command!check_rabbit_sync_${vhost}",
-    service_description   => "Rabbit node sync vhost: ${vhost}",
+    service_description   => "RabbitMQ node sync vhost: ${vhost}",
     host_name             => $::fqdn,
     contact_groups        => $contact_groups,
     max_check_attempts    => $max_check_attempts,
