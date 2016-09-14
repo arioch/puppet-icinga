@@ -15,7 +15,7 @@ class icinga::plugins::checkvufwatcher (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_vufwatcher]=${::icinga::plugindir}/check_procs -c 1: -C vufwatcher\n",
+      content => "command[check_vufwatcher]=${::icinga::plugindir}/check_procs -c 1: -C python --argument-array=vufwatcher.py\n",
       notify  => Service[$::icinga::service_client],
     }
 
