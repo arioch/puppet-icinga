@@ -161,7 +161,7 @@ stat=backup.run
 status=0
 errors=[]
 File.open(ARGV[0]).each do |line|
-  if line.match(/^backup/)
+  if line.match(/^backup\t/)
      #puts line.split("\s")[2]
      folder='/rsnapshots/daily.0/'+line.split("\s")[2]
      if !File.directory?(folder)
