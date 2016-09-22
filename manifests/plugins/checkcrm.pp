@@ -15,10 +15,18 @@ class icinga::plugins::checkcrm (
 
   require icinga
 
+  # we used this package in the past on Centos boxes
+  # but it was replaced with nagios-plugins-crm. The
+  # check is the same but the naming convention is
+  # correct
+  package { 'nagios-plugins-checkcrm':
+    ensure => absent,
+  }
+
   if $icinga::client {
 
     $pkg_nagios_plugin_checkcrm = $::operatingsystem ? {
-      /CentOS|RedHat/ => 'nagios-plugins-checkcrm',
+      /CentOS|RedHat/ => 'nagios-plugins-crm',
       default         => fail('Operating system not supported'),
     }
 
@@ -28,7 +36,8 @@ class icinga::plugins::checkcrm (
     }
 
     package { $pkg_nagios_plugin_checkcrm:
-      ensure => installed,
+      ensure  => installed,
+      require => Package['nagios-plugins-checkcrm'],
     }
 
     ensure_resource ('package', $pkg_perl_nagios_plugin, { 'ensure' => 'installed' })
