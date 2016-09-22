@@ -48,12 +48,12 @@ class icinga::plugins::checkcrm (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_crm_${host_name}]=${::icinga::plugindir}/check_crm\n",
+      content => "command[check_crm_${host_name}]=sudo ${::icinga::plugindir}/check_crm -c\n",
       notify  => Service[$::icinga::service_client],
     }
 
     sudo::conf{'nrpe_crm_mon':
-      content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:/usr/sbin/crm_mon -1 -r -f\n",
+      content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:${::icinga::plugindir}/check_crm\n",
     }
 
     @@nagios_service{"check_crm_${host_name}":
