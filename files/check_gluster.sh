@@ -91,11 +91,10 @@ VOLUME=$1
 ex_stat=OK
 BRICKS=$(sudo gluster volume info $VOLUME | grep "Number of Bricks" | cut -f8 -d" ")
 
-# get volume heal status
-entries=$(sudo gluster volume heal data info split-brain | grep 'Number of entries in split-brain: ' | awk '{print $NF}')
-if [ "$entries" -gt 0 ]; then
-	errors=("${errors[@]}" "$entries in split-brain")
+if sudo gluster volume heal data info split-brain | grep 'Number of entries in split-brain: [1-9]'; then
+	errors=("${errors[@]}" "entries in split-brain present!")
 fi
+
 
 # get volume status
 bricksfound=0
@@ -117,9 +116,9 @@ sudo gluster volume status $VOLUME detail | while IFS='\n' read line; do
 		key=${field[@]:0:3}
 		if [ "${key}" = "Disk Space Free" ]; then
 			freeunit=${field[@]:4}
-			free=${freeunit%'GB'}
+                        unit=${freeunit: -2}
+                        free=${freeunit::${#freeunit}-4}
 			freeconvgb=`echo "($free*1024)" | bc`
-			unit=${freeunit#$free}
 			if [ "$unit" = "TB" ]; then
 				free=$freeconvgb
 				unit="GB"
