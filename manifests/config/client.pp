@@ -4,6 +4,9 @@
 #
 class icinga::config::client {
 
+  # Get the param in the local scope for the template
+  $nrpe_command_prefix = $::icinga::nrpe_command_prefix
+
   File {
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
