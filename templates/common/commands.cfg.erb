@@ -203,6 +203,11 @@ define command{
   command_line  $USER1$/check_tcp -H $HOSTADDRESS$ -p $ARG1$ $ARG2$
 }
 
+# 'check_tcp' command definition
+define command{
+  command_name  check_tcp_other_host
+  command_line  $USER1$/check_tcp -H $ARG1$ -p $ARG2$ $ARG3$
+}
 
 # 'check_udp' command definition
 define command{
