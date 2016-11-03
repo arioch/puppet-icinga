@@ -10,6 +10,7 @@ define icinga::plugins::check_sshuttle (
   $notification_period          = $::icinga::notification_period,
   $notifications_enabled        = $::icinga::notifications_enabled,
   $port                         = 22,
+  $subnets                      = []
 ) {
   require ::icinga
 
