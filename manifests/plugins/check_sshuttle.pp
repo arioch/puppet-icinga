@@ -15,7 +15,7 @@ define icinga::plugins::check_sshuttle (
   require ::icinga
 
   @@nagios_service { "check_sshuttle_tunnel_${::fqdn}_${name}":
-    check_command         => "check_tcp!${host}!${port}! -e SSH",
+    check_command         => "check_tcp_other_host!${host}!${port}! -e SSH",
     service_description   => "sshuttle tunnel - ${name}",
     host_name             => $::fqdn,
     contact_groups        => $contact_groups,
