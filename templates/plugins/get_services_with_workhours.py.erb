@@ -27,9 +27,9 @@ for service in parsed_data['config']['services']:
     print("        service_description  %s " % (service['service_description']) )
     print('        author               <%= downtimes_value_hash['author'] -%>')
     print('        comment              <%= downtimes_value_hash['comment'] -%>')
-    <% downtimes_value_hash['downtime_period'].each do |dtperiod| -%>
+    <%- downtimes_value_hash['downtime_period'].each do |dtperiod| -%>
     print('        downtime_period      <%= dtperiod -%>')
-    <% end -%>
+    <%- end -%>
     print('        propagate            1')
     print('        register             1')
     print('}\n')
