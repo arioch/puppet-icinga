@@ -14,7 +14,10 @@ class icinga::plugins::schedule_downtime_for_workhours (
   $icinga_pass,
   $icinga_url = 'https://icinga.inuits.eu/icinga/cgi-bin/config.cgi?type=services&jsonoutput',
   $work_dir = '/var/lib/icinga',
+  $downtimes = {},
 ) inherits icinga {
+
+  validate_hash($downtimes)
 
   file { '/usr/local/bin/get_services_with_workhours.py':
     ensure  => 'file',
