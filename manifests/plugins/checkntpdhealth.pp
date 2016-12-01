@@ -11,9 +11,7 @@ class icinga::plugins::checkntpdhealth (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-) inherits ::icinga {
-
-  require ::ntp
+) inherits icinga {
 
   $script_path = "${::icinga::plugindir}/check_ntpd_health.pl"
 
