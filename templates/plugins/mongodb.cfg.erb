@@ -3,9 +3,11 @@
 ### Module:           '<%= scope.to_hash['module_name'] %>'
 ### Template source:  '<%= template_source %>'
 
+command[check_mongodb_connect]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A connect -P 27017 -W 2 -C 4
+command[check_mongodb_connections]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A connections -P 27017 -W 70 -C 80
+<% if @replica_set -%>
 command[check_mongodb_replication_lag]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A replication_lag -P 27017 -W 15 -C 30
 command[check_mongodb_replication_lag_percentage]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A replication_lag_percent -P 27017 -W 50 -C 75
 command[check_mongodb_replicaset]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A replica_primary -P 27017 -W 0 -C 1 -r <%= @replica_set %> 
-command[check_mongodb_connect]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A connect -P 27017 -W 2 -C 4
-command[check_mongodb_connections]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A connections -P 27017 -W 70 -C 80
 command[check_mongodb_replset_state]=<%= @plugindir %>/check_mongodb.py -H <%= @mongod_bind_ip %> -A replset_state -P 27017
+<% end -%>
