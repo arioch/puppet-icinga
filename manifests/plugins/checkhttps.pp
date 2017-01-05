@@ -15,7 +15,7 @@ define icinga::plugins::checkhttps (
  require ::icinga 
  if $icinga::client {
     @@nagios_service { "check_https_${::fqdn}_${vhost}":
-      check_command         => "check_http!-H ${vhost} -S -p ${port} -e ${expeted_codes} --sni",
+      check_command         => "check_http!-H ${vhost} -S -p ${port} -e ${expected_codes} --sni",
       service_description   => "check https ${vhost}",
       host_name             => $::fqdn,
       contact_groups        => $contact_groups,
