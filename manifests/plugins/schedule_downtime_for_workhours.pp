@@ -46,6 +46,13 @@ class icinga::plugins::schedule_downtime_for_workhours (
     target       => "${::icinga::targetdir}/commands/schedule_downtime_for_workhours.cfg",
   }
 
+  file {"${::icinga::targetdir}/commands/schedule_downtime_for_workhours.cfg":
+    ensure => 'present',
+    mode   => '0600',
+    owner  => $::icinga::server_user,
+    group  => $::icinga::server_group,
+  }
+
   nagios_service {'schedule_downtime_for_workhours':
     check_command       => 'schedule_downtime_for_workhours!-d0',
     service_description => 'Schedule downtimes for services with workhours',
