@@ -10,8 +10,8 @@
 # the services and for services with 'workhours' will schedule downtime.
 #
 class icinga::plugins::schedule_downtime_for_workhours (
-  $icinga_user,
-  $icinga_pass,
+  $icinga_user = undef,
+  $icinga_pass = undef,
   $icinga_url_services = 'http://localhost/icinga/cgi-bin/config.cgi?type=services&jsonoutput',
   $icinga_url_hosts = 'http://localhost/icinga/cgi-bin/config.cgi?type=hosts&jsonoutput',
   $work_dir = '/var/lib/icinga',
