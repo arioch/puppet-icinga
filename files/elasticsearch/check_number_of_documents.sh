@@ -87,15 +87,15 @@ NUMBER_OF_ALL_EVENTS=$(number_of_events 'get_all_events')
 
 if [[ "$NUMBER_OF_ALL_EVENTS" -lt 1000 ]]
 then
-  echo "WARNING - there is only ${NUMBER_OF_ALL_EVENTS} event(s) in ES in totalduuring range: '${INTERVAL}'. Something wrong is probalby with ELK stack." && exit 1
+  echo "WARNING - there is only ${NUMBER_OF_ALL_EVENTS} event(s) in ES in total during range: '${INTERVAL}'. Something wrong is probalby with ELK stack."; exit 1
 fi
 
 if [[ "$NUMBER_OF_PROGRAM_EVENTS" -gt 5 ]]
 then
-  echo "OK - ${NUMBER_OF_PROGRAM_EVENTS} events were processed during range: '${INTERVAL}'" && exit 0
+  echo "OK - ${NUMBER_OF_PROGRAM_EVENTS} events were processed during range: '${INTERVAL}'"; exit 0
 elif [[ "$NUMBER_OF_PROGRAM_EVENTS" -gt 0 ]]
 then
-  echo "WARNING - only ${NUMBER_OF_PROGRAM_EVENTS} event(s) was/were processed during range: '${INTERVAL}'" && exit 1
+  echo "WARNING - only ${NUMBER_OF_PROGRAM_EVENTS} event(s) was/were processed during range: '${INTERVAL}'"; exit 1
 else
-  echo "ERROR - No event was processed during range: '${INTERVAL}'" && exit 2
+  echo "ERROR - No event was processed during range: '${INTERVAL}'"; exit 2
 fi
