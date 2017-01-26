@@ -31,10 +31,14 @@ class icinga::plugins::check_pgactivity (
   }
 
   @@nagios_service { "check_pgactivity_${::fqdn}":
-    check_command       => 'check_nrpe_command!check_pgactivity',
-    service_description => 'PostgreSQL Status',
-    host_name           => $::fqdn,
-    target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+    check_command         => 'check_nrpe_command!check_pgactivity',
+    service_description   => 'PostgreSQL Status',
+    host_name             => $::fqdn,
+    contact_groups        => $contact_groups,
+    notification_period   => $notification_period,
+    notifications_enabled => $notifications_enabled,
+    max_check_attempts    => $max_check_attempts,
+    target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
   }
 
 }
