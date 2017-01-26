@@ -1,1 +1,1 @@
-command[check_local_cert_expiry_<%= @cert %>]=/usr/lib64/nagios/plugins/check_ssl_cert -H localhost -f <%= @cert %> -C <%= @critical_days %> -W <%= @warning_days %>
+command[check_local_cert_expiry_<%= @cert %>]=/usr/lib64/nagios/plugins/check_ssl_cert -H localhost -f <%= @name %> -c <%= @critical_days %> -w <%= @warning_days %>
