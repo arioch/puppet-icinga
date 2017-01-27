@@ -11,8 +11,8 @@ define icinga::plugins::checkcertexpiry (
   $critical_days         = 4,
 ) {
     require ::icinga
-    $cert = inline_template("<%= @name.gsub('/','_') %>")
-    file{"${::icinga::includedir_client}/check_cert_expiry_${cert}":
+    $cert = inline_template("<%= @name.gsub(/\/.*\//,'') %>")
+    file{"${::icinga::includedir_client}/check_cert_expiry_${cert}.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
