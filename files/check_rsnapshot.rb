@@ -160,10 +160,14 @@ stat=backup.run
 ##now check if backup directories exist
 status=0
 errors=[]
+snapshot_root='/rsnapshot'
 File.open(ARGV[0]).each do |line|
+  if line.match(/^snapshot_root\t/)
+    snapshot_root = line.split("\s")[1]
+  end
   if line.match(/^backup\t/)
      #puts line.split("\s")[2]
-     folder='/rsnapshots/daily.0/'+line.split("\s")[2]
+     folder=snapshot_root+'/daily.0/'+line.split("\s")[2]
      if !File.directory?(folder)
        errors.push(folder)
      end
@@ -179,4 +183,3 @@ end
 #puts [status, stat[0]].max
 
 exit [status, stat[0]].max
-
