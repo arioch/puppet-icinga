@@ -36,3 +36,9 @@ define icinga::plugins::checkcertexpiry (
 
   }
 
+  sudo::conf{'ssl_cert_expity':
+    content => "Defaults:nagios !requiretty
+    nagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/check_ssl-cert\n",
+  }
+
+
