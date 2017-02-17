@@ -11,6 +11,13 @@ define icinga::plugins::checkcertexpiry (
   $critical_days         = 4,
 ) {
     require ::icinga
+
+    if ! defined(Package['nagios-plugins-ssl-cert']) {
+      package{ 'nagios-plugins-ssl-cert':
+        ensure => present,
+      }
+    }
+
     $cert = inline_template("<%= @name.gsub(/\/.*\//,'') %>")
     file{"${::icinga::includedir_client}/check_cert_expiry_${cert}.cfg":
       ensure  => 'file',
@@ -20,8 +27,6 @@ define icinga::plugins::checkcertexpiry (
       content => template('icinga/plugins/check_cert_expiry.cfg.erb'),
       notify  => Service[$::icinga::service_client],
     }
-
-
 
     @@nagios_service { "check_cert_expiry_${::fqdn}_${cert}":
       check_command         => "check_nrpe_command!check_local_cert_expiry_${cert}",
