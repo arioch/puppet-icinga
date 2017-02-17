@@ -18,6 +18,13 @@ define icinga::plugins::checkcertexpiry (
       }
     }
 
+    if ! defined(Sudo::Conf['ssl_cert_expity']) {
+      sudo::conf{'ssl_cert_expity':
+        content => "Defaults:nagios !requiretty
+        nagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/check_ssl-cert\n",
+      }
+    }
+
     $cert = inline_template("<%= @name.gsub(/\/.*\//,'') %>")
     file{"${::icinga::includedir_client}/check_cert_expiry_${cert}.cfg":
       ensure  => 'file',
