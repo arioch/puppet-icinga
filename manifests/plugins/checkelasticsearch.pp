@@ -6,26 +6,6 @@ class icinga::plugins::checkelasticsearch (
   $pkgname               = 'nagios-plugins-elasticsearch',
 ) {
 
-  # if $icinga::client {
-  #   if !defined(Package['python-pip']){
-  #     package{'python-pip':
-  #       ensure => present,
-  #     }
-  #   }
-  #
-  #   if !defined(Package[$pkgname]) {
-  #     package{$pkgname:
-  #       ensure   => present,
-  #       provider => 'pip',
-  #       require  => File['/usr/bin/pip-python'],
-  #     }
-  #     file { '/usr/bin/pip-python':
-  #       ensure  => 'link',
-  #       target  => '/usr/bin/pip',
-  #       require => Package['python-pip'],
-  #
-  #     }
-  #   }
 
   if $icinga::client {
     if !defined(Package[$pkgname]) {
