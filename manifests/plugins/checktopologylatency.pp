@@ -19,7 +19,7 @@ class icinga::plugins::checktopologylatency (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => "command[check_storm_latency]=${::icinga::usrlib}/nagios/plugins/check_topology_latency.rb -h ${host} -p ${port} -w ${warning_latency} -c ${critical_latency}\n",
+    content => "command[check_storm_latency]=${::icinga::usrlib}/nagios/plugins/check_topology-latency.rb -h ${host} -p ${port} -w ${warning_latency} -c ${critical_latency}\n",
     notify  => Service[$::icinga::service_client],
   }
 
