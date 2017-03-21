@@ -3,12 +3,12 @@
 # This class provides a checksmart plugin.
 #
 class icinga::plugins::checksmart (
+  $smart_devices,
   $ensure                       = present,
   $contact_groups               = $::environment,
   $max_check_attempts           = $::icinga::max_check_attempts,
   $notification_period          = $::icinga::notification_period,
   $notifications_enabled        = $::icinga::notifications_enabled,
-  $smart_devices                = hiera('smart_devices'),
 ) inherits icinga {
 
   package { 'smartmontools.x86_64':
