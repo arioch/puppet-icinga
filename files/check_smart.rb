@@ -71,8 +71,10 @@ def do_check(check_params)
   unknown = false
   output = ''
   perf_data = ''
+  number_of_devices = 0
 
   check_params.each do |index, params|
+    number_of_devices += 1
     device = params['device']
     interface = params['interface']
 
@@ -95,6 +97,11 @@ def do_check(check_params)
 
   end
 
+  if number_of_devices == 0
+    puts 'CRITICAL - no device monitored'
+    exit 2
+  end
+
   if critical
     puts output + "|" + perf_data
     exit 2
@@ -110,7 +117,7 @@ def do_check(check_params)
     exit 3
   end
 
-  puts "S.M.A.R.T. OK |" + perf_data
+  puts "S.M.A.R.T. OK on #{number_of_devices} devices |" + perf_data
   exit 0
 end
 
