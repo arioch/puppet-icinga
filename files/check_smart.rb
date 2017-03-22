@@ -56,7 +56,7 @@ def default_check_params()
 
   if block_devices = `/usr/bin/facter blockdevices`
     block_devices.strip.split(',').each_with_index do |dev,index|
-      check_params.merge!({ index => { 'device' => "/dev/#{dev}", 'interface' => 'sat'}})
+      check_params.merge!({ index => { 'device' => "/dev/#{dev}", 'interface' => 'auto'}})
     end
   else
     puts "UNKNOWN - I cannot get list of devices from facter. Try to run '/usr/bin/facter blockdevices'"
