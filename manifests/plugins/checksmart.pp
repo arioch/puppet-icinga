@@ -41,7 +41,7 @@ class icinga::plugins::checksmart (
     mode    => '0644',
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
-    content => template('icinga/plugins/SMART.cfg.erb'),
+    content => "#Managed by puppet\ncommand[check_smart]=sudo /usr/lib64/nagios/plugins/check_smart.rb",
     notify  => Service[$::icinga::service_client],
   }
 
@@ -59,7 +59,7 @@ class icinga::plugins::checksmart (
 
   sudo::conf{'check_smart':
     content => "Defaults:nagios !requiretty
-    nagios ALL=(ALL) NOPASSWD:/usr/sbin/smartctl\n",
+    nagios ALL=(ALL) NOPASSWD:${::icinga::plugindir}/check_smart.rb\n",
   }
 
 }
