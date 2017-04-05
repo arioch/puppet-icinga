@@ -3,13 +3,15 @@
 # This class provides a checkmysqld plugin.
 #
 class icinga::plugins::checkmysqld (
-  $ensure                = present,
-  $perfdata              = true,
-  $contact_groups        = $::environment,
-  $max_check_attempts    = $::icinga::max_check_attempts,
-  $notification_period   = $::icinga::notification_period,
-  $notifications_enabled = $::icinga::notifications_enabled,
-  $mgmt_cnf              = '/root/.my.cnf',
+  $ensure                   = present,
+  $perfdata                 = true,
+  $contact_groups           = $::environment,
+  $max_check_attempts       = $::icinga::max_check_attempts,
+  $notification_period      = $::icinga::notification_period,
+  $notifications_enabled    = $::icinga::notifications_enabled,
+  $max_connections_warning  = 140,
+  $max_connections_critical = 151,
+  $mgmt_cnf                 = '/root/.my.cnf',
 ) inherits icinga {
 
   $pkg_nagios_plugins_mysqld = $::operatingsystem ? {
@@ -37,15 +39,26 @@ class icinga::plugins::checkmysqld (
     owner   => $::icinga::client_user,
     group   => $::icinga::client_group,
     notify  => Service[$::icinga::service_client],
-    content => "command[check_mysqld]=sudo ${::icinga::plugindir}/check_mysqld.pl -F ${mgmt_cnf}",
+    content => template('icinga/plugins/mysqld.cfg.erb'),
   }
 
-  @@nagios_service { "check_mysqld_performance_${::fqdn}":
+  Nagios_service {
+    host_name             => $::fqdn,
+    contact_groups        => $contact_groups,
+    max_check_attempts    => $max_check_attempts,
+    notification_period   => $notification_period,
+    notifications_enabled => $notifications_enabled,
+    target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+  }
+
+  @@nagios_service { "check_mysqld_${::fqdn}":
     check_command       => 'check_nrpe_command!check_mysqld',
     service_description => 'mysqld',
-    host_name           => $::fqdn,
-    max_check_attempts  => $max_check_attempts,
-    target              => "${::icinga::targetdir}/services/${::fqdn}.cfg",
+  }
+
+  @@nagios_service { "check_mysqld_max_connections_${::fqdn}":
+    check_command       => 'check_nrpe_command!check_mysqld_max_connections',
+    service_description => 'mysqld max_connections',
   }
 
   sudo::conf{'nagios_mysqld_conf':
@@ -53,22 +66,12 @@ class icinga::plugins::checkmysqld (
   nagios ALL=(ALL) NOPASSWD:${::icinga::plugindir}/check_mysqld.pl\n",
   }
 
-
   if $perfdata {
     file {
       "${::icinga::includedir_client}/mysqld_performance.cfg":
         ensure  => $ensure,
         notify  => Service[$icinga::service_client],
         content => template('icinga/plugins/mysqld_performance.cfg.erb');
-    }
-
-    Nagios_service {
-      host_name             => $::fqdn,
-      contact_groups        => $contact_groups,
-      max_check_attempts    => $max_check_attempts,
-      notification_period   => $notification_period,
-      notifications_enabled => $notifications_enabled,
-      target                => "${::icinga::targetdir}/services/${::fqdn}.cfg",
     }
 
     @@nagios_service { "check_mysqld_performance_1_${::fqdn}":
@@ -162,4 +165,3 @@ class icinga::plugins::checkmysqld (
     }
   }
 }
-

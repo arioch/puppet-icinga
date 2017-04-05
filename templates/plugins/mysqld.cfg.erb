@@ -1,0 +1,5 @@
+#
+# Managed by Puppet
+#
+command[check_mysqld]=sudo <%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -F <%= scope.lookupvar('icinga::plugins::checkmysqld::mgmt_cnf') %>
+command[check_mysqld_max_connections]=sudo <%= scope.lookupvar('icinga::plugindir') %>/check_mysqld.pl -F <%= scope.lookupvar('icinga::plugins::checkmysqld::mgmt_cnf') %> -f -a max_used_connections -w <%= scope.lookupvar('icinga::plugins::checkmysqld::max_connections_warning') %> -c <%= scope.lookupvar('icinga::plugins::checkmysqld::max_connections_critical') %>
