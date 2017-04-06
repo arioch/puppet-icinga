@@ -9,8 +9,8 @@ class icinga::plugins::checkmysqld (
   $max_check_attempts       = $::icinga::max_check_attempts,
   $notification_period      = $::icinga::notification_period,
   $notifications_enabled    = $::icinga::notifications_enabled,
-  $max_connections_warning  = 140,
-  $max_connections_critical = 151,
+  $connections_warning      = 140,
+  $connections_critical     = 150,
   $mgmt_cnf                 = '/root/.my.cnf',
 ) inherits icinga {
 
@@ -56,9 +56,9 @@ class icinga::plugins::checkmysqld (
     service_description => 'mysqld',
   }
 
-  @@nagios_service { "check_mysqld_max_connections_${::fqdn}":
-    check_command       => 'check_nrpe_command!check_mysqld_max_connections',
-    service_description => 'mysqld max_connections',
+  @@nagios_service { "check_mysqld_connections_${::fqdn}":
+    check_command       => 'check_nrpe_command!check_mysqld_connections',
+    service_description => 'mysqld connections',
   }
 
   sudo::conf{'nagios_mysqld_conf':
