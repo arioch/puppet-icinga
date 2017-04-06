@@ -1,0 +1,11 @@
+#!/bin/bash
+MSG=$(/usr/lib64/nagios/plugins/check_sslscan.pl -H <%= @host_url %> -w <%= @warning_grade %> -c <%= @critical_grade %>)
+RET_VAL=$?
+if [ $RET_VAL -eq 3 ]; then
+# we probably got the "too many connections" error, we'll wait some time and try again
+  sleep $(($RANDOM % 800 + 240))
+  MSG=$(/usr/lib64/nagios/plugins/check_sslscan.pl -H <%= @host_url %> -w <%= @warning_grade %> -c <%= @critical_grade %>)
+  RET_VAL=$?
+fi
+echo "<%= @fqdn %>;SSL Quality <%= @host_url %>;$RET_VAL;$MSG" | /usr/sbin/send_nsca    -H <%= @icinga_host %> -p 5667 -d ";"
+

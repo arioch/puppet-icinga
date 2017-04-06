@@ -28,6 +28,7 @@ class icinga::params {
   $notification_service_opts                 = 'w,u,c,r'
   $notification_interval                     = '0'
   $max_check_attempts                        = '4'
+  $use_livestatus                            = true
   $use_ido                                   = false
   $use_flapjackfeeder                        = false
   $parents                                   = undef
@@ -218,7 +219,7 @@ class icinga::params {
     }
 
     default: {
-      fail("${module_name}: Unsupported operatingsystem ${::operatingsystem}") 
+      fail("${module_name}: Unsupported operatingsystem ${::operatingsystem}")
     }
   }
 

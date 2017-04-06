@@ -16,7 +16,7 @@ class icinga::plugins::checkmdsbackend (
       mode    => '0755',
       owner   => 'root',
       group   => 'root',
-      source => 'puppet:///modules/icinga/mds_backend.rb',
+      source  => 'puppet:///modules/icinga/mds_backend.rb',
       notify  => Service[$icinga::service_client],
       require => Class['icinga::config'];
     }

@@ -1,0 +1,1 @@
+command[check_local_cert_expiry_<%= @cert %>]=sudo /usr/lib64/nagios/plugins/check_ssl-cert -H localhost -f <%= @name %> -c <%= @critical_days %> -w <%= @warning_days %> --ignore-ocsp --ignore-sig-alg

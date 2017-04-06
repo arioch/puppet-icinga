@@ -15,8 +15,10 @@ class icinga::plugins::checkgraphite (
       }
     }
 
-    @@nagios_command{'check_graphite':
+    nagios_command{'check_graphite':
       ensure       => present,
+      owner        => $::icinga::server_user,
+      group        => $::icinga::server_group,
       command_line => '$USER1$/check_graphite -u \'$ARG1$\' -w $ARG2$ -c $ARG3$',
       target       => "${::icinga::targetdir}/commands/check_graphite.cfg",
     }

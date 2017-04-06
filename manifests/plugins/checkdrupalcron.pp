@@ -5,13 +5,14 @@
 # Warning and Critical expressed in seconds.  3600sec = 1h, 7200sec = 2h
 define icinga::plugins::checkdrupalcron (
   $pkgname                = $::operatingsystem ? {
-    'centos' => 'nagios-plugins-drupalcron',
-    'debian' => 'nagios-plugin-drupalcron',
+    'centos' => 'nagios-plugins-drupal-cron',
+    'debian' => 'nagios-plugins-drupal-cron',
   },
   $notification_period    = $::icinga::notification_period,
   $notifications_enabled  = $::icinga::notifications_enabled,
   $host_name              = $::fqdn,
   $contact_groups         = $::environment,
+  $use_sudo               = true,
   $warning                = '3600',
   $critical               = '7200',
   $uri                    = '',
@@ -28,12 +29,19 @@ define icinga::plugins::checkdrupalcron (
       }
     }
 
+    if $use_sudo {
+      $content="command[check_drupal_cron_${title}]=sudo ${::icinga::plugindir}/check_drupal-cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n"
+    }
+    else {
+      $content="command[check_drupal_cron_${title}]=${::icinga::plugindir}/check_drupal-cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n"
+    }
+
     file{"${::icinga::includedir_client}/check_drupal_cron_${title}.cfg":
       ensure  => 'file',
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_drupal_cron_${title}]=sudo ${::icinga::plugindir}/check_drupal_cron -u ${uri} -r ${root} -w ${warning} -c ${critical}\n",
+      content => $content,
       notify  => Service[$::icinga::service_client],
     }
 

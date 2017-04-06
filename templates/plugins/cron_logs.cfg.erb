@@ -1,0 +1,5 @@
+<% if @ignored_jobs -%>
+command[check_cron_logs]=sudo <%=  scope.lookupvar('icinga::plugindir') %>/check_cron_logs.sh  <%= Array(@ignored_jobs).join(' ') %>
+<% else %>
+command[check_cron_logs]=sudo <%=  scope.lookupvar('icinga::plugindir') %>/check_cron_logs.sh
+<% end -%>

@@ -8,9 +8,9 @@ class icinga::plugins::checkrsnapshot (
   $max_check_attempts           = $::icinga::max_check_attempts,
   $notification_period          = 'workhours',
   $notifications_enabled        = $::icinga::notifications_enabled,
-  $config                       = $::rsnapshot::params::config,
+  $config                       = hiera('rsnapshot::params::config', $::rsnapshot::params::config),
   $logfile                      = '/var/log/rsnapshot',
-  $crontabs                     = hiera('rsnapshot::params::crontabs'),
+  $crontabs                     = hiera('rsnapshot::params::crontabs', $::rsnapshot::params::crontabs),
 ) inherits icinga {
 
     $timeshift = $crontabs['daily']['hour']
@@ -19,7 +19,7 @@ class icinga::plugins::checkrsnapshot (
       mode    => '0755',
       owner   => 'root',
       group   => 'root',
-      source => 'puppet:///modules/icinga/check_rsnapshot.rb',
+      source  => 'puppet:///modules/icinga/check_rsnapshot.rb',
       notify  => Service[$icinga::service_client],
       require => Class['icinga::config'];
     }

@@ -3,21 +3,20 @@
 # This class provides a checkelasticsearch plugin.
 #
 class icinga::plugins::checkelasticsearch (
-  $pkgname               = 'nagios-plugin-elasticsearch',
+  $pkgname               = 'nagios-plugins-elasticsearch',
 ) {
 
+
   if $icinga::client {
-    if !defined(Package['python-pip']){
-      package{'python-pip':
+    if !defined(Package[$pkgname]) {
+      package {$pkgname:
         ensure => present,
       }
     }
 
-    if !defined(Package[$pkgname]) {
-      package{$pkgname:
-        ensure   => present,
-        provider => 'pip',
-        require  => Package['python-pip'],
+    if !defined(Package['python-nagioscheck']) {
+      package {'python-nagioscheck':
+        ensure => present,
       }
     }
 
@@ -26,7 +25,7 @@ class icinga::plugins::checkelasticsearch (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => 'command[check_elasticsearch]=/usr/bin/check_elasticsearch',
+      content => "command[check_elasticsearch]=${::icinga::plugindir}/check_elasticsearch.py",
       notify  => Service[$::icinga::service_client],
     }
 

@@ -19,6 +19,7 @@ class icinga::config::server::common {
   file{$::icinga::confdir_server:
     recurse => true,
     purge   => true,
+    force   => true,
   }
 
   file{"${::icinga::confdir_server}/resource.cfg":
@@ -29,6 +30,7 @@ class icinga::config::server::common {
   file{$::icinga::targetdir:
     recurse => true,
     purge   => true,
+    force   => true,
   }
 
   file{"${::icinga::targetdir}/hosts":
@@ -113,6 +115,11 @@ class icinga::config::server::common {
   nagios_command{'check_nrpe_command':
     command_line => "\$USER1\$/check_nrpe -u -t ${::icinga::nrpe_connect_timeout} -H \$HOSTADDRESS\$ -c \$ARG1\$",
     target       => "${::icinga::targetdir}/commands/check_nrpe_command.cfg",
+  }
+
+  nagios_command{'check_nrpe_command_timeout':
+    command_line => "\$USER1\$/check_nrpe -u -t \$ARG1\$ -H \$HOSTADDRESS\$ -c \$ARG2\$",
+    target       => "${::icinga::targetdir}/commands/check_nrpe_command_timeout.cfg",
   }
 
   nagios_service {'schedule_downtimes':

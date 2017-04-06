@@ -9,7 +9,7 @@ class icinga::plugins::checkalldisks (
   $contact_groups        = $::environment,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-  $additional_options    = '', 
+  $additional_options    = '',
 ) inherits icinga {
 
   if $icinga::client {
@@ -18,7 +18,7 @@ class icinga::plugins::checkalldisks (
       mode    => '0644',
       owner   => $::icinga::client_user,
       group   => $::icinga::client_group,
-      content => "command[check_all_disks]=sudo ${::icinga::plugindir}/check_disk -w ${check_warning} -c ${check_critical} -W ${check_warning} -C ${additional_options}\n",
+      content => "command[check_all_disks]=sudo ${::icinga::plugindir}/check_disk -w ${check_warning} -c ${check_critical} -W ${check_warning} ${additional_options}\n",
       notify  => Service[$::icinga::service_client],
     }
 
@@ -34,4 +34,7 @@ class icinga::plugins::checkalldisks (
     }
   }
 
+  sudo::conf{'configure_sudo_checkalldisks':
+    content => "Defaults:${::icinga::client_user} !requiretty\n${::icinga::client_user} ALL=(ALL) NOPASSWD:${::icinga::plugindir}/check_disk\n",
+  }
 }

@@ -1,1 +1,3 @@
-command[check_rsnapshot]=<%= @plugindir %>/check_rsnapshot.rb <%= @config %> <%= @logfile %> <%= @timeshift + 3 %>
+# File managed by puppet
+<% increased_timeshift = @timeshift.to_i + 3 -%>
+command[check_rsnapshot]=<%= @plugindir %>/check_rsnapshot.rb <%= @config %> <%= @logfile %> <%= increased_timeshift.to_s %>

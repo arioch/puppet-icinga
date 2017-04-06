@@ -248,6 +248,7 @@ event_broker_options=-1
 #broker_module=/somewhere/module2.o arg1 arg2=3 debug=0
 
 
+
 <%- if @use_ido -%>
 broker_module=/usr/lib64/icinga/idomod.so config_file=/etc/icinga/idomod.cfg
 <% end %>
@@ -255,6 +256,13 @@ broker_module=/usr/lib64/icinga/idomod.so config_file=/etc/icinga/idomod.cfg
 <%- if @use_flapjackfeeder and not @use_ido -%>
 broker_module=/usr/local/lib/flapjackfeeder.o redis_host=10.0.64.34,redis_port=6380
 <% end %>
+
+<% if @use_livestatus and not @use_ido and not @use_flapjackfeeder %>
+broker_module=/usr/lib64/mk-livestatus/livestatus.o /tmp/live.sock
+<% end %>
+
+
+
 
 # LOG ROTATION METHOD
 # This is the log rotation method that Icinga should use to rotate
@@ -297,7 +305,7 @@ use_syslog=1
 # If you enabled use_syslog you can set icinga to use a local facility
 # instead of the default.To enable set this option to 1, if not, set it to 0.
 
-use_syslog_local_facility=0
+use_syslog_local_facility=1
 
 
 
@@ -361,7 +369,7 @@ log_initial_states=0
 # checks - see the option below for controlling whether or not
 # passive checks are logged.
 
-log_external_commands=1
+log_external_commands=0
 
 
 
@@ -370,7 +378,7 @@ log_external_commands=1
 # this value to 0.  If passive checks should be logged, set
 # this value to 1.
 
-log_passive_checks=1
+log_passive_checks=0
 
 
 
@@ -1138,7 +1146,7 @@ high_host_flap_threshold=20.0
 #	strict-iso8601	(YYYY-MM-DDTHH:MM:SS)
 #
 
-date_format=us
+date_format=iso8601
 
 
 

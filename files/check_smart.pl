@@ -24,6 +24,9 @@
 # Feb 5, 2015: Bastian de Groot - Different ATA vs. SCSI lookup (rev 5.4)
 # Feb 11, 2015: Josh Behrends - Allow script to run outside of nagios plugins dir / wiki url update (rev 5.5)
 # Feb 11, 2015: Claudio Kuenzler - Allow script to run outside of nagios plugins dir for FreeBSD too (rev 5.5)
+# Mar 12, 2015: Claudio Kuenzler - Change syntax of -g parameter (regex is now awaited from input) (rev 5.6)
+# Feb 6, 2017: Benedikt Heine - Fix Use of uninitialized value $device (rev 5.7)
+# Mar 22, 2017: Pavel Pulec (Inuits) - allow type "auto" (rev 5.8)
 
 use strict;
 use Getopt::Long;
@@ -31,7 +34,7 @@ use Getopt::Long;
 use File::Basename qw(basename);
 my $basename = basename($0);
 
-my $revision = '$Revision: 5.5 $';
+my $revision = '$Revision: 5.8 $';
 
 use FindBin;
 use lib $FindBin::Bin;
@@ -82,7 +85,7 @@ if ($opt_d || $opt_g ) {
             push(@dev,$opt_d);
         } else {
             # glob all devices - try '?' first 
-            @dev =glob($opt_g."*[a-z]");
+            @dev =glob($opt_g);
         }
 
         foreach my $opt_dl (@dev){
@@ -103,7 +106,7 @@ if ($opt_d || $opt_g ) {
 
         # Allow all device types currently supported by smartctl
         # See http://www.smartmontools.org/wiki/Supported_RAID-Controllers
-        if ($opt_i =~ m/(ata|scsi|3ware|areca|hpt|cciss|megaraid|sat)/) {
+        if ($opt_i =~ m/(ata|scsi|3ware|areca|hpt|cciss|megaraid|sat|auto)/) {
                 $interface = $opt_i;
         } else {
                 print "invalid interface $opt_i for $opt_d!\n\n";
@@ -113,7 +116,7 @@ if ($opt_d || $opt_g ) {
 }
 
 
-if ($device eq "") {
+if (!defined($device) || $device eq "") {
     print "must specify a device!\n\n";
     print_help();
     exit $ERRORS{'UNKNOWN'};
@@ -413,11 +416,11 @@ exit $ERRORS{$exit_status};
 
 sub print_help {
         print_revision($basename,$revision);
-        print "\nUsage: $basename {-d=<block device>|-g=<block device regex>} -i=(ata|scsi|3ware,N|areca,N|hpt,L/M/N|cciss,N|megaraid,N) [-b N] [--debug]\n\n";
+        print "\nUsage: $basename {-d=<block device>|-g=<block device regex>} -i=(auto|ata|scsi|3ware,N|areca,N|hpt,L/M/N|cciss,N|megaraid,N) [-b N] [--debug]\n\n";
         print "At least one of the below. -d supersedes -g\n";
         print "  -d/--device: a physical block device to be SMART monitored, eg /dev/sda\n";
         print "  -g/--global: a regular expression name of physical devices to be SMART monitored\n";
-        print "               Example: /dev/sd will search for all /dev/sd* devices and report errors globally.\n";
+        print "               Example: '/dev/sd[a-z]' will search for all /dev/sda until /dev/sdz devices and report errors globally.\n";
         print "Note that -g only works with a fixed interface input (e.g. scsi, ata), not with special interface ids like cciss,1\n";
         print "\n";
         print "Other options\n";

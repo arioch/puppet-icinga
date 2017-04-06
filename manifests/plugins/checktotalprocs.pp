@@ -3,8 +3,6 @@
 # This class provides a checktotalprocs plugin.
 #
 class icinga::plugins::checktotalprocs (
-  $check_warning         = '',
-  $check_critical        = '',
   $contact_groups        = $::environment,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,

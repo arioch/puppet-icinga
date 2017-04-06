@@ -11,15 +11,13 @@ class icinga::plugins::checkntp (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
-) inherits ::icinga {
+) inherits icinga {
 
   if is_array($ntp_server) {
     $_ntp_server = $ntp_server[0]
   } else {
     $_ntp_server = $ntp_server
   }
-
-  require ::ntp
 
   file{"${::icinga::includedir_client}/ntp.cfg":
     ensure  => 'file',

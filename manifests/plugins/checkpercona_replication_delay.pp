@@ -4,7 +4,7 @@
 #
 # http://www.percona.com/doc/percona-monitoring-plugins/nagios/
 #
-class icinga::plugins::checkpercona-replication-delay (
+class icinga::plugins::checkpercona_replication_delay (
   $serverid              = undef,
   $ensure                = present,
   $max_check_attempts    = $::icinga::max_check_attempts,
@@ -49,6 +49,10 @@ class icinga::plugins::checkpercona-replication-delay (
     group   => $::icinga::client_group,
     content => "command[check_percona_replication_delay]=sudo ${::icinga::plugindir}/pmp-check-mysql-replication-delay -s ${serverid} -w ${warning} -c ${critical}\n",
     notify  => Service[$::icinga::service_client],
+  }
+
+  sudo::conf{'nrpe_pmp-check-mysql-replication-delay':
+    content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/pmp-check-mysql-replication-delay\n",
   }
 
   @@nagios_service { "check_percona_replication_delay${::fqdn}":

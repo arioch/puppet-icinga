@@ -4,7 +4,7 @@
 #
 # http://www.percona.com/doc/percona-monitoring-plugins/nagios/
 #
-class icinga::plugins::checkpercona-replication (
+class icinga::plugins::checkpercona_replication (
   $ensure                = present,
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
@@ -46,6 +46,10 @@ class icinga::plugins::checkpercona-replication (
     group   => $::icinga::client_group,
     content => "command[check_percona_replication_running]=sudo ${::icinga::plugindir}/pmp-check-mysql-replication-running -w ${warning} -c ${critical}\n",
     notify  => Service[$::icinga::service_client],
+  }
+
+  sudo::conf{'nrpe_pmp-check-mysql-replication-running':
+    content => "Defaults:nagios !requiretty\nnagios ALL=(ALL) NOPASSWD:/usr/lib64/nagios/plugins/pmp-check-mysql-replication-running\n",
   }
 
   @@nagios_service { "check_percona_replication_running${::fqdn}":
