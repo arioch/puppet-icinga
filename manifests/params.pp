@@ -94,6 +94,9 @@ class icinga::params {
       $idoutils_dbname  = 'icinga'
       $idoutils_dbuser  = 'icinga'
       $idoutils_dbpass  = 'icinga'
+      $idoutils_lock_file   = '/var/run/icinga/ido2db.pid'
+      $idoutils_socket_name = '/var/lib/icinga/ido.sock'
+      $idoutils_clear_tables_at_startup = 1
 
       # Plugin: Report
       $jasper_vhost              = '/etc/apache2/conf.d/jasperserver.conf'
@@ -168,6 +171,9 @@ class icinga::params {
       $idoutils_dbname           = 'icinga'
       $idoutils_dbuser           = 'icinga'
       $idoutils_dbpass           = 'icinga'
+      $idoutils_lock_file        = '/var/run/ido2db.pid' 
+      $idoutils_socket_name      = '/var/spool/icinga/ido.sock' 
+      $idoutils_clear_tables_at_startup = 1
 
       # Plugin: Report
       $jasper_vhost              = '/etc/httpd/conf.d/jasperserver.conf'

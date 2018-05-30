@@ -21,6 +21,10 @@ class icinga::config::server::common {
     purge   => true,
   }
 
+  file{"${::icinga::confdir_server}/stylesheets":
+    recurse => true,
+  }
+
   file{"${::icinga::confdir_server}/resource.cfg":
     ensure  => file,
     content => template('icinga/common/resource.cfg.erb'),
