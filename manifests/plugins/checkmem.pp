@@ -7,11 +7,14 @@ class icinga::plugins::checkmem (
   $max_check_attempts    = $::icinga::max_check_attempts,
   $notification_period   = $::icinga::notification_period,
   $notifications_enabled = $::icinga::notifications_enabled,
+  $mem_package           = [ 'nagios-plugins-mem' ],
 ) inherits icinga {
 
   if $icinga::client {
-    package{'nagios-plugins-mem':
-      ensure => 'present',
+    if $mem_package {
+      package{'nagios-plugins-mem':
+        ensure => 'present',
+      }
     }
 
     @@nagios_service{"check_mem_${::fqdn}":

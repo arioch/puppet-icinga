@@ -13,7 +13,7 @@
 # This is the lockfile that IDO2DB will use to store its PID number
 # in when it is running in daemon mode.
 
-lock_file=/var/run/ido2db.pid
+lock_file=<%= scope.lookupvar('icinga::idoutils_lock_file') %>
 
 
 
@@ -44,7 +44,7 @@ socket_type=unix
 # This option is only valid if the socket type specified above
 # is "unix".
 
-socket_name=/var/spool/icinga/ido.sock
+socket_name=<%= scope.lookupvar('icinga::idoutils_socket_name') %>
 
 
 # SOCKET PERMISSIONS
@@ -131,7 +131,6 @@ db_port=3306
 #db_socket=/var/lib/mysql/mysql.sock
 
 
-
 # DATABASE NAME
 # This option specifies the name of the database that should be used.
 #
@@ -214,7 +213,7 @@ max_acknowledgements_age=44640
 # Values: 0 - don't clean
 #         1 - clean (default)
 
-clean_realtime_tables_on_core_startup=1
+clean_realtime_tables_on_core_startup=<%= scope.lookupvar('icinga::idoutils_clear_tables_at_startup') %>
 
 
 ## CLEAN CONFIG TABLES AT CORE STARTUP
@@ -226,7 +225,7 @@ clean_realtime_tables_on_core_startup=1
 # Values: 0 - don't clean
 #         1 - clean (default)
 
-clean_config_tables_on_core_startup=1
+clean_config_tables_on_core_startup=<%= scope.lookupvar('icinga::idoutils_clear_tables_at_startup') %>
 
 
 # ***EXPERIMENTAL*** DB TRIMMING INTERVAL

@@ -129,6 +129,13 @@ class icinga (
   $process_service_perfdata_file             = $::icinga::params::process_service_perfdata_file,
   $service_perfdata_file_template            = $::icinga::params::service_perfdata_file_template,
   $service_perfdata_file_processing_interval = $::icinga::params::service_perfdata_file_processing_interval,
+  $idoutils_pkg                              = $::icinga::params::idoutils_pkg,
+  $idoutils_confdir                          = $::icinga::params::idoutils_confdir,
+  $idoutils_service                          = $::icinga::params::idoutils_service,
+  $idoutils_dbname                           = $::icinga::params::idoutils_dbname,
+  $idoutils_dbuser                           = $::icinga::params::idoutils_dbuser,
+  $idoutils_dbpass                           = $::icinga::params::idoutils_dbpass,
+  $idoutils_clear_tables_at_startup          = $::icinga::params::idoutils_clear_tables_at_startup,
 ) inherits icinga::params {
 
   # Some safety nets
